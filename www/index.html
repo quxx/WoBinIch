@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-sunshine-theme.css">
+    <link rel="stylesheet" href="css/login.css">
+
+    <script src="lib/onsen/js/angular/angular.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
+    <script>
+      ons.bootstrap();
+    </script>
+	
+	<script>
+	
+	function checkCookie() {
+		var user = window.localStorage.getItem("loginname");
+		if (user != "") {
+			window.location="home.html";
+		}
+    }
+	
+	function login() {
+		var name = document.getElementById('loginname').value;
+		var pw = document.getElementById('password').value;
+		var link = "http://thm-chat.appspot.com/oop/users?user=" + name + "&password=" + pw;
+		
+		window.localStorage.setItem("loginname",name)
+		window.localStorage.setItem("password",pw)
+		window.localStorage.setItem("link",link)
+		
+		checkCookie()
+		}
+		
+
+	</script>
+  </head>
+  <body>
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Log In</div>
+        <!-- <div class="right"><ons-toolbar-button>Close</ons-toolbar-button></div> -->
+      </ons-toolbar>
+
+      <div class="login-form">
+			<input name="loginname" id="loginname" type="text" class="text-input--underbar" placeholder="Loginname" value="">
+			<input name="password" id="password" type="password" class="text-input--underbar" placeholder="Password" value="">
+			<br><br>
+			<ons-button onclick="login()" modifier="large" class="login-button">Log In</ons-button>
+      </div>
+
+    </ons-page>
+
+  </body>
+</html>
