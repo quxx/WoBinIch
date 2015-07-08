@@ -9,14 +9,24 @@
 
     <script src="lib/onsen/js/angular/angular.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
+	<script src="js/isOnline.js"></script>
+	
     <script>
       ons.bootstrap();
     </script>
 	
 	<script>
 	
-	function checkCookie() {
+	function checkStorage()) {
+		
 		var user = window.localStorage.getItem("loginname");
+		
+		if (isOnline() == false) {
+			ons.notification.alert({
+				message: 'Sie befinden sich im Offline Modus!'
+			});
+		}
+		
 		if (user != "") {
 			window.location="home.html";
 		}
@@ -31,13 +41,13 @@
 		window.localStorage.setItem("password",pw)
 		window.localStorage.setItem("link",link)
 		
-		checkCookie()
+		checkStorage();
 		}
 		
 
 	</script>
   </head>
-  <body>
+  <body onload="checkCookie()">
     <ons-page>
       <ons-toolbar>
         <div class="center">Log In</div>
