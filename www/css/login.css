@@ -1,7 +1,7 @@
 .login-form {
   text-align: center;
   width: 80%;
-  margin: 60px auto 0;
+  margin: 20px auto 0;
 }
 
 input[type=text], input[type=password] {
@@ -16,4 +16,45 @@ input[type=text], input[type=password] {
 .login-button {
   width: 100%;
   margin: 0 auto;
+}
+
+ons-dialog p {
+  color: #333;
+  margin-left: 10px;
+  margin-right: 10px;
+ 
+}
+
+.card {
+  background-image: url(../img/map.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  height: 220px;
+}
+
+.card-name {
+  font-weight: 600;
+  font-size: 30px;
+  padding: 66px 0 8px 0;
+  text-align: center;
+  text-shadow: 8px 10px 10px black;
+}
+
+.card-desc {
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.9;
+  text-align: center;
+  line-height: 1.4;
+  text-shadow: 8px 10px 10px black;
+}
+
+.footer {
+  font-size: 8px;
+  color: #ccc;
+  width: 100%;
+  line-height: 1;
+  text-align: center;
+  padding-top: 100px;
 }

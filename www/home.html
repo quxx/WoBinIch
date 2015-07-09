@@ -13,11 +13,19 @@
     <script src="lib/onsen/js/onsenui.js"></script>
     <script>
       ons.bootstrap();
-      ons.ready(function() {
-        menu.openMenu();
-      });
+	  
+	</script>
+	<script>
+	  function quit() {
+		window.localStorage.removeItem("loginname");
+		window.localStorage.removeItem("password");
+		window.localStorage.removeItem("link");
+		window.location="index.html";
+		window.location.reload(true);
+	  }
     </script>
 
+	
   </head>
   <body>
 
@@ -70,6 +78,9 @@
 			</ons-list-item>
 			<ons-list-item modifier="tappable" onclick="menu.setMainPage('page2.html', {closeMenu: true})">
 				Options
+			</ons-list-item>
+			<ons-list-item modifier="tappable" onclick="quit(), {closeMenu: true})">
+				Log Out
 			</ons-list-item>
 		</ons-list>
 		<div class="nav-fut" align="center">

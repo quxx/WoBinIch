@@ -10,56 +10,102 @@
     <script src="lib/onsen/js/angular/angular.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
 	<script src="js/isOnline.js"></script>
-	
     <script>
       ons.bootstrap();
     </script>
 	
 	<script>
 	
-	function checkStorage()) {
-		
-		var user = window.localStorage.getItem("loginname");
-		
-		if (isOnline() == false) {
-			ons.notification.alert({
-				message: 'Sie befinden sich im Offline Modus!'
-			});
+	document.addEventListener("deviceready", init, false);
+ 
+	function init() {
+		document.addEventListener("online", toggleCon, false);
+		document.addEventListener("offline", toggleCon, false);
+ 
+		if(navigator.network.connection.type == Connection.NONE) {
+			navigator.notification.alert("Sorry, you are offline.", function() {}, "Offline!");
+		} else {
+			setupButtonHandler();
 		}
-		
-		if (user != "") {
-			window.location="home.html";
+ 
+	}
+ 
+	function toggleCon(e) {
+		console.log("Called",e.type);
+		if(e.type == "offline") {
+			$("#searchBtn").off("touchstart").attr("disabled","disabled");
+			navigator.notification.alert("Sorry, you are offline.", function() {}, "Offline!");
+		} else {
+			$("#searchBtn").removeAttr("disabled");
+			navigator.notification.alert("Woot, you are back online.", function() {}, "Online!");
+			setupButtonHandler();
 		}
-    }
+	}
+	
+	function checkCookie() {
+		
+	}
 	
 	function login() {
 		var name = document.getElementById('loginname').value;
 		var pw = document.getElementById('password').value;
 		var link = "http://thm-chat.appspot.com/oop/users?user=" + name + "&password=" + pw;
 		
-		window.localStorage.setItem("loginname",name)
-		window.localStorage.setItem("password",pw)
-		window.localStorage.setItem("link",link)
+		window.localStorage.setItem("loginname",name);
+		window.localStorage.setItem("password",pw);
+		window.localStorage.setItem("link",link);
 		
-		checkStorage();
+		var user = window.localStorage.getItem("loginname");
+		var pass = window.localStorage.getItem("password");
+		if (user == "" || pass == "") {
+			ons.createDialog('dialog.html').then(function(dialog) {
+				dialog.show();
+			});
+		} else {
+			window.location="home.html";
 		}
+	}
 		
 
 	</script>
-  </head>
-  <body onload="checkStorage()">
-    <ons-page>
-      <ons-toolbar>
-        <div class="center">Log In</div>
-        <!-- <div class="right"><ons-toolbar-button>Close</ons-toolbar-button></div> -->
+	<ons-template id="dialog.html">
+	<ons-dialog var="dialog" animation="default" cancelable>
+      <ons-toolbar modifier="transparent" inline fixed-style>
+        <div class="center">
+          Warnung
+        </div>
       </ons-toolbar>
+    
+      <div style="text-align: center">
+        <p>
+          Bitte Benutzername und Password eingeben
+        </p>
+        
+		<div class="alert-dialog-footer">
+			<button class="alert-dialog-button" onclick="dialog.hide()">OK</button>
+		</div>
+      </div>
 
-      <div class="login-form">
+  </ons-dialog>        
+</ons-template>
+  </head>
+  <body>
+    <ons-page>
+		<div class="card">
+			<div class="card-name">Wo bin Ich?</div>
+			<div class="card-desc">Medienprojektmanagment<br>SS 2015</div>
+
+        </div>
+		<div class="login-form">
 			<input name="loginname" id="loginname" type="text" class="text-input--underbar" placeholder="Loginname" value="">
 			<input name="password" id="password" type="password" class="text-input--underbar" placeholder="Password" value="">
 			<br><br>
 			<ons-button onclick="login()" modifier="large" class="login-button">Log In</ons-button>
-      </div>
+		</div>
+		
+		<div class="footer">
+			Version 1.0
+		</div>
 
     </ons-page>
 

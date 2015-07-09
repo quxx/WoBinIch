@@ -3417,7 +3417,7 @@ input[type="search"].search-input::-webkit-search-cancel-button {
   transform: translate(-50%, -50%);
   width: 270px;
   margin: auto auto;
-  background-color: rgba(255,255,255,0.92);
+  background-color: rgba(255,255,255,1);
   -webkit-box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);
   -webkit-border-radius: 8px;
