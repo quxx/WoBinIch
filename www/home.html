@@ -17,18 +17,17 @@
 	</script>
 	<script>
 	  function quit() {
-		window.localStorage.removeItem("loginname");
-		window.localStorage.removeItem("password");
-		window.localStorage.removeItem("link");
+		window.localStorage.setItem("loginname", "");
+		window.localStorage.setItem("password", "");
+		window.localStorage.setItem("link", "");
 		window.location="index.html";
-		window.location.reload(true);
 	  }
     </script>
 
 	
   </head>
   <body>
-
+  <!-- ********************	Menü Config	******************** -->
 	<ons-sliding-menu
 		main-page="page1.html"
 		menu-page="menu.html"       
@@ -36,16 +35,17 @@
 		max-slide-distance="250px"
 		var="menu">
 	</ons-sliding-menu>
-
+<!-- ********************	Seite Eins	******************** -->
 	<ons-template id="page1.html">
 		<ons-page>
 			<ons-toolbar>
 				<div class="left">
 					<ons-toolbar-button ng-click="menu.toggleMenu()"><ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon></ons-toolbar-button>
 				</div>
+				<!-- Seiten Überschrift -->
 				<div class="center">Page 1</div>
 			</ons-toolbar>
-
+<!-- ********************	Seite Eins Inhalt	******************** -->
 			<p id="demo" style="color: #999; padding-top: 100px;"></p>
 			<script>
 				var link = window.localStorage.getItem("link");
@@ -54,23 +54,26 @@
 		</ons-page>
 	</ons-template>
 
-
+<!-- ********************	Seite Zwei	******************** -->
 	<ons-template id="page2.html">
 		<ons-page>
 			<ons-toolbar>
 				<div class="left">
 					<ons-toolbar-button onclick="menu.toggleMenu()"><ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon></ons-toolbar-button>
 				</div>
+				<!-- Seiten Überschrift -->
 				<div class="center">Page 2</div>
-				</ons-toolbar>
-
-			<p style="text-align: center; color: #999; padding-top: 100px;">Page2 Contents</p>
+			</ons-toolbar>
+<!-- ********************	Seite Zwei Inhalt	******************** -->
+				<p style="text-align: center; color: #999; padding-top: 100px;">Page2 Contents</p>
 		</ons-page>
 	</ons-template>
-
+	
+<!-- ********************	Menü	******************** -->
 	<ons-template id="menu.html">	
+		<!-- Menü Überschrift -->
 		<p style="text-align: center; padding-top: 30px; padding-bottom: 20px;">Navigation</p>
-
+		<!-- Menü Liste -->
 		<ons-list>
 			<ons-list-item modifier="tappable" onclick="menu.setMainPage('page1.html', {closeMenu: true})">
 				<!-- <ons-icon icon="fa-home" size="20px"></ons-icon> -->
@@ -79,10 +82,11 @@
 			<ons-list-item modifier="tappable" onclick="menu.setMainPage('page2.html', {closeMenu: true})">
 				Options
 			</ons-list-item>
-			<ons-list-item modifier="tappable" onclick="quit(), {closeMenu: true})">
+			<ons-list-item modifier="tappable" onclick="quit()">
 				Log Out
 			</ons-list-item>
 		</ons-list>
+<!-- ********************	Menü Footer   ******************** -->		
 		<div class="nav-fut" align="center">
 		<span class="list-item-action">
 			<ons-icon icon="fa-globe" size="30px"></ons-icon>
