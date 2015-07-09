@@ -6,32 +6,36 @@
     <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
     <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-sunshine-theme.css">
     <link rel="stylesheet" href="css/login.css">
-
+	
+	<script src="cordova.js"></script>
     <script src="lib/onsen/js/angular/angular.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
-	<script src="js/isOnline.js"></script>
     <script>
-      ons.bootstrap();
-    </script>
-	
-	<script>
-	// check to see if the network is reachable
-	setTimeout(function() {
-		navigator.network.isReachable("www.google.com",
-		networkConnectionCheck, {isIpAddress:false});
-	}, 500);
-
-	function networkConnectionCheck(reachability) {
-		if ( reachability.remoteHostStatus == NetworkStatus.NOT_REACHABLE ) {
-			navigator.notification.alert("You appear to be offline.", "your app name");
-		}
-	};
-	
-
-	
-	function checkCookie() {
-		
+	ons.bootstrap();
+	  
+	function init() {
+		  document.addEventListener("deviceready", onDeviceReady, false);
 	}
+	
+	function onDeviceReady(){
+		var networkState = navigator.connection.type;
+
+//Connection.UNKNOWN  = 'Unknown connection';
+//Connection.ETHERNET = 'Ethernet connection';
+//Connection.WIFI     = 'WiFi connection';
+//Connection.CELL_2G  = 'Cell 2G connection';
+//Connection.CELL_3G  = 'Cell 3G connection';
+//Connection.CELL_4G  = 'Cell 4G connection';
+//Connection.CELL     = 'Cell generic connection';
+//Connection.NONE     = 'No network connection'; 
+
+		if (networkState == Connection.UNKNOWN || networkState == Connection.NONE) {
+			ons.createDialog('conn.html').then(function(conn) {
+				conn.show();
+			});
+		}
+	}
+		
 	
 	function login() {
 		var name = document.getElementById('loginname').value;
@@ -45,6 +49,7 @@
 		var user = window.localStorage.getItem("loginname");
 		var pass = window.localStorage.getItem("password");
 		if (user == "" || pass == "") {
+//			getElementById("message").innerHTML = "Bitte Benutzernamen und Password eingeben";
 			ons.createDialog('dialog.html').then(function(dialog) {
 				dialog.show();
 			});
@@ -55,28 +60,45 @@
 		
 
 	</script>
+	
+	<ons-template id="conn.html">
+		<ons-dialog var="conn" animation="default" cancelable>
+			<ons-toolbar modifier="transparent" inline fixed-style>
+				<div class="center">
+					Warnung
+				</div>
+			</ons-toolbar>
+			<div style="text-align: center">
+				<p id="message">
+					Kein Internet
+				</p>    
+				<div class="alert-dialog-footer">
+					<button class="alert-dialog-button" onclick="conn.hide()">OK</button>
+				</div>
+			</div>
+		</ons-dialog>        
+	</ons-template>
+	
 	<ons-template id="dialog.html">
-	<ons-dialog var="dialog" animation="default" cancelable>
-      <ons-toolbar modifier="transparent" inline fixed-style>
-        <div class="center">
-          Warnung
-        </div>
-      </ons-toolbar>
-    
-      <div style="text-align: center">
-        <p>
-          Bitte Benutzername und Password eingeben
-        </p>
-        
-		<div class="alert-dialog-footer">
-			<button class="alert-dialog-button" onclick="dialog.hide()">OK</button>
-		</div>
-      </div>
-
-  </ons-dialog>        
-</ons-template>
+		<ons-dialog var="dialog" animation="default" cancelable>
+			<ons-toolbar modifier="transparent" inline fixed-style>
+				<div class="center">
+					Warnung
+				</div>
+			</ons-toolbar>
+			<div style="text-align: center">
+				<p id="message">
+					Bitte Benutzernamen und Password eingeben
+				</p>    
+				<div class="alert-dialog-footer">
+					<button class="alert-dialog-button" onclick="dialog.hide()">OK</button>
+				</div>
+			</div>
+		</ons-dialog>        
+	</ons-template>
+	
   </head>
-  <body>
+  <body onload="onDeviceReady()">
     <ons-page>
 		<div class="card">
 			<div class="card-name">Wo bin Ich?</div>
