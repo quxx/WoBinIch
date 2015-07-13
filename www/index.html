@@ -9,6 +9,7 @@
 	
     <script src="lib/onsen/js/angular/angular.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
+	<script src="phonegap.js"></script>
     <script>
 	ons.bootstrap();
 
@@ -54,8 +55,6 @@
 		var user = window.localStorage.getItem("loginname");
 		var pass = window.localStorage.getItem("password");
 		if (user == "" || pass == "") {
-
-//			getElementById("message").innerHTML = "Bitte Benutzernamen und Password eingeben";
 			ons.createDialog('dialog.html').then(function(dialog) {
 				dialog.show();
 			});
@@ -101,7 +100,7 @@
 			<div style="text-align: center">
 				<!-- Message -->
 				<p>
-					Bitte Benutzernamen und Password eingeben
+					Bitte Benutzername und Password eingeben				
 				</p>
 				<!-- Button -->				
 				<div class="alert-dialog-footer">
@@ -130,7 +129,7 @@
 		</div>
 		
 		<div class="footer">
-			Version 1.0
+			Version 1.1
 		</div>
 
     </ons-page>

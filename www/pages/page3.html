@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<link rel="stylesheet" href="lib/onsen/css/onsenui.css">
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-sunshine-theme.css">
+
+	<script src="lib/onsen/js/angular/angular.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
+    <script src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    var watchID = null;
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        // Throw an error if no update is received every 30 seconds
+        var options = { timeout: 30000 };
+        watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+    }
+
+    // onSuccess Geolocation
+    //
+    function onSuccess(position) {
+        var element = document.getElementById('geolocation');
+        element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
+                            'Longitude: ' + position.coords.longitude     + '<br />' +
+                            '<hr />'      + element.innerHTML;
+    }
+
+        // onError Callback receives a PositionError object
+        //
+        function onError(error) {
+            alert('code: '    + error.code    + '\n' +
+                  'message: ' + error.message + '\n');
+        }
+
+    </script>
+  </head>
+  <body>
+	<ons-toolbar modifier="transparent">
+		<div class="left">
+			<ons-toolbar-button onclick="menu.toggleMenu()"><ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon></ons-toolbar-button>
+		</div>
+	</ons-toolbar>
+    <p id="geolocation">Finding geolocation...</p>
+  </body>
+</html>

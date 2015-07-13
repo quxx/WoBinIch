@@ -3,6 +3,12 @@ ons-list-item > ons-icon {
   opacity: 0.8;
 }
 
+#map-canvas {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
 .aut {
   font-size: 12px;
   opacity: 0.8;

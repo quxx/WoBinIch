@@ -11,17 +11,29 @@
 
     <script src="lib/onsen/js/angular/angular.js"></script>
     <script src="lib/onsen/js/onsenui.js"></script>
+	<script src="phonegap.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script>
-      ons.bootstrap();
+    ons.bootstrap();
 	  
-	</script>
-	<script>
-	  function quit() {
-		window.localStorage.setItem("loginname", "");
-		window.localStorage.setItem("password", "");
-		window.localStorage.setItem("link", "");
-		window.location="index.html";
-	  }
+		function quit() {
+			window.localStorage.setItem("loginname", "");
+			window.localStorage.setItem("password", "");
+			window.localStorage.setItem("link", "");
+			window.location="index.html";
+		}
+//  ************ Geht nicht! ************	  
+var map;
+function initialize() {
+  map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 8,
+    center: {lat: -34.397, lng: 150.644}
+  });
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    
     </script>
 
 	
@@ -38,12 +50,12 @@
 <!-- ********************	Seite Eins	******************** -->
 	<ons-template id="page1.html">
 		<ons-page>
-			<ons-toolbar>
+			<ons-toolbar modifier="transparent" fixed-style>
 				<div class="left">
 					<ons-toolbar-button ng-click="menu.toggleMenu()"><ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon></ons-toolbar-button>
 				</div>
 				<!-- Seiten Überschrift -->
-				<div class="center">Page 1</div>
+				<div class="center"></div>
 			</ons-toolbar>
 <!-- ********************	Seite Eins Inhalt	******************** -->
 			<p id="demo" style="color: #999; padding-top: 100px;"></p>
@@ -57,17 +69,16 @@
 <!-- ********************	Seite Zwei	******************** -->
 	<ons-template id="page2.html">
 		<ons-page>
-			<ons-toolbar>
+			<ons-toolbar modifier="transparent">
 				<div class="left">
 					<ons-toolbar-button onclick="menu.toggleMenu()"><ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon></ons-toolbar-button>
 				</div>
-				<!-- Seiten Überschrift -->
-				<div class="center">Page 2</div>
 			</ons-toolbar>
 <!-- ********************	Seite Zwei Inhalt	******************** -->
-				<p style="text-align: center; color: #999; padding-top: 100px;">Page2 Contents</p>
+				<div id="map-canvas"></div>
 		</ons-page>
 	</ons-template>
+	
 	
 <!-- ********************	Menü	******************** -->
 	<ons-template id="menu.html">	
@@ -80,7 +91,10 @@
 				Home
 			</ons-list-item>
 			<ons-list-item modifier="tappable" onclick="menu.setMainPage('page2.html', {closeMenu: true})">
-				Options
+				Map
+			</ons-list-item>
+			<ons-list-item modifier="tappable" onclick="menu.setMainPage('pages/page3.html', {closeMenu: true})">
+				Geolocation
 			</ons-list-item>
 			<ons-list-item modifier="tappable" onclick="quit()">
 				Log Out

@@ -36,9 +36,13 @@
   <gap:plugin name="org.apache.cordova.vibration"/>
   <icon src="icon.png"/>
   <access origin="*"/>
+  <access origin="*.google.com"/>
+  <access origin="*.googleapis.com"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
+  <allow-intent href="*.google.com"/>
+  <allow-intent href="*.googleapis.com"/>
   <allow-intent href="tel:*"/>
   <allow-intent href="sms:*"/>
   <allow-intent href="mailto:*"/>
