@@ -13,14 +13,26 @@
     <script src="lib/onsen/js/onsenui.js"></script>
 	<script src="phonegap.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	<script src="js/geo.js"></script>
     <script>
     ons.bootstrap();
+	
+	function getGeo() {
+		geolocation();
+		var lat = "Latidude: " + window.localStorage.getItem("lat");
+		var lon = "Longidude: " + window.localStorage.getItem("lon");
+		//var err = "Error: " + window.localStorage.getItem("err");
+			
+		document.getElementById("latidude").innerHTML = lat;
+		document.getElementById("longitude").innerHTML = lon;
+		//document.getElementById("error").innerHTML = err;
+	}
 	  
-		function quit() {
-			window.localStorage.setItem("loginname", "");
-			window.localStorage.setItem("password", "");
-			window.localStorage.setItem("link", "");
-			window.location="index.html";
+	function quit() {
+		window.localStorage.setItem("loginname", "");
+		window.localStorage.setItem("password", "");
+		window.localStorage.setItem("link", "");
+		window.location="index.html";
 		}
 //  ************ Geht nicht! ************	  
 var map;
