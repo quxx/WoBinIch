@@ -1,3 +1,5 @@
+/* Login CSS File */
+
 .login-form {
   text-align: center;
   width: 80%;
@@ -26,7 +28,7 @@ ons-dialog p {
 }
 
 .card {
-  background-image: url(../img/map.jpg);
+  background-image: url(../images/map.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   color: white;

@@ -1,0 +1,19 @@
+{
+    "plugins": [
+        "mobi.monaca.plugins.Monaca",
+        "org.apache.cordova.splashscreen"
+    ],
+    "framework_version": "3.5",
+    "xcode_version": "6",
+    "cordova_version": "4.1",
+    "plugin_settings": [],
+    "title-ja": "",
+    "title-en": "Wo bin Ich?",
+    "description-ja": "",
+    "description-en": "MPM-Projekt SS2015",
+    "category": "User Template",
+    "platform": [
+        "android"
+    ],
+    "name": "generated-1440715293-55df88c8fd1734c6634ccc30"
+}

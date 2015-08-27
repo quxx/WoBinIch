@@ -1,24 +1,21 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
-
-    <link rel="stylesheet" href="lib/onsen/css/onsenui.css">
-    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components-sunshine-theme.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
-	
-    <script src="lib/onsen/js/angular/angular.js"></script>
-    <script src="lib/onsen/js/onsenui.js"></script>
-	<script src="phonegap.js"></script>
     <script>
-	ons.bootstrap();
-
-//Überprüfen ob Gerät mit dem Internet verbunden ist	
-	function init() {
-		  document.addEventListener("deviceready", onDeviceReady, false);
-	}
+        ons.bootstrap();
+        
+       //document.addEventListener ("deviceready", onDeviceReady, false);
+    </script>
+    <script>
+//Überprüfen ob Gerät mit dem Internet verbunden ist    
 	
-	function onDeviceReady() {
+	ons.ready(function () {
 			var networkState = navigator.connection.type;
 			/*
 			Connection.UNKNOWN  = 'Unknown connection';
@@ -35,13 +32,12 @@
 					conn.show();
 			});
         }
+        
+        if (window.localStorage.getItem("loginname") != "") {
+    		window.location="home.html"
 	}
+})
 	
-	function checkLogin() {
-		if (window.localStorage.getItem("loginname") != "") {
-			window.location="home.html"
-		}
-	}
 		
 //Login Script, eingabe wird im LocalStorage gespeichert und Login-Link wird generiert	
 	function login() {
@@ -111,7 +107,7 @@
 	</ons-template>		
   </head>
 <!-- ********************		BODY		******************** -->
-  <body onload="onDeviceReady(); checkLogin()">
+  <body>
     <ons-page>
 		<!-- Header Bild -->
 		<div class="card">

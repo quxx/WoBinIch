@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="de.thm.wobinich" version="1.0.0">
   <name>Wo bin ich?</name>
   <description>Medienprojektmanagment SS2015</description>
@@ -35,10 +36,13 @@
   <gap:plugin name="org.apache.cordova.network-information"/>
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
-  <icon src="icon.png"/>
+  <icon src="www/icon.png"/>
   <access origin="*"/>
+  <access origin="*" subdomains="true"/>
   <access origin="*.google.com"/>
   <access origin="*.googleapis.com"/>
+  <access origin="*.gstatic.com"/>
+  <access origin="maps.google.com*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
