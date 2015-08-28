@@ -1,7 +1,8 @@
 // controller.js
-
+            
 (function() {
     var app = angular.module('myApp', ['onsen']);
+
   
     //Sliding menu controller, swiping management
     app.controller('SlidingMenuController', function($scope){
@@ -27,12 +28,12 @@
         $scope.markerId = 1;
           
         //Map initialization  
-        $timeout(function(){
-      
-            var latlng = new google.maps.LatLng(35.7042995, 139.7597564);
+        $timeout(function(){   
+            var latlng = new google.maps.LatLng(window.localStorage.getItem("lat"), window.localStorage.getItem("lon"));
             var myOptions = {
-                zoom: 8,
+                zoom: 12,
                 center: latlng,
+                disableDefaultUI:true,  
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             $scope.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
@@ -40,11 +41,21 @@
             $scope.overlay.draw = function() {}; // empty function required
             $scope.overlay.setMap($scope.map);
             $scope.element = document.getElementById('map_canvas');
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            $scope.map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(input);
             $scope.hammertime = Hammer($scope.element).on("hold", function(event) {
                 $scope.addOnClick(event);
             });
             
         },100);
+        
+
+        // Create the search box and link it to the UI element.
+        //var input = document.getElementById('par-search');
+        //var searchBox = new google.maps.places.SearchBox(input);
+        //$scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
     
         //Delete all Markers
         $scope.deleteAllMarkers = function(){

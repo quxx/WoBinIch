@@ -10,10 +10,12 @@
             src="https://maps.googleapis.com/maps/api/js">
         </script>
         <script src="scripts/controller.js"></script>
+        <script src="scripts/geo.js"></script>
     <script>
         ons.bootstrap();
 
         ons.ready(function() {
+            geolocation();
             var link = window.localStorage.getItem("link");
             document.getElementById("demo").innerHTML= link;
         });

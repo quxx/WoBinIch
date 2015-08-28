@@ -5,7 +5,6 @@
   <author href="" email="">Dominic Kessler, Marco D'Ambrosio, Thomas Claudi</author>
   <content src="index.html"/>
   <preference name="permissions" value="none"/>
-  <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
   <preference name="webviewbounce" value="true"/>
   <preference name="prerendered-icon" value="true"/>
@@ -19,6 +18,7 @@
   <preference name="android-installLocation" value="auto"/>
   <gap:plugin name="org.apache.cordova.battery-status"/>
   <gap:plugin name="org.apache.cordova.camera"/>
+  <gap:plugin name="org.apache.cordova.camera.CameraLauncher"/>
   <gap:plugin name="org.apache.cordova.media-capture"/>
   <gap:plugin name="org.apache.cordova.console"/>
   <gap:plugin name="org.apache.cordova.contacts"/>
@@ -36,12 +36,6 @@
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
   <icon src="www/icon.png"/>
-  <access origin="*"/>
-  <access origin="*" subdomains="true"/>
-  <access origin="*.google.com"/>
-  <access origin="*.googleapis.com"/>
-  <access origin="*.gstatic.com"/>
-  <access origin="maps.google.com*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
@@ -58,4 +52,18 @@
     <allow-intent href="itms:*"/>
     <allow-intent href="itms-apps:*"/>
   </platform>
+  <access origin="*"/>
+  <access origin="*" subdomains="true"/>
+  <access origin="*.google.com"/>
+  <access origin="*.googleapis.com"/>
+  <access origin="*.gstatic.com"/>
+  <access origin="maps.google.com*"/>
+  <preference name="KeepRunning" value="false"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
+  <preference name="DisallowOverscroll" value="false"/>
+  <preference name="monaca:WebViewEngine" value="default"/>
+  <preference name="Orientation" value="default"/>
+  <preference name="SplashScreenDelay" value="1000"/>
+  <preference name="Fullscreen" value="false"/>
+  <preference name="BackgroundColor" value="0xffffffff"/>
 </widget>
