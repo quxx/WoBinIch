@@ -1,26 +1,23 @@
 <ons-navigator ng-controller="MapController">
    <ons-page>
-        <ons-toolbar modifier="transparent" ng-controller="SlidingMenuController">
+        <ons-toolbar  ng-controller="SlidingMenuController">
             <div class="left">
                 <ons-toolbar-button ng-click="slidingMenu.toggleMenu()"><ons-icon icon="bars"></ons-icon></ons-toolbar-button>
             </div>
         </ons-toolbar>
+
         
         <div id="map_canvas"></div>
-        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-        
-        <!--  
-        <p class="par-search">
-            <input type="search" class="search-input search-input-map">
-        </p>
-        -->
+        <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
+
         <p class="par-buttons">
-            <ons-button  class="btn-delete" ng-click="deleteAllMarkers()">
-                Lösche markers       
+            <ons-button  class="btn-send" ng-click="sendMarker()">
+                Absenden      
             </ons-button>
-            <ons-button class="btn-distance" ng-click="calculateDistance()">
-                Strecke      
+            <ons-button  class="btn-send" ng-click="imHere()">
+                Ich bin da!      
             </ons-button>
+
         </p>   
     </ons-page>
 </ons-navigator>

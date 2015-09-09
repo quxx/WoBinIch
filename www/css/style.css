@@ -15,7 +15,7 @@ ons-list-item > ons-icon {
 }
 
 .nav-fut{
-  padding-top: 200px;
+  padding-top: 100px;
 }
 
 .list-item-action {
@@ -43,7 +43,7 @@ ons-list-item > ons-icon {
     height: 100%; 
     margin: 0; 
     padding: 0;   
-    z-index: -1
+    z-index: -1;
 }
 
 
@@ -51,16 +51,14 @@ ons-list-item > ons-icon {
     position: absolute; 
     text-align: center; 
     width:100%; 
-    bottom:0px
+    bottom:20px;
 }
 
-.btn-delete{
-    z-index:1
+
+.btn-send{
+    z-index:1;
 }
 
-.btn-distance{
-    z-index:1; margin-left: 5px;
-}
 
 .controls {
   margin-top: 10px;
@@ -103,3 +101,13 @@ ons-list-item > ons-icon {
   font-size: 13px;
   font-weight: 300;
 }
+
+/* Frage erstellen */
+.picture-buttons{
+    position: absolute; 
+    text-align: center; 
+    width:100%; 
+    bottom:50%;
+}
+
+

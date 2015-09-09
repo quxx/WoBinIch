@@ -1,18 +1,33 @@
 
 <ons-page>
+<ons-toolbar modifier="transparent">
+          <div class="right">
+            <ons-toolbar-button class="menu-close" ng-click="slidingMenu.close()">
+              Close
+            </ons-toolbar-button>
+          </div>
+        </ons-toolbar>
 
-<p style="text-align: center; padding-top: 30px; padding-bottom: 20px;">Navigation</p>
+<p style="text-align: center; padding-top: 20px; padding-bottom: 20px;">Navigation</p>
         <!-- Menü Liste -->
 		<ons-list>
-			<ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('page1.html', {closeMenu: true})">
-				<!-- <ons-icon icon="fa-home" size="20px"></ons-icon> -->
+			<ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('play.html', {closeMenu: true})">
+    		    Play   
+			</ons-list-item>
+            
+          
+            <ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('page1.html', {closeMenu: true})">
 				Home
 			</ons-list-item>
 			<ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('map.html', {closeMenu: true})">
 				Map
 			</ons-list-item>
-			<ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('pages/page3.html', {closeMenu: true})">
-				Geolocation
+            
+            <ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('question.html', {closeMenu: true})">
+				Frage erstellen
+			</ons-list-item>
+            <ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('ranking.html', {closeMenu: true})">
+    			Rangliste
 			</ons-list-item>
 			<ons-list-item modifier="tappable" onclick="quit()">
 				Log Out
@@ -25,7 +40,7 @@
 			<ons-icon icon="fa-globe" size="30px"></ons-icon>
 		</span>
 		<hr>
-		<p class="aut">Wo bin ich? <br> Dominic Kessler <br> Marco D'Ambrosio <br> Thomas Claudi <br> Version: 1.0 </p>
+		<p class="aut">Wo bin ich? <br> Dominic Kessler <br> Marco D'Ambrosio <br> Thomas Claudi <br> Version: 1.2 </p>
 		</div>
 
 </ons-page>

@@ -9,8 +9,12 @@
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js">
         </script>
+        <script src="components/loader.js"></script>
         <script src="scripts/controller.js"></script>
         <script src="scripts/geo.js"></script>
+        <script src="scripts/calculateDistance.js"></script>
+        <script src="scripts/camera.js"></script>
+    
     <script>
         ons.bootstrap();
 
@@ -34,7 +38,7 @@
     </script>
 </head>
 <body>
-    <ons-sliding-menu swipeable="false" var="slidingMenu" menu-page="menu.html" main-page="page1.html" side="left" type="overlay" max-slide-distance="200px">
+    <ons-sliding-menu swipeable="true" var="slidingMenu" menu-page="menu.html" main-page="page1.html" side="left" type="overlay" max-slide-distance="200px">
     </ons-sliding-menu>
 </body>
 

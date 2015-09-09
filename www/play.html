@@ -1,0 +1,20 @@
+<ons-navigator>
+   <ons-page>
+        <ons-toolbar fixed-style="">
+            <div class="left">
+                <ons-toolbar-button ng-click="slidingMenu.toggleMenu()"><ons-icon icon="bars"></ons-icon></ons-toolbar-button>
+            </div>
+            <div class="center">Neue fragen!</div>
+        </ons-toolbar>
+        
+        
+        <ons-carousel swipeable overscrollable auto-scroll fullscreen var="carousel">
+            <ons-carousel-item style="background-color: gray;">
+                <div class="item-label">GRAY</div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #085078;">
+                <div class="item-label">BLUE</div>
+            </ons-carousel-item>
+        </ons-carousel>
+    </ons-page>
+</ons-navigator>

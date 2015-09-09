@@ -12,6 +12,8 @@
     "description-ja": "",
     "description-en": "",
     "category": "User Template",
-    "platform": [],
-    "name": "generated-1440779481-55df88c8fd1734c6634ccc30"
+    "platform": [
+        "android"
+    ],
+    "name": "generated-1441840440-55df88c8fd1734c6634ccc30"
 }

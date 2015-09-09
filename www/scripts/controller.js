@@ -1,10 +1,10 @@
 // controller.js
-            
+
 (function() {
     var app = angular.module('myApp', ['onsen']);
-
+    var marker;
   
-    //Sliding menu controller, swiping management
+    //Sliding menu und Buttons
     app.controller('SlidingMenuController', function($scope){
       
         $scope.checkSlidingMenuStatus = function(){
@@ -24,16 +24,15 @@
     app.controller('MapController', function($scope, $timeout){
       
         $scope.map;
-        $scope.markers = [];
-        $scope.markerId = 1;
           
-        //Map initialization  
-        $timeout(function(){   
+        //Map initialieren  
+        $timeout(function(){
+      
             var latlng = new google.maps.LatLng(window.localStorage.getItem("lat"), window.localStorage.getItem("lon"));
             var myOptions = {
                 zoom: 12,
                 center: latlng,
-                disableDefaultUI:true,  
+                disableDefaultUI:true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             $scope.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
@@ -41,158 +40,85 @@
             $scope.overlay.draw = function() {}; // empty function required
             $scope.overlay.setMap($scope.map);
             $scope.element = document.getElementById('map_canvas');
-            var input = document.getElementById('pac-input');
-            var searchBox = new google.maps.places.SearchBox(input);
-            $scope.map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(input);
             $scope.hammertime = Hammer($scope.element).on("hold", function(event) {
                 $scope.addOnClick(event);
             });
             
         },100);
         
-
-        // Create the search box and link it to the UI element.
-        //var input = document.getElementById('par-search');
-        //var searchBox = new google.maps.places.SearchBox(input);
-        //$scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-    
-        //Delete all Markers
-        $scope.deleteAllMarkers = function(){
-            
-            if($scope.markers.length == 0){
+        //Send
+        $scope.sendMarker = function() {
+            if(marker) {
+                var str0 = JSON.stringify(marker.getPosition());
+                var str1 = str0.replace('{"G":', "");
+                var str2 = str1.replace(',"K":', "/");
+                var answer = str2.substr(0, str2.length-1);
+                
+                window.localStorage.setItem("geoAnswer", answer);
+                alert (answer);
+            } else {
                 ons.notification.alert({
-                    message: 'There are no markers to delete!!!'
-                });
-                return;
-            }
-            
-            for (var i = 0; i < $scope.markers.length; i++) {
-                            
-                //Remove the marker from Map                  
-                $scope.markers[i].setMap(null);
-            }
-            
-            //Remove the marker from array.
-            $scope.markers.length = 0;
-            $scope.markerId = 0;
-            
-            ons.notification.alert({
-                message: 'All Markers deleted.'
-            });   
-        };
-    
-        $scope.rad = function(x) {
-            return x * Math.PI / 180;
-        };
-        
-        //Calculate the distance between the Markers
-        $scope.calculateDistance = function(){
-            
-            if($scope.markers.length < 2){
-                ons.notification.alert({
-                    message: 'Insert at least 2 markers!!!'
-                });
-            }
-            else{
-                var totalDistance = 0;
-                var partialDistance = [];
-                partialDistance.length = $scope.markers.length - 1;
-                
-                for(var i = 0; i < partialDistance.length; i++){
-                    var p1 = $scope.markers[i];
-                    var p2 = $scope.markers[i+1];
-                    
-                    var R = 6378137; // Earth’s mean radius in meter
-                    var dLat = $scope.rad(p2.position.lat() - p1.position.lat());
-                    var dLong = $scope.rad(p2.position.lng() - p1.position.lng());
-                    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                    Math.cos($scope.rad(p1.position.lat())) * Math.cos($scope.rad(p2.position.lat())) *
-                    Math.sin(dLong / 2) * Math.sin(dLong / 2);
-                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                    totalDistance += R * c / 1000; //distance in Km
-                    partialDistance[i] = R * c / 1000;
-                }
-                
-                
-                ons.notification.confirm({
-                    message: 'Do you want to see the partial distances?',
-                    callback: function(idx) {
-                        
-                        ons.notification.alert({
-                            message: "The total distance is " + totalDistance.toFixed(1) + " km"
-                        });
-                        
-                        switch(idx) {
-                            case 0:
-                                
-                                break;
-                            case 1:
-                                for (var i = (partialDistance.length - 1); i >= 0 ; i--) {
-                                    
-                                    ons.notification.alert({
-                                        message: "The partial distance from point " + (i+1) + " to point " + (i+2) + " is " + partialDistance[i].toFixed(1) + " km"
-                                    });
-                                }
-                                break;
-                        }
-                    }
+                    message: "Bitte setze zuerst einen Marker!"
                 });
             }
         };
         
-        //Add single Marker
+        //Ich bin da!
+        $scope.imHere = function() {
+            geolocation();
+            
+            var lat = window.localStorage.getItem("lat");
+            var lon = window.localStorage.getItem("lon"); 
+            var position = new google.maps.LatLng(lat,lon);
+            
+            var myOptions2 = {
+                zoom: 16,
+                center: position,
+                disableDefaultUI:true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            
+            $scope.map = new google.maps.Map(document.getElementById("map_canvas"), myOptions2); 
+            $scope.overlay = new google.maps.OverlayView();
+            $scope.overlay.draw = function() {}; // empty function required
+            $scope.overlay.setMap($scope.map);
+            $scope.element = document.getElementById('map_canvas');
+            
+            if (marker) {
+                marker.setPosition(position);
+            } else {
+                marker = new google.maps.Marker({
+                position: position,
+                map: $scope.map,
+                draggable: false
+            });
+            }
+            
+            
+        }
+        
+        
+        //Marker hinzufügen
         $scope.addOnClick = function(event) {
             var x = event.gesture.center.pageX;
             var y = event.gesture.center.pageY-44;
             var point = new google.maps.Point(x, y);            
             var coordinates = $scope.overlay.getProjection().fromContainerPixelToLatLng(point);       
          
-            var marker = new google.maps.Marker({
+            
+            if (marker) {
+                marker.setPosition(coordinates);
+            } else {
+                marker = new google.maps.Marker({
                 position: coordinates,
-                map: $scope.map
+                map: $scope.map,
+                draggable: true
             });
-            
-            marker.id = $scope.markerId;
-            $scope.markerId++;
-            $scope.markers.push(marker);            
-
-
-            $timeout(function(){
-            //Creation of the listener associated to the Markers click
-
-            google.maps.event.addListener(marker, "click", function (e) {
-                ons.notification.confirm({
-                    message: 'Do you want to delete the marker?',
-                    callback: function(idx) {
-                        switch(idx) {
-                            case 0:
-                                ons.notification.alert({
-                                    message: 'You pressed "Cancel".'
-                                });
-                                break;
-                            case 1:
-                                for (var i = 0; i < $scope.markers.length; i++) {
-                                    if ($scope.markers[i].id == marker.id) {
-                                        //Remove the marker from Map                  
-                                        $scope.markers[i].setMap(null);
-                         
-                                        //Remove the marker from array.
-                                        $scope.markers.splice(i, 1);
-                                    }
-                                }
-                                ons.notification.alert({
-                                    message: 'Marker deleted.'
-                                });
-                                break;
-                        }
-                    }
-                });
-            });
-            },1000);
-
-            
+                
+            }       
         };
+        
+
     });
 })();
 
