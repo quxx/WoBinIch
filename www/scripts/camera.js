@@ -1,19 +1,19 @@
-// Script to take a picture and display it afterwards
+function takePicture () {
+    navigator.camera.getPicture(onSuccess, onFail, { 
+        quality: 100,
+        destinationType: Camera.DestinationType.DATA_URL,
+        saveToPhotoAlbum: true,
+        correctOrientation: true});
 
-        
-function takePicture() {
-        navigator.camera.getPicture (onSuccess, onFail, 
-            { quality: 50, destinationType: Camera.DestinationType.DATA_URL});
-            
-        function onSuccess (imageData) {
-            var image = document.getElementById('picture');
-            image.src = "data:image/jpeg;base64," + imageData;
-            
-            window.location = "../question.html"
-            
-        }
-        
-        function onFail (message) {
-            alert ('Error occured: ' + message);
-        }
+    function onSuccess(imageData) {
+        //var image = document.getElementById('picture');
+        //image.src = "data:image/jpeg;base64," + imageData;
+ 
+        document.getElementById("picture").src = "data:image/jpeg;base64," + imageData;
+        document.getElementById("picture-buttons").innerHTML = "Upload Erfolgreich";
     }
+    
+    function onFail(message) {
+        alert('Failed because: ' + message);
+    }
+}
