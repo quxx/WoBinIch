@@ -1,17 +1,26 @@
 {
     "plugins": [
         "mobi.monaca.plugins.Monaca",
-        "org.apache.cordova.splashscreen"
+        "org.apache.cordova.splashscreen",
+        "org.apache.cordova.camera",
+        "org.apache.cordova.media-capture",
+        "org.apache.cordova.device",
+        "org.apache.cordova.file",
+        "org.apache.cordova.file-transfer",
+        "org.apache.cordova.geolocation",
+        "org.apache.cordova.network-information",
+        "org.apache.cordova.media",
+        "org.apache.cordova.inappbrowser"
     ],
     "framework_version": "3.5",
     "xcode_version": "6",
     "cordova_version": "4.1",
     "plugin_settings": [],
     "title-ja": "",
-    "title-en": "Wo bin Ich?",
+    "title-en": "Wo bin Ich",
     "description-ja": "",
     "description-en": "",
     "category": "User Template",
     "platform": [],
-    "name": "generated-1441849135-55df88c8fd1734c6634ccc30"
+    "name": "generated-1441900192-55df88c8fd1734c6634ccc30"
 }
