@@ -136,15 +136,11 @@
             var baseUrl = "http://thm-chat.appspot.com/oop/";
             var link = baseURL + "users?user=" + usr + "&password=" + pwd;
             ons.notification.alert({
-                message: link
+                message: link;
             });
-            $.get(link, function (data) {
-                ons.notification.alert({
-                    message: data
-                })
-            });
+            
 
-        }
+        };
 
-    })
+    });
 })();
