@@ -41,8 +41,12 @@ function testServer() {
     var baseURL = "http://thm-chat.appspot.com/oop/";
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
 
-    jQuery.post(link, function (data, status) {
+    request = jQuery.post(link, function (data, status) {
         alert('status');
     });
+    
+    request.send();
+    
+    
 
 };
