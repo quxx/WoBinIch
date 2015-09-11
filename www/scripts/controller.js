@@ -121,7 +121,7 @@
     });
 
     app.controller('ServerController', function ($scope) {
-        
+
         $scope.testServer = function () {
 
             'use strict';
@@ -135,12 +135,14 @@
             });
             $http.get(link)
                 .success(function (response) {
-                ons.notification.alert({
-                message: 'Erfolgreich! - 'response});
-            });
+                    ons.notification.alert({
+                        message: 'Erfolgreich! - '
+                        response
+                    });
+                });
 
         }
-        
+
     });
-    
+
 })();
