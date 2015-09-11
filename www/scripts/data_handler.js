@@ -40,7 +40,7 @@ function testServer() {
     var baseURL = "http://thm-chat.appspot.com/oop/";
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
     document.getElementById("serverdemo").innerHTML = link;
-    //    $.get(link, function(data){
-    //        ons.notification.alert({message: data})});
-    //    
+       jQuery.get(link, function(data){
+            ons.notification.alert({message: data})});
+        
 }
