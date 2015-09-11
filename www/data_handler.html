@@ -1,0 +1,18 @@
+<ons-navigator ng-controller="MapController">
+    <ons-page>
+        <ons-toolbar ng-controller="SlidingMenuController">
+            <div class="left">
+                <ons-toolbar-button ng-click="slidingMenu.toggleMenu()">
+                    <ons-icon icon="bars"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+        
+        <p>
+            <ons-button id="serverTest" ng-click="testServer()">
+                GET-Request
+            </ons-button>
+        </p>
+    
+    </ons-page>
+</ons-navigator>
