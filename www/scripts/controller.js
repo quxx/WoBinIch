@@ -118,7 +118,29 @@
             }
         };
 
-
     });
 
+    app.controller('ServerController', function ($scope) {
+        
+        $scope.testServer = function () {
+
+            'use strict';
+            var usr = window.localStorage.getItem("loginname");
+            var pwd = window.localStorage.getItem("password");
+
+            var baseURL = "http://thm-chat.appspot.com/oop/";
+            var link = baseURL + "users?user=" + usr + "&password=" + pwd;
+            ons.notification.alert({
+                message: link
+            });
+            $http.get(link)
+                .success(function (response) {
+                ons.notification.alert({
+                message: 'Erfolgreich! - 'response});
+            });
+
+        }
+        
+    });
+    
 })();

@@ -1,4 +1,4 @@
-<ons-navigator>
+<ons-navigator ng-controller="ServerController">
     <ons-page>
         <ons-toolbar ng-controller="SlidingMenuController">
             <div class="left">
@@ -8,9 +8,8 @@
             </div>
         </ons-toolbar>
         
-        <p id="serverdemo" style="color: #999; padding-top: 100px;"></p>
         <div>
-            <ons-button onclick="testServer()">
+            <ons-button ng-click="testServer">
                 GET-Request
             </ons-button>
         </div>
