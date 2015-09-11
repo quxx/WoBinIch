@@ -121,26 +121,4 @@
 
     });
 
-    //Server Controller
-    app.controller('ServerController', function ($scope) {
-        var usr = window.localStorage.getItem("loginname");
-        var pwd = window.localStorage.getItem("password");
-        var baseURL = "http://thm-chat.appspot.com/oop/";
-
-
-        $scope.testServer = function () {
-
-            var usr = window.localStorage.getItem("loginname");
-            var pwd = window.localStorage.getItem("password");
-
-            var baseUrl = "http://thm-chat.appspot.com/oop/";
-            var link = baseURL + "users?user=" + usr + "&password=" + pwd;
-            ons.notification.alert({
-                message: link;
-            });
-            
-
-        };
-
-    });
 })();
