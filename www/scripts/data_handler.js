@@ -39,8 +39,8 @@ function testServer(){
     
     var baseUrl = "http://thm-chat.appspot.com/oop/";
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
-    ons.notification.alert(link);
+    ons.notification.alert({message: link});
     $.get(link, function(data){
-        ons.notification.alert(data)});
+        ons.notification.alert({message: data})});
     
 }
