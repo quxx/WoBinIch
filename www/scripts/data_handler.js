@@ -31,16 +31,3 @@ function formatJSON(timestamp, username, password, imgURL, geodata, score, open)
     return formattedJSON;
 
 }
-
-function testServer(){
-
-    var usr = window.localStorage.getItem("loginname");
-    var pwd = window.localStorage.getItem("password");
-    
-    var baseUrl = "http://thm-chat.appspot.com/oop/";
-    var link = baseURL + "users?user=" + usr + "&password=" + pwd;
-    ons.notification.alert({message: link});
-    $.get(link, function(data){
-        ons.notification.alert({message: data})});
-    
-}
