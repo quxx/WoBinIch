@@ -17,7 +17,7 @@
  */
 
 function formatJSON(timestamp, username, password, imgURL, geodata, score, open) {
-
+    'use strict';
     var text, formattedJSON;
     text = '{ "timestamp" : "' + timestamp + '"';
     text += ', "username" : "' + username + '"';

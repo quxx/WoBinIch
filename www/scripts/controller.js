@@ -123,9 +123,9 @@
 
     //Server Controller
     app.controller('ServerController', function ($scope) {
-        $scope.usr = window.localStorage.getItem("loginname");
-        $scope.pwd = window.localStorage.getItem("password");
-        $scope.baseURL = "http://thm-chat.appspot.com/oop/";
+        var usr = window.localStorage.getItem("loginname");
+        var pwd = window.localStorage.getItem("password");
+        var baseURL = "http://thm-chat.appspot.com/oop/";
 
 
         $scope.testServer = function () {
