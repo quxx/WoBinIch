@@ -32,7 +32,7 @@ function formatJSON(timestamp, username, password, imgURL, geodata, score, open)
 
 }
 
-function pingServer() {
+function testServer() {
 
             'use strict';
             var usr = window.localStorage.getItem("loginname");
@@ -41,8 +41,8 @@ function pingServer() {
             var baseURL = "http://thm-chat.appspot.com/oop/";
             var link = baseURL + "users?user=" + usr + "&password=" + pwd;
             
-            jQuery.get(link, function(data, status){
-                jQuery('#serverDemo')
+            jQuery.post(link, function(data, status){
+                alert('status');
             });
             
 };
