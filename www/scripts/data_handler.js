@@ -44,7 +44,7 @@ function testServer() {
     var parent = this;
     var request = new AjaxRequest(link, function (response) {
         parent.ajaxresponse = response;
-        alert('Response:\n' + parent.ajaxresponse);
+        alert('Response:\n' + resonse);
     });
 
     request.send();
