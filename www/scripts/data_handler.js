@@ -56,6 +56,8 @@ function jQueryTestServer() {
     var baseURL = "http://thm-chat.appspot.com/oop/";
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
     
-    var ajaxreturn = jQuery.get(link);
+    var ajaxreturn = jQuery.get(link, function(data){
+    alert(data);
+    },text);
     alert(ajaxreturn);
 }
