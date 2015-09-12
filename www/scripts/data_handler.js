@@ -42,7 +42,7 @@ function testServer() {
 
     
     var request = new AjaxRequest(link, function (response) {
-        alert('Response:\n' + resonse);
+        alert('Response:\n' + response);
     });
 
     request.send();
@@ -56,13 +56,6 @@ function jQueryTestServer() {
     var baseURL = "http://thm-chat.appspot.com/oop/";
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
     
-    var ajaxreturn = ajaxreturn();
+    var ajaxreturn = jQuery.get(link);
     alert(ajaxreturn);
-}
-
-function ajaxreturn(link) {
-    return $.ajax({
-    url: link,
-    type: POST
-    });
 }
