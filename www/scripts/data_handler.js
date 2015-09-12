@@ -34,7 +34,6 @@ function formatJSON(timestamp, username, password, imgURL, geodata, score, open)
 
 function testServer() {
 
-    'use strict';
     var usr = window.localStorage.getItem("loginname");
     var pwd = window.localStorage.getItem("password");
 
@@ -42,10 +41,11 @@ function testServer() {
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
 
     var ajaxresponse = "predefined";
+    var parent = this;
     var request = new AjaxRequest(link, function (response) {
-        ajaxresponse = response;
-        alert('Response:\n' + ajaxresponse);
-    }.bind(this));
+        parent.ajaxresponse = response;
+        alert('Response:\n' + parent.ajaxresponse);
+    });
 
     request.send();
     alert('Response outside of function scope:\n' + ajaxresponse);
