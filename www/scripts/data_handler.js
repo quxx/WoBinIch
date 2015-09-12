@@ -41,12 +41,14 @@ function testServer() {
     var baseURL = "http://thm-chat.appspot.com/oop/";
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
 
-    var request = new AjaxRequest(link, function(response){
+    var userArray = [];
+    var request = new AjaxRequest(link, function (response) {
         alert('Response:\n' + response);
+        userArray = response.split("\n");
     });
-    
-    request.send();
-    
-    
 
-};
+    request.send();
+    for (i = 0; i < userArray.length; i++) {
+        document.getElementById("serverDemo").innerHTML(userArray[i]);
+    }
+}
