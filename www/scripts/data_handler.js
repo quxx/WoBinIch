@@ -40,13 +40,29 @@ function testServer() {
     var baseURL = "http://thm-chat.appspot.com/oop/";
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
 
-    var ajaxresponse = "predefined";
-    var parent = this;
+    
     var request = new AjaxRequest(link, function (response) {
-        parent.ajaxresponse = response;
         alert('Response:\n' + resonse);
     });
 
     request.send();
-    alert('Response outside of function scope:\n' + ajaxresponse);
+}
+
+function jQueryTestServer() {
+    
+    var usr = window.localStorage.getItem("loginname");
+    var pwd = window.localStorage.getItem("password");
+
+    var baseURL = "http://thm-chat.appspot.com/oop/";
+    var link = baseURL + "users?user=" + usr + "&password=" + pwd;
+    
+    var ajaxreturn = ajaxreturn();
+    alert(ajaxreturn);
+}
+
+function ajaxreturn(link) {
+    return $.ajax({
+    url: link,
+    type: POST
+    });
 }
