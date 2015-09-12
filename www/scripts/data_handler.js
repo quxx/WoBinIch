@@ -43,9 +43,9 @@ function testServer() {
 
     var ajaxresponse = "predefined";
     var request = new AjaxRequest(link, function (response) {
-        alert('Response:\n' + response);
         ajaxresponse = response;
-    });
+        alert('Response:\n' + ajaxresponse);
+    }.bind(this));
 
     request.send();
     alert('Response outside of function scope:\n' + ajaxresponse);
