@@ -46,8 +46,8 @@ function testServer() {
         alert('Response:\n' + response);
         _this.ajaxresponse = response;
     });
-
     request.send();
+    alert(ajaxresponse);
 }
 
 function jQueryTestServer() {
