@@ -74,11 +74,12 @@ function getUserArray() {
 }
 
 function testUserArray() {
+    alert("RAW: " + window.localStorage.getItem("userlist"));
     var userArray = [];
     var text = "";
     userArray = getUserArray();
     for (i = 0; i < userArray.length; i++) {
         text = userArray[i] + "\n";
     }
-    alert(text);
+    alert("Verarbeitet: " + text);
 }
