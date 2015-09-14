@@ -131,5 +131,6 @@ function ajxSendToUser(recipient, message) {
 }
 
 $("#pingButton").click(function() {
+    alert('button pressed!');
     ajxSendToUser("D.kessler","ping");
 });
