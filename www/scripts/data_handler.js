@@ -130,7 +130,7 @@ function ajxSendToUser(recipient, message) {
     });
 }
 
-$("#pingButton").click(function() {
+document.getElementById("pingButton").addEventListener('click', function () {
     alert('button pressed!');
-    ajxSendToUser("D.kessler","ping");
-});
+    ajxSendToUser("D.kessler", "ping");
+}, false);
