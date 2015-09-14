@@ -59,7 +59,7 @@ function jQueryTestServer() {
         type: 'get',
         url: link,
         success: function (response) {
-            alert(response);
+            alert("GET-Response: " + response);
             window.localStorage.setItem("userlist", response);
         }
     });
