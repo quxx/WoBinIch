@@ -68,18 +68,16 @@ function jQueryTestServer() {
 
 function getUserArray() {
     var userlist = window.localStorage.getItem("userlist");
-    var userArray = [];
     userArray = userlist.split("\n");
     return userArray;
 }
 
 function testUserArray() {
     alert("RAW: " + window.localStorage.getItem("userlist"));
-    var userArray = [];
     var text = "";
-    userArray = getUserArray();
+    var userArray = getUserArray();
     for (i = 0; i < userArray.length; i++) {
-        text = userArray[i] + "\n";
+        text += userArray[i] + "\n";
     }
     alert("Verarbeitet: " + text);
 }
