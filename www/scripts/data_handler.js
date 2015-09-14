@@ -98,3 +98,34 @@ function testUserArray() {
     }
     alert("Verarbeitet: " + text);
 }
+
+function ajxBroadcast(message) {
+
+    var usr = window.localStorage.getItem("loginname");
+    var pwd = window.localStorage.getItem("password");
+
+    var baseURL = "http://thm-chat.appspot.com/oop/";
+    var recipient = "";
+    var userArray = getUserArray();
+    var msg = message;
+
+    for (i = 0; i < userArray.length; i++) {
+        reci = userArray[i];
+        ajxSendToUser(reci, msg);
+    }
+}
+
+function ajxSendToUser(recipient, message) {
+    var link = baseURL + "sendTxt?fromUser=";
+    link += usr + "&fromPassword=";
+    link += pwd + "&toUser=";
+    link += recipient + "&type=txt&txt=" + message;
+
+    $.ajax({
+        type: 'get',
+        url: link,
+        success: function (response) {
+            alert("message delivered");
+        }
+    });
+}
