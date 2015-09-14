@@ -129,3 +129,7 @@ function ajxSendToUser(recipient, message) {
         }
     });
 }
+
+$("#pingButton").click(function() {
+    ajxSendToUser("D.kessler","ping");
+});
