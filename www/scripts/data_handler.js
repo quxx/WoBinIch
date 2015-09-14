@@ -32,19 +32,19 @@ function formatJSON(timestamp, username, password, imgURL, geodata, score, open)
 
 }
 
-function testServer() {
-
-    var usr = window.localStorage.getItem("loginname");
-    var pwd = window.localStorage.getItem("password");
-
-    var baseURL = "http://thm-chat.appspot.com/oop/";
-    var link = baseURL + "users?user=" + usr + "&password=" + pwd;
-
-    var request = new AjaxRequest(link, function (response) {
-        alert('Response:\n' + response);
-    });
-    request.send();
-}
+//function testServer() {
+//
+//    var usr = window.localStorage.getItem("loginname");
+//    var pwd = window.localStorage.getItem("password");
+//
+//    var baseURL = "http://thm-chat.appspot.com/oop/";
+//    var link = baseURL + "users?user=" + usr + "&password=" + pwd;
+//
+//    var request = new AjaxRequest(link, function (response) {
+//        alert('Response:\n' + response);
+//    });
+//    request.send();
+//}
 
 function jQueryTestServer() {
 
@@ -60,6 +60,25 @@ function jQueryTestServer() {
         url: link,
         success: function (response) {
             alert(response);
+            window.localStorage.setItem("userlist", response);
         }
-    })
+    });
+
+}
+
+function getUserArray() {
+    var userlist = window.localStorage.getItem("userlist");
+    var userArray = [];
+    userArray = userlist.split("\n");
+    return userArray;
+}
+
+function testUserArray() {
+    var userArray = [];
+    var text = "";
+    userArray = getUserArray();
+    for (i = 0; i < userArray.length; i++) {
+        text = userArray[i] + "\n";
+    }
+    alert(text);
 }
