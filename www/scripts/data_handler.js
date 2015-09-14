@@ -122,7 +122,7 @@ function ajxSendToUser(recipient, message) {
     link += recipient + "&type=txt&txt=" + message;
 
     $.ajax({
-        type: 'get',
+        type: 'post',
         url: link,
         success: function (response) {
             alert("message delivered");
