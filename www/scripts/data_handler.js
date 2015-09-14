@@ -39,15 +39,11 @@ function testServer() {
 
     var baseURL = "http://thm-chat.appspot.com/oop/";
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
-    var _this = this;
-    var ajaxresponse = "";
 
     var request = new AjaxRequest(link, function (response) {
         alert('Response:\n' + response);
-        _this.ajaxresponse = response;
     });
     request.send();
-    alert(ajaxresponse);
 }
 
 function jQueryTestServer() {
@@ -58,7 +54,12 @@ function jQueryTestServer() {
     var baseURL = "http://thm-chat.appspot.com/oop/";
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
 
-    jQuery.post(link, function(data) {
-        alert(data);
-    });
+    $.ajax({
+        context: this,
+        type: 'get',
+        url: link,
+        success: function (response) {
+            alert(response);
+        }
+    })
 }
