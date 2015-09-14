@@ -46,7 +46,7 @@ function formatJSON(timestamp, username, password, imgURL, geodata, score, open)
 //    request.send();
 //}
 
-function jQueryTestServer() {
+function ajxGetUserList() {
 
     var usr = window.localStorage.getItem("loginname");
     var pwd = window.localStorage.getItem("password");
@@ -59,7 +59,7 @@ function jQueryTestServer() {
         type: 'get',
         url: link,
         success: function (response) {
-            alert("GET-Response: " + response);
+            //alert("GET-Response: " + response);
             window.localStorage.setItem("userlist", response);
         }
     });
@@ -73,7 +73,7 @@ function getUserArray() {
 }
 
 function testUserArray() {
-    alert("RAW: " + window.localStorage.getItem("userlist"));
+    //alert("RAW: " + window.localStorage.getItem("userlist"));
     var text = "";
     var userArray = getUserArray();
     for (i = 0; i < userArray.length; i++) {
