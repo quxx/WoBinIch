@@ -46,6 +46,14 @@ function formatJSON(timestamp, username, password, imgURL, geodata, score, open)
 //    request.send();
 //}
 
+/**
+ * 
+ * Holt eine Liste von registrierten Benutzern vom Server ab und legt sie in den localstorage. Setzt voraus, das der "loginname" und das "password" beim start der App gesetzt und in den localstorage abgelegt wurden.
+ *
+ * @method ajxGetUserList
+ *
+ */
+
 function ajxGetUserList() {
 
     var usr = window.localStorage.getItem("loginname");
@@ -55,7 +63,6 @@ function ajxGetUserList() {
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
 
     $.ajax({
-        context: this,
         type: 'get',
         url: link,
         success: function (response) {
@@ -65,6 +72,16 @@ function ajxGetUserList() {
     });
 
 }
+
+/**
+ * 
+ * Lädt eine vorher im localstorage unter dem Key "userlist" hinterlegte Liste in ein Array und spaltet sie entsprechend in einzelne Benutzernamen auf.
+ *
+ * @method getUserArray
+ *
+ * @result {Object} userArray - Array aller auf dem Server registrierter Spielernamen
+ *
+ */
 
 function getUserArray() {
     var userlist = window.localStorage.getItem("userlist");
