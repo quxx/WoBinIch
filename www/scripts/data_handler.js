@@ -66,7 +66,7 @@ function ajxGetUserList() {
         type: 'get',
         url: link,
         success: function (response) {
-            //alert("GET-Response: " + response);
+            alert("GET-Response: " + response);
             window.localStorage.setItem("userlist", response);
         }
     });
@@ -116,13 +116,13 @@ function ajxBroadcast(message) {
 }
 
 function ajxSendToUser(recipient, message) {
-    var link = baseURL + "sendTxt?fromUser=";
-    link += usr + "&fromPassword=";
-    link += pwd + "&toUser=";
-    link += recipient + "&type=txt&txt=" + message;
+    var link = baseURL + "sendTxt?";
+    link += "fromUser=" + usr;
+    link += "&fromPassword=" + pwd;
+    link += "&toUser=" + recipient;
+    link += "&type=txt&txt=" + message;
 
     $.ajax({
-        type: 'post',
         url: link,
         success: function (response) {
             alert("message delivered");
@@ -133,4 +133,14 @@ function ajxSendToUser(recipient, message) {
 function testMessage() {
     alert('button pressed!');
     ajxSendToUser("D.kessler", "ping");
+}
+
+function getImageURL() {
+    $.ajax({
+        type: 'get',
+        url: 'http://thm-chat.appspot.com/oop/uploadURL',
+        success: function (response) {
+            alert("ImageURL: " + response);
+        }
+    });
 }
