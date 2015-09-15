@@ -117,8 +117,8 @@ function ajxBroadcast(message) {
 function ajxSendToUser(recipient, message) {
     var usr = window.localStorage.getItem("loginname");
     var pwd = window.localStorage.getItem("password");
-    var baseURL = "http://thm-chat.appspot.com/oop/sendTxt?";
-    var link = baseURL + "fromUser=" + usr;
+    var baseURL = "http://thm-chat.appspot.com/oop/sendTxt";
+    var link = baseURL + "?fromUser=" + usr;
     link += "&fromPassword=" + pwd;
     link += "&toUser=" + recipient;
     link += "&type=txt&txt=" + message;
@@ -126,7 +126,11 @@ function ajxSendToUser(recipient, message) {
     alert('GET-Request an :' + link);
     $ajax({
         type: 'get',
-        url: link
+        url: baseURL,
+        data: link,
+        success: function (response) {
+            alert('Success! Server meldet: ' + response;)
+        }
     });
 }
 
