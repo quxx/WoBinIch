@@ -117,9 +117,8 @@ function ajxBroadcast(message) {
 function ajxSendToUser(recipient, message) {
     var usr = window.localStorage.getItem("loginname");
     var pwd = window.localStorage.getItem("password");
-    var baseURL = "http://thm-chat.appspot.com/oop/";
-    var link = "sendTxt?";
-    link += "fromUser=" + usr;
+    var baseURL = "http://thm-chat.appspot.com/oop/sendTxt?";
+    var link = "fromUser=" + usr;
     link += "&fromPassword=" + pwd;
     link += "&toUser=" + recipient;
     link += "&type=txt&txt=" + message;
