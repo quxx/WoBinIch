@@ -118,7 +118,7 @@ function ajxSendToUser(recipient, message) {
     var usr = window.localStorage.getItem("loginname");
     var pwd = window.localStorage.getItem("password");
     var baseURL = "http://thm-chat.appspot.com/oop/";
-    var link = baseURL + "sendTxt?";
+    var link = "sendTxt?";
     link += "fromUser=" + usr;
     link += "&fromPassword=" + pwd;
     link += "&toUser=" + recipient;
@@ -127,7 +127,8 @@ function ajxSendToUser(recipient, message) {
     alert('POST-Request an :' + link);
     $ajax({
         type: 'post',
-        url: link
+        url: baseURL,
+        data: link
     })
 }
 
