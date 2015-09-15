@@ -124,13 +124,17 @@ function ajxSendToUser(recipient, message) {
     link += "&type=txt&txt=" + message;
 
     alert('POST-Request an: ' + baseURL + ' mit Datenpaket: ' + link);
-    $ajax({
+    var req = $ajax({
         type: 'post',
         url: baseURL,
         data: link,
         success: function (response) {
             alert('Success! Server meldet: ' + response);
         }
+    });
+    
+    req.fail(function(jqXHR, error){
+    alert('Fehler! ' + error);
     });
 }
 
