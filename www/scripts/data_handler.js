@@ -16,35 +16,34 @@
  *
  */
 
-function formatJSON(timestamp, username, password, imgURL, geodata, score, open) {
+function createJSON(timestamp, username, password, image, open) {
     'use strict';
     var text, formattedJSON;
     text = '{ "timestamp" : "' + timestamp + '"';
     text += ', "username" : "' + username + '"';
     text += ', "password" : "' + password + '"';
-    text += ', "imgURL" : "' + imgURL + '"';
-    text += ', "geodata" : "' + geodata + '"';
+    text += ', "image" : "' + image + '"';
+    text += ', "geodata" : ""';
     text += ', "score" : "' + score + '"';
     text += ', "open" : "' + open + '" }';
 
     formattedJSON = JSON.parse(text);
+    JSONAddGeo(formattedJSON);
     return formattedJSON;
 
 }
 
-//function testServer() {
-//
-//    var usr = window.localStorage.getItem("loginname");
-//    var pwd = window.localStorage.getItem("password");
-//
-//    var baseURL = "http://thm-chat.appspot.com/oop/";
-//    var link = baseURL + "users?user=" + usr + "&password=" + pwd;
-//
-//    var request = new AjaxRequest(link, function (response) {
-//        alert('Response:\n' + response);
-//    });
-//    request.send();
-//}
+function loadAllJSON() {
+    var JSONArray = [];
+    for (var i = 0; i < window.localstorage.length; i++) {
+        var localData = window.localstorage.key(i);
+        //is valid JSON object with proper attributes?
+        if (localData.hasOwnProperty("timestamp")) {
+            JSONArray.push(JSON.parse(localData));
+        };
+    }
+    return JSONArray;
+}
 
 /**
  * 
@@ -93,7 +92,7 @@ function testUserArray() {
     //alert("RAW: " + window.localStorage.getItem("userlist"));
     var text = "";
     var userArray = getUserArray();
-    for (i = 0; i < userArray.length; i++) {
+    for (var i = 0; i < userArray.length; i++) {
         text += userArray[i] + "\n";
     }
     alert("Verarbeitet: " + text);
@@ -108,7 +107,7 @@ function ajxBroadcast(message) {
     var userArray = getUserArray();
     var msg = message;
 
-    for (i = 0; i < userArray.length; i++) {
+    for (var i = 0; i < userArray.length; i++) {
         reci = userArray[i];
         ajxSendToUser(reci, msg);
     }
@@ -131,10 +130,9 @@ function ajxSendToUser(recipient, message) {
         success: function (response) {
             alert('Success! Server meldet: ' + response);
         }
-    });
-    
-    req.fail(function(jqXHR, error){
-    alert('Fehler! ' + error);
+        error: function (error) {
+            alert('Fehler!\n\n' + error);
+        }
     });
 }
 
@@ -144,11 +142,28 @@ function testMessage() {
 }
 
 function getImageURL() {
+    var imgUrl = "";
     $.ajax({
         type: 'post',
         url: 'http://thm-chat.appspot.com/oop/uploadURL',
         success: function (response) {
             alert("ImageURL: " + response);
+            imgUrl = response;
         }
     });
+    return imgUrl;
+}
+
+function testReturnImageUrl() {
+    alert(getImageUrl());
+}
+
+function sendJSON(JSONObject, recipient) {
+    //extract the image to process it seperately, geodata can just be parsed normally!
+    var image = JSONObject.image;
+    var imgURL = getImageURL();
+    //ajxSendImage(imgURL, image);
+    delete JSONObject["image"];
+    ajxSendToUser(recipient, JSON.stringify(JSONObject));
+    JSONObject["image"] = image;
 }
