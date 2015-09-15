@@ -117,18 +117,17 @@ function ajxBroadcast(message) {
 function ajxSendToUser(recipient, message) {
     var usr = window.localStorage.getItem("loginname");
     var pwd = window.localStorage.getItem("password");
+    var baseURL = "http://thm-chat.appspot.com/oop/";
     var link = baseURL + "sendTxt?";
     link += "fromUser=" + usr;
     link += "&fromPassword=" + pwd;
     link += "&toUser=" + recipient;
     link += "&type=txt&txt=" + message;
 
+    alert('POST-Request an :' + link);
     $ajax({
-        type: 'get',
-        url: link,
-        success: function () {
-            alert('GET Request an folgende URL versendet: ' + link);
-        }
+        type: 'post',
+        url: link
     })
 }
 
@@ -139,7 +138,7 @@ function testMessage() {
 
 function getImageURL() {
     $.ajax({
-        type: 'get',
+        type: 'post',
         url: 'http://thm-chat.appspot.com/oop/uploadURL',
         success: function (response) {
             alert("ImageURL: " + response);
