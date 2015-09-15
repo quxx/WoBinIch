@@ -24,7 +24,7 @@ function JSONAddGeo(JSONObj) {
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
 
     function onSuccess(position) {
-        JSONObj["geodata"] = position;
+        JSONObj.geodata = position;
     }
     
     function onError(error) {

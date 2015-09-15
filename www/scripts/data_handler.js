@@ -1,3 +1,4 @@
+/*jslint nomen: true, plusplus: true, unparam: true, sloppy: true, vars: true*/
 /**
  * 
  * Erstellt aus Rohdaten ein Objekt nach JSON.
@@ -15,7 +16,7 @@
  *
  */
 
-function createJSON(timestamp, username, password, image, open) {
+function createJSON(timestamp, username, password, image, score, open) {
     'use strict';
     var text, formattedJSON;
     text = '{ "timestamp" : "' + timestamp + '"';
@@ -27,20 +28,19 @@ function createJSON(timestamp, username, password, image, open) {
     text += ', "open" : "' + open + '" }';
 
     formattedJSON = JSON.parse(text);
-    JSONAddGeo(formattedJSON);
     return formattedJSON;
 
 }
 
 /**
-*
-* Lädt sämtliche JSON-formatierte Objekte, welche ein timestamp-Attribut haben aus dem localstorage in ein Array.
-*
-* @method loadAllJSON
-*
-* @result {Object} JSONArray - Array aus JSON-validen Objekten
-*
-**/
+ *
+ * Lädt sämtliche JSON-formatierte Objekte, welche ein timestamp-Attribut haben aus dem localstorage in ein Array.
+ *
+ * @method loadAllJSON
+ *
+ * @result {Object} JSONArray - Array aus JSON-validen Objekten
+ *
+ **/
 
 function loadAllJSON() {
     var JSONArray = [];
@@ -49,7 +49,7 @@ function loadAllJSON() {
         //is valid JSON object with proper attributes?
         if (localData.hasOwnProperty("timestamp")) {
             JSONArray.push(JSON.parse(localData));
-        };
+        }
     }
     return JSONArray;
 }
@@ -108,15 +108,15 @@ function testUserArray() {
 }
 
 /**
-*
-* Sendet eine Textnachricht an einen Empfänger auf dem THM Chatserver. Nimmt voraus, das der Benutzer eingeloggt ist, also im localstorage Benutzername und Passwort hinterlegt wurden.
-*
-* @method ajxSendToUser
-*
-* @param recipient - Benutzername des Empfängers der Nachricht
-* @param message - Inhalt der Textnachricht
-*
-*/
+ *
+ * Sendet eine Textnachricht an einen Empfänger auf dem THM Chatserver. Nimmt voraus, das der Benutzer eingeloggt ist, also im localstorage Benutzername und Passwort hinterlegt wurden.
+ *
+ * @method ajxSendToUser
+ *
+ * @param recipient - Benutzername des Empfängers der Nachricht
+ * @param message - Inhalt der Textnachricht
+ *
+ */
 
 function ajxSendToUser(recipient, message) {
     var usr = window.localStorage.getItem("loginname");
@@ -134,7 +134,7 @@ function ajxSendToUser(recipient, message) {
         data: link,
         success: function (response) {
             alert('Success! Server meldet: ' + response);
-        }
+        },
         error: function (error) {
             alert('Fehler!\n\n' + error);
         }
@@ -147,14 +147,14 @@ function testMessage() {
 }
 
 /**
-*
-* Lädt die zum Upload von Bilddateien benötigte ImageURL vom Server
-*
-* @method getImageURL
-*
-* @result {String} imgURL - URL an welche der subsequente Uploadbefehl eines Bilds geschickt werden muss
-*
-*/
+ *
+ * Lädt die zum Upload von Bilddateien benötigte ImageURL vom Server
+ *
+ * @method getImageURL
+ *
+ * @result {String} imgURL - URL an welche der subsequente Uploadbefehl eines Bilds geschickt werden muss
+ *
+ */
 
 function getImageURL() {
     var imgUrl = "";
@@ -170,26 +170,27 @@ function getImageURL() {
 }
 
 function testReturnImageUrl() {
-    alert(getImageUrl());
+    var text = getImageURL();
+    alert(text);
 }
 
 /**
-*
-* Legt ein in einen String umgewandeltes Javascript Objekt in JSON-Notation auf dem Server ab. Hierbei wird der Empfänger nacheinander mit zwei Nachrichten angeschrieben, die erste Nachricht ist ein Bild, die zweite die dazugehörigen Daten als Text.
-*
-* @method sendJSON
-*
-* @param JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen
-* @param recipient - Der Empfänger der Nachricht
-*
-*/
+ *
+ * Legt ein in einen String umgewandeltes Javascript Objekt in JSON-Notation auf dem Server ab. Hierbei wird der Empfänger nacheinander mit zwei Nachrichten angeschrieben, die erste Nachricht ist ein Bild, die zweite die dazugehörigen Daten als Text.
+ *
+ * @method sendJSON
+ *
+ * @param JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen
+ * @param recipient - Der Empfänger der Nachricht
+ *
+ */
 
 function sendJSON(JSONObject, recipient) {
     //extract the image to process it seperately, geodata can just be parsed normally!
     var image = JSONObject.image;
     var imgURL = getImageURL();
     //ajxSendImage(imgURL, image);
-    delete JSONObject["image"];
+    delete JSONObject.image;
     ajxSendToUser(recipient, JSON.stringify(JSONObject));
-    JSONObject["image"] = image;
+    JSONObject.image = image;
 }
