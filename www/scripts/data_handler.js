@@ -128,7 +128,7 @@ function ajxSendToUser(recipient, message) {
     link += "&type=txt&txt=" + message;
 
     alert('POST-Request an: ' + baseURL + ' mit Datenpaket: ' + link);
-    var req = $ajax({
+    $.ajax({
         type: 'post',
         url: baseURL,
         data: link,
