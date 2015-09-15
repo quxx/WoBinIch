@@ -100,7 +100,6 @@ function testUserArray() {
 }
 
 function ajxBroadcast(message) {
-
     var usr = window.localStorage.getItem("loginname");
     var pwd = window.localStorage.getItem("password");
 
@@ -116,13 +115,21 @@ function ajxBroadcast(message) {
 }
 
 function ajxSendToUser(recipient, message) {
+    var usr = window.localStorage.getItem("loginname");
+    var pwd = window.localStorage.getItem("password");
     var link = baseURL + "sendTxt?";
     link += "fromUser=" + usr;
     link += "&fromPassword=" + pwd;
     link += "&toUser=" + recipient;
     link += "&type=txt&txt=" + message;
 
-    window.open(link);
+    $ajax({
+        type: 'get',
+        url: link,
+        success: function () {
+            alert('GET Request an folgende URL versendet: ' + link);
+        }
+    })
 }
 
 function testMessage() {
