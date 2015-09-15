@@ -121,22 +121,19 @@ function testUserArray() {
 function ajxSendToUser(recipient, message) {
     var usr = window.localStorage.getItem("loginname");
     var pwd = window.localStorage.getItem("password");
-    var baseURL = "http://thm-chat.appspot.com/oop/sendTxt";
-    var link = "?fromUser=" + usr;
+    var baseURL = "http://thm-chat.appspot.com/oop/sendTxt?";
+    var link = "fromUser=" + usr;
     link += "&fromPassword=" + pwd;
     link += "&toUser=" + recipient;
     link += "&type=txt&txt=" + message;
+    baseURL += baseURL + link;
 
-    alert('POST-Request an: ' + baseURL + ' mit Datenpaket: ' + link);
+    alert('POST-Request an: ' + baseURL);
     $.ajax({
         type: 'post',
         url: baseURL,
-        data: link,
         success: function (response) {
             alert('Success! Server meldet: ' + response);
-        },
-        error: function (error) {
-            alert('Fehler!\n\n' + error);
         }
     });
 }
