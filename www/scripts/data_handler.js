@@ -104,7 +104,7 @@ function ajxBroadcast(message) {
     var pwd = window.localStorage.getItem("password");
 
     var baseURL = "http://thm-chat.appspot.com/oop/";
-    var recipient = "";
+    var reci = "";
     var userArray = getUserArray();
     var msg = message;
 
@@ -129,7 +129,7 @@ function ajxSendToUser(recipient, message) {
         url: baseURL,
         data: link,
         success: function (response) {
-            alert('Success! Server meldet: ' + response;)
+            alert('Success! Server meldet: ' + response);
         }
     });
 }
