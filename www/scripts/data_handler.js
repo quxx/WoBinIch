@@ -32,6 +32,16 @@ function createJSON(timestamp, username, password, image, open) {
 
 }
 
+/**
+*
+* Lädt sämtliche JSON-formatierte Objekte, welche ein timestamp-Attribut haben aus dem localstorage in ein Array.
+*
+* @method loadAllJSON
+*
+* @result {Object} JSONArray - Array aus JSON-validen Objekten
+*
+**/
+
 function loadAllJSON() {
     var JSONArray = [];
     for (var i = 0; i < window.localstorage.length; i++) {
@@ -97,20 +107,16 @@ function testUserArray() {
     alert("Verarbeitet: " + text);
 }
 
-function ajxBroadcast(message) {
-    var usr = window.localStorage.getItem("loginname");
-    var pwd = window.localStorage.getItem("password");
-
-    var baseURL = "http://thm-chat.appspot.com/oop/";
-    var reci = "";
-    var userArray = getUserArray();
-    var msg = message;
-
-    for (var i = 0; i < userArray.length; i++) {
-        reci = userArray[i];
-        ajxSendToUser(reci, msg);
-    }
-}
+/**
+*
+* Sendet eine Textnachricht an einen Empfänger auf dem THM Chatserver. Nimmt voraus, das der Benutzer eingeloggt ist, also im localstorage Benutzername und Passwort hinterlegt wurden.
+*
+* @method ajxSendToUser
+*
+* @param recipient - Benutzername des Empfängers der Nachricht
+* @param message - Inhalt der Textnachricht
+*
+*/
 
 function ajxSendToUser(recipient, message) {
     var usr = window.localStorage.getItem("loginname");
@@ -136,8 +142,8 @@ function ajxSendToUser(recipient, message) {
 }
 
 function testMessage() {
-    alert('button pressed!');
     ajxSendToUser("D.kessler", "ping");
+    alert('button pressed!');
 }
 
 /**
