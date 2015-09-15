@@ -118,17 +118,16 @@ function ajxSendToUser(recipient, message) {
     var usr = window.localStorage.getItem("loginname");
     var pwd = window.localStorage.getItem("password");
     var baseURL = "http://thm-chat.appspot.com/oop/sendTxt?";
-    var link = "fromUser=" + usr;
+    var link = baseURL + "fromUser=" + usr;
     link += "&fromPassword=" + pwd;
     link += "&toUser=" + recipient;
     link += "&type=txt&txt=" + message;
 
-    alert('POST-Request an :' + link);
+    alert('GET-Request an :' + link);
     $ajax({
-        type: 'post',
-        url: baseURL,
-        data: link
-    })
+        type: 'get',
+        url: link
+    });
 }
 
 function testMessage() {
