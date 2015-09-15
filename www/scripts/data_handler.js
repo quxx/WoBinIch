@@ -7,8 +7,7 @@
  * @param {Double} timestamp - Timestamp des Eintrags auf den Chatserver, dient als eindeutige ID
  * @param {String} username - User-/Loginname für THM Chatserver
  * @param {String} password - Passwort für THM Chatserver
- * @param {String} imgURL - Endgültige URL für Bildnachricht auf THM Chatserver - Muss vorher generiert und vom Server abgeholt werden!
- * @param {String} geodata - Geolocation Data
+ * @param {String} image - Bilddatei, bzw. deren Ablageort auf dem Gerät
  * @param {String} score - Aktueller Punktestand des Spielers
  * @param {Boolean} open - Ist die Frage noch offen oder bereits beantwortet?
  *
@@ -141,6 +140,16 @@ function testMessage() {
     ajxSendToUser("D.kessler", "ping");
 }
 
+/**
+*
+* Lädt die zum Upload von Bilddateien benötigte ImageURL vom Server
+*
+* @method getImageURL
+*
+* @result {String} imgURL - URL an welche der subsequente Uploadbefehl eines Bilds geschickt werden muss
+*
+*/
+
 function getImageURL() {
     var imgUrl = "";
     $.ajax({
@@ -157,6 +166,17 @@ function getImageURL() {
 function testReturnImageUrl() {
     alert(getImageUrl());
 }
+
+/**
+*
+* Legt ein in einen String umgewandeltes Javascript Objekt in JSON-Notation auf dem Server ab. Hierbei wird der Empfänger nacheinander mit zwei Nachrichten angeschrieben, die erste Nachricht ist ein Bild, die zweite die dazugehörigen Daten als Text.
+*
+* @method sendJSON
+*
+* @param JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen
+* @param recipient - Der Empfänger der Nachricht
+*
+*/
 
 function sendJSON(JSONObject, recipient) {
     //extract the image to process it seperately, geodata can just be parsed normally!
