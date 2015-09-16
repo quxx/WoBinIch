@@ -47,9 +47,10 @@ function ajxSendToUser(recipient, message) {
     link += "&type=txt&txt=" + message;
     baseURL += baseURL + link;
 
-    alert('POST-Request an: ' + baseURL);
+    alert('GET-Request an: ' + baseURL);
+    //Laut Schultes muss folgender Aufruf funktionieren:
     $.ajax({
-        type: 'post',
+        type: 'get',
         url: baseURL,
         success: function (response) {
             alert('Success! Server meldet: ' + response);

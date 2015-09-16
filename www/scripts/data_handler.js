@@ -1,4 +1,3 @@
-/*jslint nomen: true, plusplus: true, unparam: true, sloppy: true, vars: true*/
 /**
  * 
  * Erstellt aus Rohdaten ein Objekt nach JSON.
@@ -29,31 +28,7 @@ function createJSON(timestamp, username, password, image, score, open) {
 
     formattedJSON = JSON.parse(text);
     return formattedJSON;
-
 }
-
-/**
- *
- * Lädt sämtliche JSON-formatierte Objekte, welche ein timestamp-Attribut haben aus dem localstorage in ein Array.
- *
- * @method loadAllJSON
- *
- * @result {Object} JSONArray - Array aus JSON-validen Objekten
- *
- **/
-
-function loadAllJSON() {
-    var JSONArray = [];
-    for (var i = 0; i < window.localstorage.length; i++) {
-        var localData = window.localstorage.key(i);
-        //is valid JSON object with proper attributes?
-        if (localData.hasOwnProperty("timestamp")) {
-            JSONArray.push(JSON.parse(localData));
-        }
-    }
-    return JSONArray;
-}
-
 
 /**
  * 
