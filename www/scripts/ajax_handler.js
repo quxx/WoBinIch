@@ -45,7 +45,7 @@ function ajxSendToUser(recipient, message) {
     link += "&fromPassword=" + pwd;
     link += "&toUser=" + recipient;
     link += "&type=txt&txt=" + message;
-    baseURL += baseURL + link;
+    baseURL += link;
 
     alert('GET-Request an: ' + baseURL);
     //Laut Schultes muss folgender Aufruf funktionieren:
