@@ -1,21 +1,18 @@
 function takePicture () {
     navigator.camera.getPicture(onSuccess, onFail, { 
-        quality: 100,
-        encodingType: Camera.EncodingType.JPEG,
+        quality: 30,
         sourceType : Camera.PictureSourceType.CAMERA,
         destinationType: Camera.DestinationType.FILE_URI,
         saveToPhotoAlbum: true,
+        encodingType: Camera.EncodingType.JPEG,
         correctOrientation: true});
 
     function onSuccess(imageURI) {
-        //image.src = "data:image/jpeg;base64," + imageData;
-        
-        var image = document.getElementById('picture');
-        image.src = imageURI;
-        document.getElementById("picture-buttons").innerHTML = "Upload Erfolgreich";
-    }
+        alert(imageURI);
+    }     
+    
     
     function onFail(message) {
-        alert('Failed because: ' + message);
+        console.log('Failed because: ' + message);
     }
 }
