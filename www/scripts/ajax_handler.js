@@ -47,24 +47,19 @@ function ajxSendToUser(recipient, message) {
     link += "&type=txt&txt=" + message;
     baseURL += link;
 
-    alert('GET-Request an: ' + baseURL);
-    //Laut Schultes muss folgender Aufruf funktionieren:
     $.ajax({
         type: 'get',
         url: baseURL,
-        success: function (response) {
-            alert('Success! Server meldet: ' + response);
-        }
     });
 }
 
-function testMessage() {
+function ajxBroadcast(message) {
     var i;
     var userArray = [];
     userArray = getUserArray();
-    for (i = 0; i < userArray.length; i++) {
+    for (i = 0; i <= userArray.length; i++) {
         var recipient = userArray[i];
-        ajxSendToUser(recipient, "ping");
+        ajxSendToUser(recipient, message);
     }
 }
 
