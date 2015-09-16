@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="components/loader.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
+    <script src="scripts/ajaxRequest.js"></script>
     <script>
         ons.bootstrap();
         
@@ -55,7 +56,20 @@
 				dialog.show();
 			});
 		} else {
-			window.location="home.html";
+        var req = new AjaxRequest(link, function(response){
+                //alert('Antwort:\n'+response);
+                var check = response.indexOf("thomas.claudi") > -1;
+                    if (!check) {
+                        ons.notification.alert({
+                            message: "Bitte korrekten Benutzername und/oder Passwort eingeben!"
+                        });
+                    } else {
+                        window.location="home.html";
+                    }
+                }
+            );
+            req.send();  
+		//	window.location="home.html";
 		}
 	}
 		
