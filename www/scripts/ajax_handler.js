@@ -59,9 +59,15 @@ function ajxSendToUser(recipient, message) {
 }
 
 function testMessage() {
-    ajxSendToUser("D.kessler", "ping");
-    alert('button pressed!');
+    var i;
+    var userArray = [];
+    userArray = getUserArray();
+    for (i = 0; i < userArray.length; i++) {
+        var recipient = userArray[i];
+        ajxSendToUser(recipient, "ping");
+    }
 }
+
 /**
  *
  * Legt ein in einen String umgewandeltes Javascript Objekt in JSON-Notation auf dem Server ab. Hierbei wird der Empfänger nacheinander mit zwei Nachrichten angeschrieben, die erste Nachricht ist ein Bild, die zweite die dazugehörigen Daten als Text.
