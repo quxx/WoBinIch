@@ -16,10 +16,11 @@
  */
 
 function createJSON(timestamp, username, password, image, score, open) {
-    'use strict';
+    'use strict'
     var text, formattedJSON, lat, lon;
-    lat = window.localStorage.getItem(lat);
-    lon = window.localStorage.getItem(lon);
+    geolocation();
+    lat = window.localStorage.getItem("lat");
+    lon = window.localStorage.getItem("lon");
     text = '{ "timestamp" : "' + timestamp + '"';
     text += ', "username" : "' + username + '"';
     text += ', "password" : "' + password + '"';
