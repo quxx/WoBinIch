@@ -45,7 +45,8 @@
 		var name = document.getElementById('loginname').value;
 		var pw = document.getElementById('password').value;
 		var link = "http://thm-chat.appspot.com/oop/users?user=" + name + "&password=" + pw;
-		
+		//stimmt hier die Reihenfolge? Der Benutzername und das Passwort werden in den localstorage   
+        //geschrieben bevor überhaupt geprüft wurde, ob sie OK sind, oder?
 		window.localStorage.setItem("loginname",name);
 		window.localStorage.setItem("password",pw);
 		window.localStorage.setItem("link",link);
