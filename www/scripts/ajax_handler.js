@@ -8,8 +8,8 @@
 
 function ajxGetUserList() {
 
-    var usr = window.localStorage.getItem("loginname");
-    var pwd = window.localStorage.getItem("password");
+    var usr = "D.kessler";
+    var pwd = "5410";
 
     var baseURL = "http://thm-chat.appspot.com/oop/";
     var link = baseURL + "users?user=" + usr + "&password=" + pwd;
