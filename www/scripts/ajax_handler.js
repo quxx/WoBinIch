@@ -103,3 +103,14 @@ function getImageURL() {
         }
     });
 }
+
+function testSendJSON(){
+    var timestamp = Date();
+    var username = "D.kessler";
+    var password = "password";
+    var image = "PLACEHOLDER";
+    var score = "40000";
+    var open = "true";
+    var Jason = createJSON(timestamp, username, password, image, score, open);
+    sendJSON(Jason, D.kessler);
+}
