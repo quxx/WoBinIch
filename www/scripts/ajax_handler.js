@@ -31,8 +31,8 @@ function ajxGetUserList() {
  *
  * @method ajxSendToUser
  *
- * @param recipient - Benutzername des Empfängers der Nachricht
- * @param message - Inhalt der Textnachricht
+ * @param {String} recipient - Benutzername des Empfängers der Nachricht
+ * @param {String} message - Inhalt der Textnachricht
  *
  */
 
@@ -52,11 +52,22 @@ function ajxSendToUser(recipient, message) {
     });
 }
 
+/**
+ *
+ * Sendet eine Textnachricht an alle Benutzer des THM-Chatservers.
+ *
+ * @method ajxBroadcast
+ *
+ * @param {String} message - Zu sendende Textnachricht
+ *
+ */
+
+
 function ajxBroadcast(message) {
     var i;
     var userArray = [];
     userArray = getUserArray();
-    for (i = 0; i <= userArray.length; i++) {
+    for (i in userArray) {
         var recipient = userArray[i];
         ajxSendToUser(recipient, message);
     }
@@ -68,8 +79,8 @@ function ajxBroadcast(message) {
  *
  * @method sendJSON
  *
- * @param JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen
- * @param recipient - Der Empfänger der Nachricht
+ * @param {Object} JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen
+ * @param {String} recipient - Der Empfänger der Nachricht
  *
  */
 
@@ -79,8 +90,10 @@ function sendJSON(JSONObject, recipient) {
     var imgURL = getImageURL();
     //ajxSendImage(imgURL, image);
     delete JSONObject.image;
+    alert("Format after deleting image: " +JSON.stringify(JSONObject));
     ajxSendToUser(recipient, JSON.stringify(JSONObject));
     JSONObject.image = image;
+    alert("Format after readding image: " + JSON.stringify(JSONObject));
 }
 
 /**
@@ -104,7 +117,8 @@ function getImageURL() {
     });
 }
 
-function testSendJSON(){
+function testSendJSON() {
+    alert("button pressed")
     var timestamp = Date();
     var username = "D.kessler";
     var password = "password";
@@ -112,5 +126,6 @@ function testSendJSON(){
     var score = "40000";
     var open = "true";
     var Jason = createJSON(timestamp, username, password, image, score, open);
+    alert("JSON built! Format :" + JSON.stringify(Jason));
     sendJSON(Jason, D.kessler);
 }
