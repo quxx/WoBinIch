@@ -48,7 +48,7 @@ function ajxSendToUser(recipient, message) {
 
     $.ajax({
         type: 'get',
-        url: baseURL,
+        url: baseURL
     });
 }
 
@@ -124,4 +124,38 @@ function testSendJSON() {
     var Jason = createJSON(timestamp, username, password, lat, lon, image, score, open);
     alert("JSON built! Format :" + JSON.stringify(Jason));
     ajxsendJSON(Jason, "D.kessler");
+}
+
+function ajxgetJSONs(username, password, timestamp) {
+    var getURL = "http://thm-chat.appspot.com/oop/messages?since=" + timestamp;
+    getURL += "&user=" + username;
+    getURL += "&password=" + password;
+    var jsonArray;
+    var openArray;
+    var closedArray;
+    var i;
+    $.ajax({
+        type: 'get',
+        url: getURL,
+        success: function (response) {
+            jsonArray = response.split("\n");
+            for (i in jsonArray) {
+                if (jsonArray[i].open === "true") {
+                    openArray.push(jsonArray[i]);
+                } else {
+                    closedArray.push(jsonArray[i]);
+                }
+            }
+            window.localStorage.setItem("openArray", JSON.stringify(openArray));
+            window.localStorage.setItem("closedArray", JSON.stringify(closedArray));
+        }
+    });
+}
+
+function testGetJSON() {
+    ajxgetJSONs("D.kessler","5410","1442495809177");
+    var openArray = window.localStorage.getItem("openArray");
+    var closedArray = window.localStorage.getItem("closedArray");
+    alert(openArray);
+    alert(closedArray);
 }
