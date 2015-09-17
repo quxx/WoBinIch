@@ -138,7 +138,9 @@ function ajxgetJSONs(username, password, timestamp) {
         type: 'get',
         url: getURL,
         success: function (response) {
-            jsonArray = response.split("\n");
+            alert("Server response: " + response);
+            window.localStorage.setItem("rohdaten", response);
+            /*jsonArray = response.split("\n");
             for (i in jsonArray) {
                 if (jsonArray[i].open === "true") {
                     openArray.push(jsonArray[i]);
@@ -147,15 +149,17 @@ function ajxgetJSONs(username, password, timestamp) {
                 }
             }
             window.localStorage.setItem("openArray", JSON.stringify(openArray));
-            window.localStorage.setItem("closedArray", JSON.stringify(closedArray));
+            window.localStorage.setItem("closedArray", JSON.stringify(closedArray));*/
         }
+
     });
+    alert(rohdaten);
 }
 
 function testGetJSON() {
-    ajxgetJSONs("D.kessler","5410","1442495809177");
-    var openArray = window.localStorage.getItem("openArray");
+    ajxgetJSONs("D.kessler", "5410", "1442495809177");
+/*    var openArray = window.localStorage.getItem("openArray");
     var closedArray = window.localStorage.getItem("closedArray");
     alert(openArray);
-    alert(closedArray);
+    alert(closedArray);*/
 }
