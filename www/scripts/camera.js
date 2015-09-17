@@ -4,25 +4,20 @@ function takePicture () {
         destinationType: navigator.camera.DestinationType.FILE_URI,
         sourceType: navigator.camera.PictureSourceType.CAMERA,
         //saveToPhotoAlbum: true,
-        //encodingType: navigator.camera.EncodingType.JPEG,
         correctOrientation: true
-        });
+    });
 
     function onSuccess(imageURI) {
         var req = new AjaxRequest("http://thm-chat.appspot.com/oop/uploadURL", function(response){
-            //console.log(response);
-            //var image = document.getElementById('picture');
-            //image.src = imageURI;
-            //var imageName = imageURI.substring(imageURI.length-17, imageURI.length);
-            //var imagePfad = imageURI.substring(7, imageURI.length);
+
             var options = new FileUploadOptions();
-            options.fileKey= "image";
-            options.fileName= imageURI.substr(imageURI.lastIndexOf('/')+1);
-            options.mimeType= "image/jpeg";
-            options.headers = {
-                Connection: "close"
-            };
-            options.chunkedMode = false;
+                options.fileKey= "image";
+                options.fileName= imageURI.substr(imageURI.lastIndexOf('/')+1);
+                options.mimeType= "image/jpeg";
+                options.headers = {
+                    Connection: "close"
+                };
+                options.chunkedMode = false;
 
             var params = new Object();
                 params.fromUser = "thomas.claudi";
@@ -35,12 +30,11 @@ function takePicture () {
             var ft = new FileTransfer();
             ft.upload(imageURI, response, win, fail, options);
             
+            //Function on Success
             function win(r) {
-                console.log("Code = " + r.responseCode);
-                console.log("Response = " + r.response);
-                console.log("Sent = " + r.bytesSent);
             }
-    
+            
+            //Function on Fail
             function fail(error) {
                 alert("An error has occurred: Code = " + error.code);
                 console.log("upload error source " + error.source);
