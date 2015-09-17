@@ -116,9 +116,12 @@ function testSendJSON() {
     var username = "D.kessler";
     var password = "password";
     var image = "PLACEHOLDER";
+    geolocation();
+    var lat = window.localStorage.getItem("lat");
+    var lon = window.localStorage.getItem("lon");
     var score = "40000";
     var open = "true";
-    var Jason = createJSON(timestamp, username, password, image, score, open);
+    var Jason = createJSON(timestamp, username, password, lat, lon, image, score, open);
     alert("JSON built! Format :" + JSON.stringify(Jason));
-    sendJSON(Jason, "D.kessler");
+    ajxsendJSON(Jason, "D.kessler");
 }
