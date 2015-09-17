@@ -12,16 +12,19 @@ function takePicture () {
             console.log(response);
             var image = document.getElementById('picture');
             image.src = imageURI;
+            var imageName = imageURI.substring(imageURI.length-17, imageURI.length);
             var xhr = new XMLHttpRequest();
-            imageString = imageURI.substr(7);
-            var data = "fromUser=thomas.claudi&fromPassword=8273&toUser=D.kessler&type=img&image=" + imageString;
+            var data = '------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="fromUser"\n\nthomas.claudi\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="fromPassword"\n\n8273\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="toUser"\n\nthomas.claudi\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="type"\n\nimg\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="image"; filename=' + imageName  + '\nContent-Type: image/jpeg\n\n\n------WebKitFormBoundarylUBuXB648GYZSJC4--'
             console.log(data);
                 
             xhr.open("POST", response, true);
-            xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xhr.setRequestHeader("Content-type",'multipart/mixed; boundary="----WebKitFormBoundarylUBuXB648GYZSJC4" '); 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     // do something with response
+                    console.log(xhr.responseText);
+                }
+                else {
                     console.log(xhr.responseText);
                 }
             };
