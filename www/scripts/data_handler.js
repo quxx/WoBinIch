@@ -17,14 +17,15 @@
 
 function createJSON(timestamp, username, password, image, score, open) {
     'use strict';
-    var text, formattedJSON;
-    geolocation(); 
+    var text, formattedJSON, lat, lon;
+    lat = window.localStorage.getItem(lat);
+    lon = window.localStorage.getItem(lon);
     text = '{ "timestamp" : "' + timestamp + '"';
     text += ', "username" : "' + username + '"';
     text += ', "password" : "' + password + '"';
     text += ', "image" : "' + image + '"';
-    text += ', "geolat" : "' + window.localStorage.getItem(lat) + '"';
-    text += ', "geolon" : "' + window.localStorage.getItem(lon) + '"';
+    text += ', "geolat" : "' + lat + '"';
+    text += ', "geolon" : "' + lon + '"';
     text += ', "score" : "' + score + '"';
     text += ', "open" : "' + open + '" }';
 
