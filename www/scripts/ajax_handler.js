@@ -79,7 +79,7 @@ function ajxBroadcast(message) {
  *
  * @method ajxsendJSON
  *
- * @param {Object} JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen, erwartet wird ein durch createJSON erstelltes Objet in JSON-formatierung.
+ * @param {Object} JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen. Erwartet wird ein durch createJSON erstelltes Objet in JSON-formatierung.
  * @param {String} recipient - Der Empfänger der Nachricht
  *
  */
@@ -95,11 +95,9 @@ function ajxsendJSON(JSONObject, recipient) {
 
 /**
  *
- * Lädt die zum Upload von Bilddateien benötigte ImageURL vom Server
+ * Lädt die zum Upload von Bilddateien benötigte ImageURL vom Server und speichert sie unter dem Key "imageURL" in den localstorage.
  *
- * @method getImageURL
- *
- * @result {String} imgURL - URL an welche der subsequente Uploadbefehl eines Bilds geschickt werden muss
+ * @method ajxsetImageURL
  *
  */
 

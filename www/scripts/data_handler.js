@@ -18,11 +18,13 @@
 function createJSON(timestamp, username, password, image, score, open) {
     'use strict';
     var text, formattedJSON;
+    geolocation(); 
     text = '{ "timestamp" : "' + timestamp + '"';
     text += ', "username" : "' + username + '"';
     text += ', "password" : "' + password + '"';
     text += ', "image" : "' + image + '"';
-    text += ', "geodata" : ""';
+    text += ', "geolat" : "' + window.localStorage.getItem(lat) + '"';
+    text += ', "geolon" : "' + window.localStorage.getItem(lon) + '"';
     text += ', "score" : "' + score + '"';
     text += ', "open" : "' + open + '" }';
 

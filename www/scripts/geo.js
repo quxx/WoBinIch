@@ -18,17 +18,3 @@ function geolocation() {
     }
 
 }
-
-function JSONAddGeo(JSONObj) {
-
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
-    function onSuccess(position) {
-        JSONObj.geodata = position;
-    }
-    
-    function onError(error) {
-    var err = error;
-        alert('Fehler beim ermitteln der Koordinaten!');
-    }
-}
