@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
     <script src="scripts/ajaxRequest.js"></script>
-    <script src="scripts/data_handler.js"></script>
-    <script src="scripts/ajax_handler.js"></script>d
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!--<script src="scripts/data_handler.js"></script>
+    <script src="scripts/ajax_handler.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
     <script>
         ons.bootstrap();
         
-       document.addEventListener ("deviceready", onDeviceReady, false);
+       //document.addEventListener ("deviceready", onDeviceReady, false);
     </script>
     <script>
 //Überprüfen ob Gerät mit dem Internet verbunden ist    
@@ -54,10 +54,6 @@
 		window.localStorage.setItem("link",link);
 		var user = window.localStorage.getItem("loginname");
 		var pass = window.localStorage.getItem("password");
-        ajxGetUserList();
-        var usrArray = getUserArray();
-        var i;
-        var isUser;
 		if (user == "" || pass == "") {
 			ons.createDialog('dialog.html').then(function(dialog) {
 				dialog.show();
