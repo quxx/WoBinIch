@@ -79,7 +79,7 @@ function ajxBroadcast(message) {
  *
  * @method sendJSON
  *
- * @param {Object} JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen
+ * @param {Object} JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen, erwartet wird ein durch createJSON erstelltes Objet in JSON-formatierung.
  * @param {String} recipient - Der Empfänger der Nachricht
  *
  */
@@ -89,10 +89,8 @@ function sendJSON(JSONObject, recipient) {
     //extract the image to process it seperately, geodata can just be parsed normally!
     var image = Jason.image;
     delete Jason.image;
-    alert("Format after deleting image: " +JSON.stringify(JSONObject));
     ajxSendToUser(recipient, JSON.stringify(JSONObject));
     JSONObject.image = image;
-    alert("Format after readding image: " + JSON.stringify(JSONObject));
 }
 
 /**
@@ -106,18 +104,20 @@ function sendJSON(JSONObject, recipient) {
  */
 
 function getImageURL() {
+    var imgURL;
     $.ajax({
         type: 'post',
         url: 'http://thm-chat.appspot.com/oop/uploadURL',
         success: function (response) {
             alert("ImageURL: " + response);
-            imgUrl = response;
+            imgURL = response;
         }
     });
+    alert("Outer ImageURL: " + imgURL);
+    return imgURL;
 }
 
 function testSendJSON() {
-    alert("button pressed")
     var timestamp = Date();
     var username = "D.kessler";
     var password = "password";
@@ -127,4 +127,9 @@ function testSendJSON() {
     var Jason = createJSON(timestamp, username, password, image, score, open);
     alert("JSON built! Format :" + JSON.stringify(Jason));
     sendJSON(Jason, "D.kessler");
+}
+
+function testImgURL() {
+    var imageURL = getImageURL();
+    alert("return: " + imageURL);
 }
