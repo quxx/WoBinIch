@@ -77,14 +77,14 @@ function ajxBroadcast(message) {
  *
  * Legt ein in einen String umgewandeltes Javascript Objekt in JSON-Notation auf dem Server ab. Hierbei wird der Empfänger nacheinander mit zwei Nachrichten angeschrieben, die erste Nachricht ist ein Bild, die zweite die dazugehörigen Daten als Text.
  *
- * @method sendJSON
+ * @method ajxsendJSON
  *
  * @param {Object} JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen, erwartet wird ein durch createJSON erstelltes Objet in JSON-formatierung.
  * @param {String} recipient - Der Empfänger der Nachricht
  *
  */
 
-function sendJSON(JSONObject, recipient) {
+function ajxsendJSON(JSONObject, recipient) {
     var Jason = JSONObject;
     //extract the image to process it seperately, geodata can just be parsed normally!
     var image = Jason.image;
@@ -103,18 +103,14 @@ function sendJSON(JSONObject, recipient) {
  *
  */
 
-function getImageURL() {
-    var imgURL;
+function ajxsetImageURL() {
     $.ajax({
         type: 'post',
         url: 'http://thm-chat.appspot.com/oop/uploadURL',
         success: function (response) {
-            alert("ImageURL: " + response);
-            imgURL = response;
+            window.localStorage.setItem("imageURL", response);
         }
     });
-    alert("Outer ImageURL: " + imgURL);
-    return imgURL;
 }
 
 function testSendJSON() {
@@ -127,9 +123,4 @@ function testSendJSON() {
     var Jason = createJSON(timestamp, username, password, image, score, open);
     alert("JSON built! Format :" + JSON.stringify(Jason));
     sendJSON(Jason, "D.kessler");
-}
-
-function testImgURL() {
-    var imageURL = getImageURL();
-    alert("return: " + imageURL);
 }
