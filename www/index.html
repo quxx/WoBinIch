@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
     <script src="scripts/ajaxRequest.js"></script>
+    <!--<script src="scripts/data_handler.js"></script>
+    <script src="scripts/ajax_handler.js"></script>d
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
     <script>
         ons.bootstrap();
         
@@ -45,22 +48,19 @@
 		var name = document.getElementById('loginname').value;
 		var pw = document.getElementById('password').value;
 		var link = "http://thm-chat.appspot.com/oop/users?user=" + name + "&password=" + pw;
-		//stimmt hier die Reihenfolge? Der Benutzername und das Passwort werden in den localstorage   
-        //geschrieben bevor überhaupt geprüft wurde, ob sie OK sind, oder?
+		
 		window.localStorage.setItem("loginname",name);
 		window.localStorage.setItem("password",pw);
 		window.localStorage.setItem("link",link);
 		var user = window.localStorage.getItem("loginname");
 		var pass = window.localStorage.getItem("password");
-		if (user == "" || pass == "") {
-			ons.createDialog('dialog.html').then(function(dialog) {
-				dialog.show();
-			});
-		} else {
         var req = new AjaxRequest(link, function(response){
                 //alert('Antwort:\n'+response);
                 var check = response.indexOf("thomas.claudi") > -1;
                     if (!check) {
+                        window.localStorage.setItem("loginname","");
+                    	window.localStorage.setItem("password","");
+                		window.localStorage.setItem("link","");
                         ons.notification.alert({
                             message: "Bitte korrekten Benutzername und/oder Passwort eingeben!"
                         });
@@ -70,8 +70,10 @@
                 }
             );
             req.send();  
+
+            
 		//	window.location="home.html";
-		}
+		
 	}
 		
 
