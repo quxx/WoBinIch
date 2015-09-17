@@ -85,11 +85,11 @@ function ajxBroadcast(message) {
  */
 
 function sendJSON(JSONObject, recipient) {
+    var Jason = JSONObject;
     //extract the image to process it seperately, geodata can just be parsed normally!
-    var image = JSONObject.image;
+    var image = Jason.image;
     var imgURL = getImageURL();
-    //ajxSendImage(imgURL, image);
-    delete JSONObject.image;
+    delete Jason.image;
     alert("Format after deleting image: " +JSON.stringify(JSONObject));
     ajxSendToUser(recipient, JSON.stringify(JSONObject));
     JSONObject.image = image;
@@ -127,5 +127,5 @@ function testSendJSON() {
     var open = "true";
     var Jason = createJSON(timestamp, username, password, image, score, open);
     alert("JSON built! Format :" + JSON.stringify(Jason));
-    sendJSON(Jason, D.kessler);
+    sendJSON(Jason, "D.kessler");
 }
