@@ -88,7 +88,6 @@ function sendJSON(JSONObject, recipient) {
     var Jason = JSONObject;
     //extract the image to process it seperately, geodata can just be parsed normally!
     var image = Jason.image;
-    var imgURL = getImageURL();
     delete Jason.image;
     alert("Format after deleting image: " +JSON.stringify(JSONObject));
     ajxSendToUser(recipient, JSON.stringify(JSONObject));
