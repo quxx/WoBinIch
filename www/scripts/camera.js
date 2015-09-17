@@ -14,11 +14,11 @@ function takePicture () {
             image.src = imageURI;
             var imageName = imageURI.substring(imageURI.length-17, imageURI.length);
             var xhr = new XMLHttpRequest();
-            var data = '------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="fromUser"\n\nthomas.claudi\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="fromPassword"\n\n8273\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="toUser"\n\nthomas.claudi\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="type"\n\nimg\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="image"; filename=' + imageName  + '\nContent-Type: image/jpeg\n\n\n------WebKitFormBoundarylUBuXB648GYZSJC4--'
+            var data = '------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="fromUser"\n\nthomas.claudi\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="fromPassword"\n\n8273\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="toUser"\n\nthomas.claudi\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="type"\n\nimg\n------WebKitFormBoundarylUBuXB648GYZSJC4\nContent-Disposition: form-data; name="image"; filename=' + imageURI  + '\nContent-Type: image/jpeg\n\n\n------WebKitFormBoundarylUBuXB648GYZSJC4--'
             console.log(data);
                 
             xhr.open("POST", response, true);
-            xhr.setRequestHeader("Content-type",'multipart/mixed; boundary="----WebKitFormBoundarylUBuXB648GYZSJC4" '); 
+            xhr.setRequestHeader("Content-type", 'multipart/form-data; boundary="----WebKitFormBoundarylUBuXB648GYZSJC4"'); 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     // do something with response
