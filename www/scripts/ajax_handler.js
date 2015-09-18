@@ -40,10 +40,10 @@ function ajxSendToUser(recipient, message) {
     var usr = window.localStorage.getItem("loginname");
     var pwd = window.localStorage.getItem("password");
     var baseURL = "http://thm-chat.appspot.com/oop/sendTxt?";
-    var link = "fromUser=" + usr;
-    link += "&fromPassword=" + pwd;
-    link += "&toUser=" + recipient;
-    link += "&type=txt&txt=" + message;
+    var getURL = "fromUser=" + usr;
+    getURL += "&fromPassword=" + pwd;
+    getURL += "&toUser=" + recipient;
+    getURL += "&type=txt&txt=" + message;
     baseURL += link;
 
     $.ajax({
@@ -126,7 +126,7 @@ function testSendJSON() {
     ajxsendJSON(Jason, "D.kessler");
 }
 
-function ajxgetJSONs(username, password, timestamp) {
+function ajxGetRawJSONs(username, password, timestamp) {
     var getURL = "http://thm-chat.appspot.com/oop/messages?since=" + timestamp;
     getURL += "&user=" + username;
     getURL += "&password=" + password;
@@ -140,26 +140,15 @@ function ajxgetJSONs(username, password, timestamp) {
         success: function (response) {
             alert("Server response: " + response);
             window.localStorage.setItem("rohdaten", response);
-            /*jsonArray = response.split("\n");
-            for (i in jsonArray) {
-                if (jsonArray[i].open === "true") {
-                    openArray.push(jsonArray[i]);
-                } else {
-                    closedArray.push(jsonArray[i]);
-                }
-            }
-            window.localStorage.setItem("openArray", JSON.stringify(openArray));
-            window.localStorage.setItem("closedArray", JSON.stringify(closedArray));*/
+            
         }
-
-    });
-    alert(rohdaten);
+    });    
 }
 
 function testGetJSON() {
-    ajxgetJSONs("D.kessler", "5410", "1442495809177");
-/*    var openArray = window.localStorage.getItem("openArray");
-    var closedArray = window.localStorage.getItem("closedArray");
-    alert(openArray);
-    alert(closedArray);*/
+    ajxGetRawJSONs("D.kessler", "5410", "1442495809177");
+    /*    var openArray = window.localStorage.getItem("openArray");
+        var closedArray = window.localStorage.getItem("closedArray");
+        alert(openArray);
+        alert(closedArray);*/
 }
