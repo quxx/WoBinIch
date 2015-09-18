@@ -83,9 +83,28 @@ function getUserArray() {
 
 function parseRawData(data) {
     var dataArray = data.split("\n");
-    var string = "";
-    string = dataArray[0];
-    alert(string);
-    string = string.slice(string.indexOf("{"), string.length) + "}";
-    alert(string);
+    var string, i, imgURL, QArray, RArray, Jason, image = "PLACEHOLDER";
+    for (i in dataArray) {
+        string = dataArray[i];
+        if (string.search("|img|") > 0) {
+            imgURL = string.slice(string.lastIndexOf("|") + 1, string.length);
+            //save image locally and save to variable image
+
+            //access next line to get corresponding stringified object and parse it
+            string = dataArray[i + 1];
+            string = string.slice(string.indexOf("{"), string.length);
+            Jason = JSON.parse(string);
+
+            //add image attribute
+            Jason.image = image;
+            //check type of Object and save in corresponding array
+            if (Jason.type === "question") {
+                QArray.push(Jason);
+            } else if (Jason.type === "reply") {
+                RArray.push(Jason);
+            }
+        }
+    }
+    window.localstorage.setItem("questions", JSON.stringify(QArray));
+    window.localstorage.setItem("answers", JSON.stringify(RArray));
 }

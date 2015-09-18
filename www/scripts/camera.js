@@ -20,6 +20,7 @@ function takePicture () {
                 options.chunkedMode = false;
 
             var params = new Object();
+            //sehe ich richtig? hier müsste man dann ultimativ username und password aus localstorage lesen?
                 params.fromUser = "thomas.claudi";
                 params.fromPassword = "8273";
                 params.toUser = "thomas.claudi";

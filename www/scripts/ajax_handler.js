@@ -121,7 +121,7 @@ function testSendJSON() {
     var lon = window.localStorage.getItem("lon");
     var score = "40000";
     var open = "true";
-    var Jason = createJSON(timestamp, username, password, lat, lon, image, score, open);
+    var Jason = createQuestionJSON(timestamp, username, password, lat, lon, image, score, open);
     alert("JSON built! Format :" + JSON.stringify(Jason));
     ajxsendJSON(Jason, "D.kessler");
 }
