@@ -62,7 +62,6 @@ function filetransfer(download_link, fp) {
     fileTransfer.download(download_link, fp,
         function (entry) {
             console.log("download complete: " + entry.fullPath); // Gibt kompletten Pfad des Bildes aus
-            return entry.fullPath;
         },
         function (error) {
             console.log("download error source " + error.source);
