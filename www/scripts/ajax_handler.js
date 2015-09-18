@@ -135,8 +135,7 @@ function ajxGetRawData(username, password, timestamp) {
         url: getURL,
         success: function (response) {
             alert("Server response: " + response);
-            window.localStorage.setItem("rohdaten", response);
-            parseRawData();
+            parseRawData(response);
         }
     });    
 }
