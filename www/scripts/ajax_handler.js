@@ -126,27 +126,23 @@ function testSendJSON() {
     ajxsendJSON(Jason, "D.kessler");
 }
 
-function ajxGetRawJSONs(username, password, timestamp) {
+function ajxGetRawData(username, password, timestamp) {
     var getURL = "http://thm-chat.appspot.com/oop/messages?since=" + timestamp;
     getURL += "&user=" + username;
     getURL += "&password=" + password;
-    var jsonArray;
-    var openArray;
-    var closedArray;
-    var i;
     $.ajax({
         type: 'get',
         url: getURL,
         success: function (response) {
             alert("Server response: " + response);
             window.localStorage.setItem("rohdaten", response);
-            
+            parseRawData();
         }
     });    
 }
 
 function testGetJSON() {
-    ajxGetRawJSONs("D.kessler", "5410", "1442495809177");
+    ajxGetRawData("D.kessler", "5410", "1442495809177");
     /*    var openArray = window.localStorage.getItem("openArray");
         var closedArray = window.localStorage.getItem("closedArray");
         alert(openArray);

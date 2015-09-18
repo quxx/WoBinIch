@@ -80,3 +80,13 @@ function getUserArray() {
     userArray = userlist.split("\n");
     return userArray;
 }
+
+function parseRawData(data) {
+    var dataArray = data.split("}");
+    var i;
+    var string;
+    alert(dataArray[0]);
+    string = dataArray[0];
+    string = string.splice(string.indexOf("{"), string.length);
+    alert(string);
+}
