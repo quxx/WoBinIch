@@ -137,7 +137,7 @@ function ajxGetRawData(username, password, timestamp) {
             alert("Server response: " + response);
             parseRawData(response);
         }
-    });    
+    });
 }
 
 function testGetJSON() {

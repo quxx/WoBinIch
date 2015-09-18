@@ -84,9 +84,9 @@ function getUserArray() {
 function parseRawData(data) {
     var dataArray = data.split("}");
     var i;
-    var string;
-    alert(dataArray[0]);
+    var string = "";
     string = dataArray[0];
-    string = string.splice(string.indexOf("{"), string.length);
+    alert(string);
+    string = string.slice(string.indexOf("{"), string.length) + "}";
     alert(string);
 }
