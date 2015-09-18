@@ -47,12 +47,12 @@ function download(URL, Folder_Name, File_Name) {
 
     function onDirectoryFail(error) {
         //Error bei Ordner erstellung
-        alert("Unable to create new directory: " + error.code);
+        console.log("Unable to create new directory: " + error.code);
     }
     
     function fileSystemFail(evt) {
         //Kann nicht aufs Dateisystem zugreifen
-        alert(evt.target.error.code);
+        console.log(evt.target.error.code);
     }
 }
 
