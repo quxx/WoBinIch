@@ -112,7 +112,7 @@ function ajxsetImageURL() {
 }
 
 function testSendJSON() {
-    var timestamp = Date();
+    var timestamp = Date.now();
     var username = "D.kessler";
     var password = "password";
     var image = "PLACEHOLDER";

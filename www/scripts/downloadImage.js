@@ -1,27 +1,26 @@
 /**
  * 
- * Läd ein Bild von einer Url und speichert dieses in einem neuerstellten/vorhandenen Ordner auf dem Smartphone.
+ * LÃ¤d ein Bild von einer Url und speichert dieses in einem neuerstellten/vorhandenen Ordner auf dem Smartphone.
  *
  * @method downloadFile
  *
  * @param {String} URL - Die URL des zu donwloadenen Bildes
  * @param {String} Folder_Name - Der Ordnername in dem das Bild gespeichert werden soll
- * @param {String} File_Name - Dateiname für das heruntergeladene Bild
+ * @param {String} File_Name - Dateiname fÃ¼r das heruntergeladene Bild
  *
  *
  */
 function downloadFile(URL, Folder_Name, File_Name) {
-//Parameter überprüfen
+//Parameter Ã¼berprÃ¼fen
 if (URL == null && Folder_Name == null && File_Name == null) {
     return;
-}
-else {
-    //Überprüfen ob Internet vorhanden ist
+} else {
+    //ÃœberprÃ¼fen ob Internet vorhanden ist
     var networkState = navigator.connection.type;
     if (networkState == Connection.NONE) {
         return;
     } else {
-        //Ist dies erfüllt wird nächste Funktion angestoßen
+        //Ist dies erfÃ¼llt wird nÃ¤chste Funktion angestoÃŸen
         download(URL, Folder_Name, File_Name); 
     }
   }
@@ -37,7 +36,7 @@ function download(URL, Folder_Name, File_Name) {
         var rootdir = fileSystem.root;
         var fp = rootdir.toURL(); // Gesamter Ordnerpfad
     
-        fp = fp + "/" + Folder_Name + "/" + File_Name + "." + "jpg"; // Ordnerpfad und Dateiname für das speichern
+        fp = fp + "/" + Folder_Name + "/" + File_Name + "." + "jpg"; // Ordnerpfad und Dateiname fÃ¼r das speichern
         filetransfer(download_link, fp);
     }
 
