@@ -83,7 +83,6 @@ function getUserArray() {
 
 function parseRawData(data) {
     var dataArray = data.split("\n");
-    var i;
     var string = "";
     string = dataArray[0];
     alert(string);
