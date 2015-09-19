@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="de.thm.wobinich" version="1.0.0">
+    <gap:config-file platform="android" parent="/manifest">
+     <application android:debuggable="true" />
+</gap:config-file>
   <name>Wo bin ich?</name>
   <description>Medienprojektmanagment SS2015</description>
   <author href="" email="">Dominic Kessler, Marco D'Ambrosio, Thomas Claudi</author>
