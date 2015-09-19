@@ -84,6 +84,7 @@ function getUserArray() {
     return userArray;
 }
 
+//currently not working correctly!
 function parseRawData(data) {
     alert("parseRawData called! Data: " + data);
     var dataArray, string, i, imgURL, QArray, RArray, Jason, timest, image = "PLACEHOLDER";
