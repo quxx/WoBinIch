@@ -20,7 +20,7 @@
 function createQuestionJSON(timestamp, username, password, lat, lon, image, score, open) {
     var text, formattedJSON;
     text = '{ "timestamp" : "' + timestamp + '"';
-    text += ' "type" : "question"';
+    text += ', "type" : "question"';
     text += ', "username" : "' + username + '"';
     text += ', "password" : "' + password + '"';
     text += ', "image" : "' + image + '"';
