@@ -112,16 +112,17 @@ function ajxsetImageURL() {
 }
 
 function testSendJSON() {
-    var timestamp = Date.now();
-    var username = "D.kessler";
-    var password = "password";
-    var image = "PLACEHOLDER";
+    var timestamp, username, password, image, lat, lon, score, open, Jason;
+    timestamp = Date.now();
+    username = "D.kessler";
+    password = "password";
+    image = "PLACEHOLDER";
     geolocation();
-    var lat = window.localStorage.getItem("lat");
-    var lon = window.localStorage.getItem("lon");
-    var score = "40000";
-    var open = "true";
-    var Jason = createQuestionJSON(timestamp, username, password, lat, lon, image, score, open);
+    lat = window.localStorage.getItem("lat");
+    lon = window.localStorage.getItem("lon");
+    score = "40000";
+    open = "true";
+    Jason = createQuestionJSON(timestamp, username, password, lat, lon, image, score, open);
     alert("JSON built! Format :" + JSON.stringify(Jason));
     ajxsendJSON(Jason, "D.kessler");
 }
