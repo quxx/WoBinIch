@@ -1,4 +1,4 @@
-/*global $, downloadFile*/
+/*global $, downloadFile, alert*/
 
 /**
  * 
@@ -85,6 +85,7 @@ function getUserArray() {
 }
 
 function parseRawData(data) {
+    alert("parseRawData called! Data: " + data);
     var dataArray, string, i, imgURL, QArray, RArray, Jason, timest, image = "PLACEHOLDER";
     dataArray = data.split("\n");
     for (i in dataArray) {
