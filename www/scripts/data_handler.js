@@ -1,3 +1,5 @@
+/*global $, downloadFile*/
+
 /**
  * 
  * Erstellt aus Rohdaten ein Objekt nach JSON und modelliert eine Bildfrage.
@@ -54,8 +56,8 @@ function createQuestionJSON(timestamp, username, password, lat, lon, image, scor
 function createAnswerJSON(timestamp, reference, username, password, lat, lon, score) {
     var text, formattedJSON;
     text = '{ "timestamp" : "' + timestamp + '"';
-    text += ' "type" : "reply"';
-    text += ' "references : "' + reference + '"';
+    text += ', "type" : "reply"';
+    text += ', "references : "' + reference + '"';
     text += ', "username" : "' + username + '"';
     text += ', "password" : "' + password + '"';
     text += ', "geolat" : "' + lat + '"';
@@ -76,14 +78,15 @@ function createAnswerJSON(timestamp, reference, username, password, lat, lon, sc
  */
 
 function getUserArray() {
-    var userlist = window.localStorage.getItem("userlist");
+    var userlist, userArray;
+    userlist = window.localStorage.getItem("userlist");
     userArray = userlist.split("\n");
     return userArray;
 }
 
 function parseRawData(data) {
-    var dataArray = data.split("\n");
-    var string, i, imgURL, QArray, RArray, Jason, timest, image = "PLACEHOLDER";
+    var dataArray, string, i, imgURL, QArray, RArray, Jason, timest, image = "PLACEHOLDER";
+    dataArray = data.split("\n");
     for (i in dataArray) {
         string = dataArray[i];
         if (string.search("|img|") > 0) {
@@ -98,7 +101,7 @@ function parseRawData(data) {
             //add image attribute
             Jason.image = image;
             QArray.push(Jason);
-            i++;
+            i += 1;
         } else {
             string = dataArray[i];
             string = string.slice(string.indexOf("{"), string.length);

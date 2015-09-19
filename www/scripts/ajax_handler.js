@@ -1,3 +1,5 @@
+/*global $, geolocation, alert, parseRawData, getUserArray, createQuestionJSON*/
+
 /**
  * 
  * Holt eine Liste von registrierten Benutzern vom Server ab und legt sie in den localstorage. Setzt voraus, das der "loginname" und das "password" beim start der App gesetzt und in den localstorage abgelegt wurden.
@@ -7,12 +9,12 @@
  */
 
 function ajxGetUserList() {
+    var usr, pwd, baseURL, link;
+    usr = "D.kessler";
+    pwd = "5410";
 
-    var usr = "D.kessler";
-    var pwd = "5410";
-
-    var baseURL = "http://thm-chat.appspot.com/oop/";
-    var link = baseURL + "users?user=" + usr + "&password=" + pwd;
+    baseURL = "http://thm-chat.appspot.com/oop/";
+    link = baseURL + "users?user=" + usr + "&password=" + pwd;
 
     $.ajax({
         type: 'get',
@@ -37,18 +39,18 @@ function ajxGetUserList() {
  */
 
 function ajxSendToUser(recipient, message) {
-    var usr = window.localStorage.getItem("loginname");
-    var pwd = window.localStorage.getItem("password");
-    var baseURL = "http://thm-chat.appspot.com/oop/sendTxt?";
-    var getURL = "fromUser=" + usr;
+    var usr, pwd, baseURL, getURL;
+    usr = window.localStorage.getItem("loginname");
+    pwd = window.localStorage.getItem("password");
+    baseURL = "http://thm-chat.appspot.com/oop/sendTxt?";
+    getURL = baseURL + "fromUser=" + usr;
     getURL += "&fromPassword=" + pwd;
     getURL += "&toUser=" + recipient;
     getURL += "&type=txt&txt=" + message;
-    baseURL += link;
 
     $.ajax({
         type: 'get',
-        url: baseURL
+        url: getURL
     });
 }
 
@@ -64,11 +66,10 @@ function ajxSendToUser(recipient, message) {
 
 
 function ajxBroadcast(message) {
-    var i;
-    var userArray = [];
+    var i, userArray = [], recipient;
     userArray = getUserArray();
     for (i in userArray) {
-        var recipient = userArray[i];
+        recipient = userArray[i];
         ajxSendToUser(recipient, message);
     }
 }
@@ -85,9 +86,9 @@ function ajxBroadcast(message) {
  */
 
 function ajxsendJSON(JSONObject, recipient) {
-    var Jason = JSONObject;
+    var Jason = JSONObject, image;
     //extract the image to process it seperately, geodata can just be parsed normally!
-    var image = Jason.image;
+    image = Jason.image;
     delete Jason.image;
     ajxSendToUser(recipient, JSON.stringify(JSONObject));
     JSONObject.image = image;
