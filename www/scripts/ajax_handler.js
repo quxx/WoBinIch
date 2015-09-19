@@ -1,5 +1,3 @@
-/*global $, geolocation, alert, parseRawData, getUserArray, createQuestionJSON*/
-
 /**
  * 
  * Holt eine Liste von registrierten Benutzern vom Server ab und legt sie in den localstorage. Setzt voraus, das der "loginname" und das "password" beim start der App gesetzt und in den localstorage abgelegt wurden.
@@ -9,12 +7,12 @@
  */
 
 function ajxGetUserList() {
-    var usr, pwd, baseURL, link;
-    usr = "D.kessler";
-    pwd = "5410";
 
-    baseURL = "http://thm-chat.appspot.com/oop/";
-    link = baseURL + "users?user=" + usr + "&password=" + pwd;
+    var usr = "D.kessler";
+    var pwd = "5410";
+
+    var baseURL = "http://thm-chat.appspot.com/oop/";
+    var link = baseURL + "users?user=" + usr + "&password=" + pwd;
 
     $.ajax({
         type: 'get',
@@ -39,18 +37,18 @@ function ajxGetUserList() {
  */
 
 function ajxSendToUser(recipient, message) {
-    var usr, pwd, baseURL, getURL;
-    usr = window.localStorage.getItem("loginname");
-    pwd = window.localStorage.getItem("password");
-    baseURL = "http://thm-chat.appspot.com/oop/sendTxt?";
-    getURL = baseURL + "fromUser=" + usr;
+    var usr = window.localStorage.getItem("loginname");
+    var pwd = window.localStorage.getItem("password");
+    var baseURL = "http://thm-chat.appspot.com/oop/sendTxt?";
+    var getURL = "fromUser=" + usr;
     getURL += "&fromPassword=" + pwd;
     getURL += "&toUser=" + recipient;
     getURL += "&type=txt&txt=" + message;
+    baseURL += link;
 
     $.ajax({
         type: 'get',
-        url: getURL
+        url: baseURL
     });
 }
 
@@ -66,10 +64,11 @@ function ajxSendToUser(recipient, message) {
 
 
 function ajxBroadcast(message) {
-    var i, userArray = [], recipient;
+    var i;
+    var userArray = [];
     userArray = getUserArray();
     for (i in userArray) {
-        recipient = userArray[i];
+        var recipient = userArray[i];
         ajxSendToUser(recipient, message);
     }
 }
@@ -86,9 +85,9 @@ function ajxBroadcast(message) {
  */
 
 function ajxsendJSON(JSONObject, recipient) {
-    var Jason = JSONObject, image;
+    var Jason = JSONObject;
     //extract the image to process it seperately, geodata can just be parsed normally!
-    image = Jason.image;
+    var image = Jason.image;
     delete Jason.image;
     ajxSendToUser(recipient, JSON.stringify(JSONObject));
     JSONObject.image = image;
@@ -113,17 +112,16 @@ function ajxsetImageURL() {
 }
 
 function testSendJSON() {
-    var timestamp, username, password, image, lat, lon, score, open, Jason;
-    timestamp = Date.now();
-    username = "D.kessler";
-    password = "password";
-    image = "PLACEHOLDER";
+    var timestamp = Date.now();
+    var username = "D.kessler";
+    var password = "password";
+    var image = "PLACEHOLDER";
     geolocation();
-    lat = window.localStorage.getItem("lat");
-    lon = window.localStorage.getItem("lon");
-    score = "40000";
-    open = "true";
-    Jason = createQuestionJSON(timestamp, username, password, lat, lon, image, score, open);
+    var lat = window.localStorage.getItem("lat");
+    var lon = window.localStorage.getItem("lon");
+    var score = "40000";
+    var open = "true";
+    var Jason = createQuestionJSON(timestamp, username, password, lat, lon, image, score, open);
     alert("JSON built! Format :" + JSON.stringify(Jason));
     ajxsendJSON(Jason, "D.kessler");
 }
