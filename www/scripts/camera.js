@@ -23,9 +23,7 @@ function takePicture() {
         userArray = getUserArray();
         for (i in userArray) {
             recipient = userArray[i];
-            //ajxSendJSON strips the imageURI from the JSON, to avoid cluttering the server with unneeded data
-            ajxSendJSON(Jason, recipient);
-            uploadImage(imageURI, recipient);
+            uploadImage(imageURI, recipient Jason);
         }
 
 

@@ -1,6 +1,6 @@
 // This is a JavaScript file
 
-function uploadImage(imageURI, consignee) {    
+function uploadImage(imageURI, consignee, JSONObj) {    
     var req = new AjaxRequest("http://thm-chat.appspot.com/oop/uploadURL", function(response){
 
             var options = new FileUploadOptions();
@@ -25,6 +25,7 @@ function uploadImage(imageURI, consignee) {
             
             //Function on Success
             function win(r) {
+				ajxSendJSON(JSONObj, consignee);
             }
             
             //Function on Fail
