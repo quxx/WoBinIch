@@ -87,28 +87,43 @@ function getUserArray() {
 //currently not working correctly! Still needs to distinguish between open and closed questions!
 function parseRawData(data) {
     alert("parseRawData called! Data: " + data);
-    var dataArray, string, nextString, i, imgURL, QArray, RArray, Jason, timest, image = "PLACEHOLDER";
+    var dataArray, string, nextString, i, imgURL, QArray, RArray, Jason, timest, imageURI;
     dataArray = data.split("\n");
     for (i in dataArray) {
-        //ignore outgoing stuff? Does that make sense? Not sure yet...
+        string = dataArray[i];
+        nextString = dataArray[i + 1];
+        //ignore outgoing stuff? Does that make sense? Not sure yet, just gonna try it out for now...
         if (string.search("|out|") > 0) {
             i += 1;
         } else {
-            string = dataArray[i];
-            nextString = dataArray[i + 1];
-            //handle images
-            if (nextString.search("|img|") > 0) {
-                imgURL = nextString.slice(string.lastIndexOf("|") + 1, string.length);
+            //slice JSON-string and save into variable string
+            string = string.slice(string.indexOf("{"), string.length);
 
-                //access next line to get corresponding stringified object and parse it
-                string = dataArray[i + 1];
-                string = string.slice(string.indexOf("{"), string.length);
-                Jason = JSON.parse(string);
-                timest = JSON.timestamp;
-                downloadFile(imgURL, "WoBinIch", timest);
-                //add image attribute
-                Jason.image = image;
-                QArray.push(Jason);
+            //parse string into JS object
+            Jason = JSON.parse(string);
+
+            //check type of JSON
+            if (Jason.type == "question" && Jason.open == "true") {
+                if (nextString.search("|img|") > 0) {
+                    //slice the imgURL from the rest of the data and save as variable imgURL
+                    imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
+
+                    //generate timestamp as filename for image that needs to be downloaded
+                    timest = JSON.timestamp;
+                    downloadFile(imgURL, "WoBinIch", timest);
+                    //add image attribute - Thomas, HELP!
+
+                    Jason.image = imageURI;
+                    QArray.push(Jason);
+
+
+                    i += 2;
+
+
+                } else {
+                    alert("expected image but found this: " + nextString);
+                }
+
             } else {
                 string = dataArray[i];
                 string = string.slice(string.indexOf("{"), string.length);
@@ -121,7 +136,7 @@ function parseRawData(data) {
 }
 
 function setEarliestTimestamp() {
-    var time
+    var time;
     time = Date.now() + -2 * 24 * 3600 * 1000;
     window.localStorage.setItem("earliestTimestamp", time);
 }
