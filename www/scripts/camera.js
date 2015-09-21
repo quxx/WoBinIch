@@ -23,7 +23,7 @@ function takePicture() {
         userArray = getUserArray();
         for (i in userArray) {
             recipient = userArray[i];
-            uploadImage(imageURI, recipient Jason);
+            uploadImage(imageURI, recipient, Jason);
         }
 
 
