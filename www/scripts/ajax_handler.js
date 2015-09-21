@@ -26,7 +26,7 @@ function ajxGetUserList() {
 
 }
 
-
+ 
 /**
  *
  * Sendet eine Textnachricht an einen Empfänger auf dem THM Chatserver. Nimmt voraus, das der Benutzer eingeloggt ist, also im localstorage Benutzername und Passwort hinterlegt wurden.
@@ -65,12 +65,13 @@ function ajxSendToUser(recipient, message) {
  */
 
 
-function ajxBroadcast(message) {
+function ajxBroadcastJSON(message) {
     var i, userArray = [], recipient;
+    ajxGetUserList();
     userArray = getUserArray();
     for (i in userArray) {
         recipient = userArray[i];
-        ajxSendToUser(recipient, message);
+        ajxSendToUser(recipient, JSON.stringify(message));
     }
 }
 
@@ -125,7 +126,7 @@ function testSendJSON() {
     open = "true";
     Jason = createQuestionJSON(timestamp, username, password, lat, lon, image, score, open);
     alert("JSON built! Format :" + JSON.stringify(Jason));
-    ajxsendJSON(Jason, "D.kessler");
+    ajxBroadcastJSON(Jason);
 }
 
 function ajxGetRawData(username, password, timestamp) {
