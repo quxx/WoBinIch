@@ -26,7 +26,7 @@ function ajxGetUserList() {
 
 }
 
- 
+
 /**
  *
  * Sendet eine Textnachricht an einen Empfänger auf dem THM Chatserver. Nimmt voraus, das der Benutzer eingeloggt ist, also im localstorage Benutzername und Passwort hinterlegt wurden.
@@ -66,7 +66,8 @@ function ajxSendToUser(recipient, message) {
 
 
 function ajxBroadcastJSON(message) {
-    var i, userArray = [], recipient;
+    var i, userArray = [],
+        recipient;
     ajxGetUserList();
     userArray = getUserArray();
     for (i in userArray) {
@@ -86,8 +87,9 @@ function ajxBroadcastJSON(message) {
  *
  */
 
-function ajxsendJSON(JSONObject, recipient) {
-    var Jason = JSONObject, image;
+function ajxSendJSON(JSONObject, recipient) {
+    var Jason = JSONObject,
+        image;
     //extract the image to process it seperately, geodata can just be parsed normally!
     image = Jason.image;
     delete Jason.image;
@@ -103,7 +105,7 @@ function ajxsendJSON(JSONObject, recipient) {
  *
  */
 
-function ajxsetImageURL() {
+function ajxSetImageURL() {
     $.ajax({
         type: 'post',
         url: 'http://thm-chat.appspot.com/oop/uploadURL',
@@ -141,12 +143,4 @@ function ajxGetRawData(username, password, timestamp) {
             parseRawData(response);
         }
     });
-}
-
-function testGetJSON() {
-    ajxGetRawData("D.kessler", "5410", "1442495809177");
-    /*    var openArray = window.localStorage.getItem("openArray");
-        var closedArray = window.localStorage.getItem("closedArray");
-        alert(openArray);
-        alert(closedArray);*/
 }

@@ -19,13 +19,13 @@
  *
  */
 
-function createQuestionJSON(timestamp, username, password, lat, lon, image, score, open) {
+function createQuestionJSON(timestamp, username, password, lat, lon, imageURI, score, open) {
     var text, formattedJSON;
     text = '{ "timestamp" : "' + timestamp + '"';
     text += ', "type" : "question"';
     text += ', "username" : "' + username + '"';
     text += ', "password" : "' + password + '"';
-    text += ', "image" : "' + image + '"';
+    text += ', "imageURI" : "' + imageURI + '"';
     text += ', "geolat" : "' + lat + '"';
     text += ', "geolon" : "' + lon + '"';
     text += ', "score" : "' + score + '"';
@@ -87,12 +87,13 @@ function getUserArray() {
 //currently not working correctly!
 function parseRawData(data) {
     alert("parseRawData called! Data: " + data);
-    var dataArray, string, i, imgURL, QArray, RArray, Jason, timest, image = "PLACEHOLDER";
+    var dataArray, string, nextString, i, imgURL, QArray, RArray, Jason, timest, image = "PLACEHOLDER";
     dataArray = data.split("\n");
     for (i in dataArray) {
         string = dataArray[i];
-        if (string.search("|img|") > 0) {
-            imgURL = string.slice(string.lastIndexOf("|") + 1, string.length);
+        nextString = dataArray[i + 1];
+        if (nextString.search("|img|") > 0) {
+            imgURL = nextString.slice(string.lastIndexOf("|") + 1, string.length);
 
             //access next line to get corresponding stringified object and parse it
             string = dataArray[i + 1];
@@ -103,7 +104,6 @@ function parseRawData(data) {
             //add image attribute
             Jason.image = image;
             QArray.push(Jason);
-            i += 1;
         } else {
             string = dataArray[i];
             string = string.slice(string.indexOf("{"), string.length);
@@ -112,4 +112,15 @@ function parseRawData(data) {
     }
     window.localstorage.setItem("questions", JSON.stringify(QArray));
     window.localstorage.setItem("answers", JSON.stringify(RArray));
+}
+
+function setUploadArray(JSONObj) {
+    var uploadArray = [];
+
+    if (window.localStorage.getItem("uploadArray") !== null) {
+        uploadArray = JSON.parse(window.localStorage.getItem("uploadArray"));
+    }
+ 
+    uploadArray.push(JSONObj);
+    window.localStorage.setItem("uploadArray", JSON.stringify(uploadArray));
 }

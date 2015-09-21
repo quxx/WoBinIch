@@ -1,5 +1,7 @@
-﻿function takePicture () {
-    navigator.camera.getPicture(onSuccess, onFail, { 
+/*global geolocation, ajxSendToUser, ajxSendJSON, getUserArray, setUploadArray, uploadImage, createQuestionJSON*/
+
+function takePicture() {
+    navigator.camera.getPicture(onSuccess, onFail, {
         quality: 20,
         destinationType: navigator.camera.DestinationType.FILE_URI,
         sourceType: navigator.camera.PictureSourceType.CAMERA,
@@ -8,21 +10,33 @@
     });
 
     function onSuccess(imageURI) {
-        uploadImage(imageURI, "thomas.claudi");
+        var time, user, pass, lat, lon, score, open, Jason, uploadArray, userArray, i, j, recipient;
+        time = Date.now();
+        user = window.localStorage.getItem("username");
+        pass = window.localStorage.getItem("password");
         geolocation();
-        window.localStorage.getItem("lat");
-        window.localStorage.getItem("lon");
-        var message = lat + "|" + lon;
-        ajxSendToUser("thomas.claudi", message);
- 
-    };     
-}     
-    
-    
-function onFail(message) {
-    console.log('Failed because: ' + message);
+        lat = window.localStorage.getItem("lat");
+        lon = window.localStorage.getItem("lon");
+        score = "PLACEHOLDER";
+        open = "true";
+        Jason = createQuestionJSON(time, user, pass, lat, lon, imageURI, score, open);
+        setUploadArray(Jason);
+        uploadArray = window.localStorage.getItem("uploadArray");
+        userArray = getUserArray();
+        for (i in uploadArray) {
+            for (j in userArray) {
+                recipient = userArray[j];
+                //ajxSendJSON strips the imageURI from the JSON, to avoid cluttering the server with unneeded data
+                ajxSendJSON(Jason, recipient);
+                uploadImage(imageURI, recipient);
+            }
+
+        }
+
+    }
+
+
+    function onFail(message) {
+        console.log('Failed because: ' + message);
+    }
 }
-
-
-
-
