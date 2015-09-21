@@ -1,4 +1,4 @@
-/*global $, geolocation, alert, parseRawData, getUserArray, createQuestionJSON*/
+/*global $, geolocation, alert, parseRawData, getUserArray,setEarliestTimestamp, createQuestionJSON*/
 
 /**
  * 
@@ -91,8 +91,10 @@ function ajxSendJSON(JSONObject, recipient) {
     var Jason = JSONObject,
         image;
     //extract the image to process it seperately, geodata can just be parsed normally!
-    image = Jason.imageURI;
-    delete Jason.imageURI;
+    if (Jason.imageURI != null) {
+        image = Jason.imageURI;
+        delete Jason.imageURI;
+    }
     ajxSendToUser(recipient, JSON.stringify(JSONObject));
     JSONObject.imageURI = image;
 }
@@ -120,16 +122,24 @@ function testSendJSON() {
     timestamp = Date.now();
     username = "D.kessler";
     password = "password";
-    image = "PLACEHOLDER";
     geolocation();
     lat = window.localStorage.getItem("lat");
     lon = window.localStorage.getItem("lon");
     score = "40000";
     open = "true";
-    Jason = createQuestionJSON(timestamp, username, password, lat, lon, image, score, open);
+    Jason = createQuestionJSON(timestamp, username, password, lat, lon, score, open);
     alert("JSON built! Format :" + JSON.stringify(Jason));
     ajxBroadcastJSON(Jason);
 }
+
+/*
+* 
+* Nimmt Rohdaten vom Server und gibt sie an die Methode parseRawData weiter.
+*
+* @param {String} username - User-/Loginname für den THM Chatserver
+* @param {String} password - Passwort für den THM Chatserver
+*
+*/
 
 function ajxGetRawData(username, password) {
     var getURL, timestamp;

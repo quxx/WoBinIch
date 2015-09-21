@@ -19,13 +19,12 @@
  *
  */
 
-function createQuestionJSON(timestamp, username, password, lat, lon, imageURI, score, open) {
+function createQuestionJSON(timestamp, username, password, lat, lon, score, open) {
     var text, formattedJSON;
     text = '{ "timestamp" : "' + timestamp + '"';
     text += ', "type" : "question"';
     text += ', "username" : "' + username + '"';
     text += ', "password" : "' + password + '"';
-    text += ', "imageURI" : "' + imageURI + '"';
     text += ', "geolat" : "' + lat + '"';
     text += ', "geolon" : "' + lon + '"';
     text += ', "score" : "' + score + '"';
