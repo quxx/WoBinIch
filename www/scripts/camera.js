@@ -25,6 +25,7 @@ function takePicture() {
         userArray = getUserArray();
         for (i in userArray) {
             recipient = userArray[i];
+            ajxSendJSON(Jason, recipient);
             uploadImage(imageURI, recipient, Jason);
         }
 
