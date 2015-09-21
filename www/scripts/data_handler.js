@@ -113,3 +113,14 @@ function parseRawData(data) {
     window.localstorage.setItem("questions", JSON.stringify(QArray));
     window.localstorage.setItem("answers", JSON.stringify(RArray));
 }
+
+function setUploadArray(JSONObj) {
+    var uploadArray = [];
+
+    if (window.localStorage.getItem("uploadArray") !== null) {
+        uploadArray = JSON.parse(window.localStorage.getItem("uploadArray"));
+    }
+ 
+    uploadArray.push(JSONObj);
+    window.localStorage.setItem("uploadArray", JSON.stringify(uploadArray));
+}
