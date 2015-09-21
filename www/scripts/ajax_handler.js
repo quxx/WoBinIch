@@ -91,10 +91,10 @@ function ajxSendJSON(JSONObject, recipient) {
     var Jason = JSONObject,
         image;
     //extract the image to process it seperately, geodata can just be parsed normally!
-    image = Jason.image;
-    delete Jason.image;
+    image = Jason.imageURI;
+    delete Jason.imageURI;
     ajxSendToUser(recipient, JSON.stringify(JSONObject));
-    JSONObject.image = image;
+    JSONObject.imageURI = image;
 }
 
 /**
@@ -131,8 +131,11 @@ function testSendJSON() {
     ajxBroadcastJSON(Jason);
 }
 
-function ajxGetRawData(username, password, timestamp) {
-    var getURL = "http://thm-chat.appspot.com/oop/messages?since=" + timestamp;
+function ajxGetRawData(username, password) {
+    var getURL, timestamp;
+    setEarliestTimestamp();
+    timestamp = window.localStorage.getItem("earliestTimestamp");
+    getURL = "http://thm-chat.appspot.com/oop/messages?since=" + timestamp;
     getURL += "&user=" + username;
     getURL += "&password=" + password;
     $.ajax({

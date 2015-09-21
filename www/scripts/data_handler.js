@@ -84,43 +84,44 @@ function getUserArray() {
     return userArray;
 }
 
-//currently not working correctly!
+//currently not working correctly! Still needs to distinguish between open and closed questions!
 function parseRawData(data) {
     alert("parseRawData called! Data: " + data);
     var dataArray, string, nextString, i, imgURL, QArray, RArray, Jason, timest, image = "PLACEHOLDER";
     dataArray = data.split("\n");
     for (i in dataArray) {
-        string = dataArray[i];
-        nextString = dataArray[i + 1];
-        if (nextString.search("|img|") > 0) {
-            imgURL = nextString.slice(string.lastIndexOf("|") + 1, string.length);
-
-            //access next line to get corresponding stringified object and parse it
-            string = dataArray[i + 1];
-            string = string.slice(string.indexOf("{"), string.length);
-            Jason = JSON.parse(string);
-            timest = JSON.timestamp;
-            downloadFile(imgURL, "WoBinIch", timest);
-            //add image attribute
-            Jason.image = image;
-            QArray.push(Jason);
+        //ignore outgoing stuff? Does that make sense? Not sure yet...
+        if (string.search("|out|") > 0) {
+            i += 1;
         } else {
             string = dataArray[i];
-            string = string.slice(string.indexOf("{"), string.length);
-            Jason = JSON.parse(string);
+            nextString = dataArray[i + 1];
+            //handle images
+            if (nextString.search("|img|") > 0) {
+                imgURL = nextString.slice(string.lastIndexOf("|") + 1, string.length);
+
+                //access next line to get corresponding stringified object and parse it
+                string = dataArray[i + 1];
+                string = string.slice(string.indexOf("{"), string.length);
+                Jason = JSON.parse(string);
+                timest = JSON.timestamp;
+                downloadFile(imgURL, "WoBinIch", timest);
+                //add image attribute
+                Jason.image = image;
+                QArray.push(Jason);
+            } else {
+                string = dataArray[i];
+                string = string.slice(string.indexOf("{"), string.length);
+                Jason = JSON.parse(string);
+            }
         }
     }
     window.localstorage.setItem("questions", JSON.stringify(QArray));
     window.localstorage.setItem("answers", JSON.stringify(RArray));
 }
 
-function setUploadArray(JSONObj) {
-    var uploadArray = [];
-
-    if (window.localStorage.getItem("uploadArray") !== null) {
-        uploadArray = JSON.parse(window.localStorage.getItem("uploadArray"));
-    }
- 
-    uploadArray.push(JSONObj);
-    window.localStorage.setItem("uploadArray", JSON.stringify(uploadArray));
+function setEarliestTimestamp() {
+    var time
+    time = Date.now() + -2 * 24 * 3600 * 1000;
+    window.localStorage.setItem("earliestTimestamp", time);
 }
