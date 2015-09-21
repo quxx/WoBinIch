@@ -24,11 +24,14 @@ function takePicture() {
         uploadArray = window.localStorage.getItem("uploadArray");
         userArray = getUserArray();
 <<<<<<< HEAD
+<<<<<<< HEAD
         for (i in userArray) {
             recipient = userArray[i];
             uploadImage(imageURI, recipient, Jason);
         }
 =======
+=======
+>>>>>>> parent of 9400738... no esta uploadArray
         for (i in uploadArray) {
             for (j in userArray) {
                 recipient = userArray[j];
@@ -36,6 +39,9 @@ function takePicture() {
                 ajxSendJSON(Jason, recipient);
                 uploadImage(imageURI, recipient);
             }
+<<<<<<< HEAD
+>>>>>>> parent of 9400738... no esta uploadArray
+=======
 >>>>>>> parent of 9400738... no esta uploadArray
 
         }
