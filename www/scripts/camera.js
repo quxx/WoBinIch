@@ -10,7 +10,7 @@ function takePicture() {
     });
 
     function onSuccess(imageURI) {
-        var time, user, pass, lat, lon, score, open, Jason, uploadArray, userArray, i, j, recipient;
+        var time, user, pass, lat, lon, score, open, Jason, uploadArray, userArray, i, recipient;
         time = Date.now();
         user = window.localStorage.getItem("username");
         pass = window.localStorage.getItem("password");
@@ -20,18 +20,14 @@ function takePicture() {
         score = "PLACEHOLDER";
         open = "true";
         Jason = createQuestionJSON(time, user, pass, lat, lon, imageURI, score, open);
-        setUploadArray(Jason);
-        uploadArray = window.localStorage.getItem("uploadArray");
         userArray = getUserArray();
-        for (i in uploadArray) {
-            for (j in userArray) {
-                recipient = userArray[j];
-                //ajxSendJSON strips the imageURI from the JSON, to avoid cluttering the server with unneeded data
-                ajxSendJSON(Jason, recipient);
-                uploadImage(imageURI, recipient);
-            }
-
+        for (i in userArray) {
+            recipient = userArray[i];
+            //ajxSendJSON strips the imageURI from the JSON, to avoid cluttering the server with unneeded data
+            ajxSendJSON(Jason, recipient);
+            uploadImage(imageURI, recipient);
         }
+
 
     }
 
