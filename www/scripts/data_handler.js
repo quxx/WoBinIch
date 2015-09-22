@@ -1,4 +1,4 @@
-/*global $, downloadFile, alert*/
+/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -152,12 +152,17 @@ function getAnswers(questionJSON) {
 }
 
 function scoreQuestion(questionJSON) {
-    var answers = [], users = [];
+    var answers = [],
+        users = [],
+        i,
+        dist;
     answers = getAnswers(questionJSON);
     users = getUserArray();
     if (answers.length == users.length) {
-        //calculate score!
-        
+        for (i in anwers) {
+            dist = distance(answers.lat, answers.lon, questionJSON.lat, questionJSON.lon);
+            //calculate score based on distance!
+        }
     } else {
         console.log("nicht alle Spieler haben bisher geantwortet!");
     }
