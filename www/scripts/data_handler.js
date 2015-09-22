@@ -150,3 +150,15 @@ function getAnswers(questionJSON) {
     }
     return returnArray;
 }
+
+function scoreQuestion(questionJSON) {
+    var answers = [], users = [];
+    answers = getAnswers(questionJSON);
+    users = getUserArray();
+    if (answers.length == users.length) {
+        //calculate score!
+        
+    } else {
+        console.log("nicht alle Spieler haben bisher geantwortet!");
+    }
+}
