@@ -139,3 +139,14 @@ function setEarliestTimestamp() {
     time = Date.now() + -2 * 24 * 3600 * 1000;
     window.localStorage.setItem("earliestTimestamp", time);
 }
+
+function getAnswers(questionJSON) {
+    var i, answerArray, returnArray = [];
+    answerArray = window.localStorage.getItem("answers");
+    for (i in answerArray) {
+        if (answerArray[i].references == questionJSON.timestamp) {
+            returnArray.push(answerArray[i]);
+        }
+    }
+    return returnArray;
+}
