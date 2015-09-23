@@ -92,7 +92,7 @@ function parseRawData(data) {
     //alert("raw data sliced! Found "+ dataArray.length + " lines!");
     for (i in dataArray) {
         string = dataArray[i];
-        console.log(i);
+        console.log("TEST: " + string + " ******** I= " + i);
         nextString = dataArray[i + 1];
         //ignore outgoing stuff? Does that make sense? Not sure yet, just gonna try it out for now...
         var pattern = /[|]out[|]/i;
@@ -101,7 +101,8 @@ function parseRawData(data) {
             console.log("|OUT|");
         } else {
             //slice JSON-string and save into variable string
-           var str = string.match(/[{].+[}]/i);
+            var regEx = /[{].+[}]/i;
+            var str = string.match(regEx);
             console.log(str);
             //parse string into JS object
             Jason = JSON.parse(str);
