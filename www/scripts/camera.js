@@ -20,8 +20,6 @@ function takePicture() {
         score = "PLACEHOLDER";
         open = "true";
         Jason = createQuestionJSON(time, user, pass, lat, lon, imageURI, score, open);
-        setUploadArray(Jason);
-        uploadArray = window.localStorage.getItem("uploadArray");
         userArray = getUserArray();
         for (i in userArray) {
             recipient = userArray[i];
