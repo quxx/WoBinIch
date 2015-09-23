@@ -18,6 +18,7 @@
     <script src="scripts/ajaxRequest.js"></script>
     <script src="scripts/ajax_handler.js"></script>
 	<script src="scripts/imageHandler.js"></script>
+	<script src="scripts/showQuestions.js"></script>
 
 
     <script>
@@ -25,8 +26,9 @@
 
         ons.ready(function () {
             geolocation();
-            var link = window.localStorage.getItem("link");
-            document.getElementById("demo").innerHTML = link;
+            //var link = window.localStorage.getItem("link");
+            //document.getElementById("demo").innerHTML = link;
+			showQuestions();
         });
     </script>
 
