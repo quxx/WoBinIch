@@ -1,4 +1,4 @@
-/*global $, downloadFile, console, alert*/
+﻿/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -85,26 +85,32 @@ function getUserArray() {
 
 //currently not working correctly! Still needs to distinguish between open and closed questions!
 function parseRawData(data) {
-    alert("parseRawData called! Data: " + data);
+    //alert("parseRawData called! Data: " + data);
     var dataArray, string, nextString, i, imgURL, QArray, RArray, Jason, timest, imageURI;
     dataArray = data.split("\n");
-    alert("raw data sliced! Found "+ dataArray.length + " lines!");
+    //alert(dataArray[1]);
+    //alert("raw data sliced! Found "+ dataArray.length + " lines!");
     for (i in dataArray) {
         string = dataArray[i];
+        console.log(i);
         nextString = dataArray[i + 1];
         //ignore outgoing stuff? Does that make sense? Not sure yet, just gonna try it out for now...
-        if (string.search("|out|") > 0) {
-            i += 1;
+        var pattern = /[|]out[|]/i;
+        if (string.search(pattern) > -1) {
+            i = i + 1;
+            console.log("|OUT|");
         } else {
             //slice JSON-string and save into variable string
-            string = string.slice(string.indexOf("{"), string.length);
-
+           var str = string.match(/[{].+[}]/i);
+            console.log(str);
             //parse string into JS object
-            Jason = JSON.parse(string);
+            Jason = JSON.parse(str);
+            
 
             //check type of JSON
             if (Jason.type == "question" && Jason.open == "true") {
                 if (nextString.search("|img|") > 0) {
+                    console.log("slice the imgURL");
                     //slice the imgURL from the rest of the data and save as variable imgURL
                     imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
 
