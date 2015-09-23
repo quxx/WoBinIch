@@ -155,14 +155,26 @@ function scoreQuestion(questionJSON) {
     var answers = [],
         users = [],
         i,
-        dist;
+        dist,
+        score;
     answers = getAnswers(questionJSON);
     users = getUserArray();
     if (answers.length == users.length) {
         for (i in anwers) {
             dist = distance(answers.lat, answers.lon, questionJSON.lat, questionJSON.lon);
-            //calculate score based on distance!
+
         }
+        score = -0.0000003984868 * Math.pow(dist, 5);
+        score += 0.0001186065769 * Math.pow(dist, 4);
+        score -= 0.0118659541345 * Math.pow(dist, 3);
+        score += 0.40644 * Math.pow(dist, 2);
+        score -= 0.4924343 * dist - 25;
+
+        if (score > 100) {
+            score = 100;
+
+        }
+        questionJSON.score = score;
     } else {
         console.log("nicht alle Spieler haben bisher geantwortet!");
     }
