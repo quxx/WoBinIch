@@ -10,7 +10,7 @@ function takePicture() {
     });
 
     function onSuccess(imageURI) {
-        var time, user, pass, lat, lon, score, open, Jason, uploadArray, userArray, i, j, recipient;
+        var time, user, pass, lat, lon, score, open, Jason, userArray, i, j, recipient;
         time = Date.now();
         user = window.localStorage.getItem("loginname");
         pass = window.localStorage.getItem("password");
