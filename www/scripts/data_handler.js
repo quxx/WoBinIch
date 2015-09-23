@@ -88,6 +88,7 @@ function parseRawData(data) {
     alert("parseRawData called! Data: " + data);
     var dataArray, string, nextString, i, imgURL, QArray, RArray, Jason, timest, imageURI;
     dataArray = data.split("\n");
+    alert("raw data sliced! Found "+ dataArray.length + " lines!");
     for (i in dataArray) {
         string = dataArray[i];
         nextString = dataArray[i + 1];
