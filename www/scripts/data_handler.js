@@ -1,4 +1,4 @@
-﻿/*global $, downloadFile, console, alert*/
+/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -83,26 +83,28 @@ function getUserArray() {
     return userArray;
 }
 
-//currently not working correctly! Still needs to distinguish between open and closed questions!
+//currently not working correctly!
 function parseRawData(data) {
     //alert("parseRawData called! Data: " + data);
-    var dataArray, string, nextString, i, imgURL, QArray, RArray, Jason, timest, imageURI;
-    dataArray = data.split("\n");
+    var dataArray, string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI,
+    dataArray = data.split("\n"),
+    outFlag = new RegExp('/[|]out[|]/i'),
+    JSONFlag = new RegExp('/[{].+[}]/i');
     //alert(dataArray[1]);
     //alert("raw data sliced! Found "+ dataArray.length + " lines!");
     for (i in dataArray) {
         string = dataArray[i];
         console.log("TEST: " + string + " ******** I= " + i);
         nextString = dataArray[i + 1];
-        //ignore outgoing stuff? Does that make sense? Not sure yet, just gonna try it out for now...
-        var pattern = /[|]out[|]/i;
-        if (string.search(pattern) > -1) {
+        //detect and ignore outgoing messages
+        
+        if (outFlag.test(string) != -1) {
             i = i + 1;
             console.log("|OUT|");
         } else {
             //slice JSON-string and save into variable string
-            var regEx = /[{].+[}]/i;
-            var str = string.match(regEx);
+
+            str = JSONFlag.exec(string);
             console.log(str);
             //parse string into JS object
             Jason = JSON.parse(str);
