@@ -1,4 +1,4 @@
-﻿/*global $, downloadFile, console, alert*/
+/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -85,19 +85,20 @@ function getUserArray() {
 
 //currently not working correctly!
 function parseRawData(data) {
-    //alert("parseRawData called! Data: " + data);
+    alert("parseRawData called! Data: " + data);
     var string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI, dataArray, outFlag, JSONFlag;
     outFlag = /[|]out[|]/i;
     JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
-    //alert(dataArray[1]);
-    //alert("raw data sliced! Found "+ dataArray.length + " lines!");
+    alert(dataArray[1]);
+    alert("raw data sliced! Found "+ dataArray.length + " lines!");
     for (i in dataArray) {
         string = dataArray[i];
-        console.log("TEST: " + string + " ******** I= " + i);
+        //console.log("TEST: " + string + " ******** I= " + i);
         nextString = dataArray[i + 1];
+        alert("String is now: " + string + ", nextString is now: " + nextString);
+       
         //detect and ignore outgoing messages
-        
         if (outFlag.test(string)) {
             i = i + 1;
             console.log("|OUT|");
@@ -108,7 +109,7 @@ function parseRawData(data) {
             console.log("Str: " + str);
             //parse string into JS object
             Jason = JSON.parse(str);
-            
+            /*
 
             //check type of JSON
             if (Jason.type == "question" && Jason.open == "true") {
@@ -137,11 +138,11 @@ function parseRawData(data) {
                 string = dataArray[i];
                 string = string.slice(string.indexOf("{"), string.length);
                 Jason = JSON.parse(string);
-            }
+            }*/
         }
     }
-    window.localstorage.setItem("questions", JSON.stringify(QArray));
-    window.localstorage.setItem("answers", JSON.stringify(RArray));
+//    window.localstorage.setItem("questions", JSON.stringify(QArray));
+//    window.localstorage.setItem("answers", JSON.stringify(RArray));
 }
 
 function setEarliestTimestamp() {
