@@ -1,4 +1,4 @@
-/*global $, downloadFile, console, alert*/
+﻿/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -87,8 +87,8 @@ function getUserArray() {
 function parseRawData(data) {
     //alert("parseRawData called! Data: " + data);
     var string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI, dataArray, outFlag, JSONFlag;
-    outFlag = new RegExp('/[|]out[|]/i');
-    JSONFlag = new RegExp('/[{].+[}]/i');
+    outFlag = /[|]out[|]/i;
+    JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
     //alert(dataArray[1]);
     //alert("raw data sliced! Found "+ dataArray.length + " lines!");
@@ -98,14 +98,14 @@ function parseRawData(data) {
         nextString = dataArray[i + 1];
         //detect and ignore outgoing messages
         
-        if (outFlag.test(string) != -1) {
+        if (outFlag.test(string)) {
             i = i + 1;
             console.log("|OUT|");
         } else {
             //slice JSON-string and save into variable string
 
             str = JSONFlag.exec(string);
-            console.log(str);
+            console.log("Str: " + str);
             //parse string into JS object
             Jason = JSON.parse(str);
             
