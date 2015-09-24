@@ -106,7 +106,7 @@ function parseRawData(data) {
             //slice JSON-string and save into variable string
 
             str = JSONFlag.exec(string);
-            console.log("Str: " + str);
+            alert("Sliced String: " + str);
             //parse string into JS object
             Jason = JSON.parse(str);
             /*
