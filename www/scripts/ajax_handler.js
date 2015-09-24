@@ -141,8 +141,10 @@ function testSendJSON() {
 *
 */
 
-function ajxGetRawData(username, password) {
-    var getURL, timestamp;
+function ajxGetRawData() {
+    var getURL, timestamp, username, password;
+    username = window.localStorage.getItem("loginname");
+    password = window.localStorage.getItem("password");
     setEarliestTimestamp();
     timestamp = window.localStorage.getItem("earliestTimestamp");
     getURL = "http://thm-chat.appspot.com/oop/messages?since=" + timestamp;

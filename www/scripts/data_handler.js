@@ -86,7 +86,7 @@ function getUserArray() {
 //currently not working correctly!
 function parseRawData(data) {
     alert("parseRawData called! Data: " + data);
-    var string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI, dataArray, outFlag, JSONFlag;
+    var string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI, dataArray, outFlag, JSONFlag, j;
     outFlag = /[|]out[|]/i;
     JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
@@ -95,7 +95,8 @@ function parseRawData(data) {
     for (i in dataArray) {
         string = dataArray[i];
         //console.log("TEST: " + string + " ******** I= " + i);
-        nextString = dataArray[i + 1];
+        j = i+1;
+        nextString = dataArray[j];
         alert("String is now: " + string + ", nextString is now: " + nextString);
        
         //detect and ignore outgoing messages
