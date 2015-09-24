@@ -86,10 +86,10 @@ function getUserArray() {
 //currently not working correctly!
 function parseRawData(data) {
     //alert("parseRawData called! Data: " + data);
-    var dataArray, string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI,
-    dataArray = data.split("\n"),
-    outFlag = new RegExp('/[|]out[|]/i'),
+    var string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI, dataArray, outFlag, JSONFlag;
+    outFlag = new RegExp('/[|]out[|]/i');
     JSONFlag = new RegExp('/[{].+[}]/i');
+    dataArray = data.split("\n");
     //alert(dataArray[1]);
     //alert("raw data sliced! Found "+ dataArray.length + " lines!");
     for (i in dataArray) {
