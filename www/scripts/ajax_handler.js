@@ -157,3 +157,7 @@ function ajxGetRawData(username, password) {
         }
     });
 }
+
+function testGetJSON() {
+    ajxGetRawData("D.kessler", "5410");
+}
