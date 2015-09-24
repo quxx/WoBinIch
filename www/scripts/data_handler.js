@@ -98,7 +98,7 @@ function parseRawData(data) {
         nextString = dataArray[i + 1];
         //detect and ignore outgoing messages
         
-        if (outFlag.test(string) != -1) {
+        if (outFlag.test(string) == "true") {
             i = i + 1;
             console.log("|OUT|");
         } else {
