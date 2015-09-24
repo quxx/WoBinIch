@@ -19,7 +19,7 @@ function takePicture() {
         lon = window.localStorage.getItem("lon");
         score = "PLACEHOLDER";
         open = "true";
-        Jason = createQuestionJSON(time, user, pass, lat, lon, imageURI, score, open);
+        Jason = createQuestionJSON(time, user, lat, lon, score, open);
         userArray = getUserArray();
         for (i in userArray) {
             recipient = userArray[i];

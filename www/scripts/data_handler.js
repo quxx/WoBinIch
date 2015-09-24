@@ -8,8 +8,6 @@
  *
  * @param {Date} timestamp - Timestamp des Eintrags auf den Chatserver, dient als eindeutige ID
  * @param {String} username - User-/Loginname für THM Chatserver
- * @param {String} password - Passwort für THM Chatserver
- * @param {String} image - Bilddatei, bzw. deren Ablageort auf dem Gerät
  * @param {String} lat - Latitude der geodaten
  * @param {String} lon - Longitude der geodaten
  * @param {String} score - Aktueller Punktestand des Spielers
@@ -24,7 +22,6 @@ function createQuestionJSON(timestamp, username, password, lat, lon, score, open
     text = '{ "timestamp" : "' + timestamp + '"';
     text += ', "type" : "question"';
     text += ', "username" : "' + username + '"';
-    text += ', "password" : "' + password + '"';
     text += ', "geolat" : "' + lat + '"';
     text += ', "geolon" : "' + lon + '"';
     text += ', "score" : "' + score + '"';
@@ -43,7 +40,6 @@ function createQuestionJSON(timestamp, username, password, lat, lon, score, open
  * @param {Date} timestamp - Timestamp des Eintrags auf den Chatserver, dient als eindeutige ID
  * @param {String} reference - Timestamp der Frage, auf die sich die Antwort bezieht
  * @param {String} username - User-/Loginname für THM Chatserver
- * @param {String} password - Passwort für THM Chatserver
  * @param {String} lat - Latitude der geodaten
  * @param {String} lon - Longitude der geodaten
  * @param {String} score - Aktueller Punktestand des Spielers
@@ -58,7 +54,6 @@ function createAnswerJSON(timestamp, reference, username, password, lat, lon, sc
     text += ', "type" : "reply"';
     text += ', "references : "' + reference + '"';
     text += ', "username" : "' + username + '"';
-    text += ', "password" : "' + password + '"';
     text += ', "geolat" : "' + lat + '"';
     text += ', "geolon" : "' + lon + '"';
     text += ', "score" : "' + score + '" }';
@@ -85,7 +80,7 @@ function getUserArray() {
 
 //currently not working correctly!
 function parseRawData(data) {
-    alert("parseRawData called! Data: " + data);
+    //alert("parseRawData called! Data: " + data);
     var string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag;
     inFlag = /[|]in[|]/i;
     txtFlag = /[|]txt[|]/i;
@@ -93,8 +88,8 @@ function parseRawData(data) {
     JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
     //alert(dataArray[1]);
-    alert("raw data sliced! Found " + dataArray.length + " lines!");
-    for (i = 0; i < dataArray.length; i++) {
+    //alert("raw data sliced! Found " + dataArray.length + " lines!");
+    for (i = 0; i < dataArray.length - 1; i++) {
 
         string = dataArray[i];
         //console.log("TEST: " + string + " ******** I= " + i);
@@ -132,7 +127,7 @@ function parseRawData(data) {
             }
         } else {
             //detect and ignore outgoing messages
-            alert("|out| found! skipping line!");
+            alert("incompatible message format!");
 
         }
 

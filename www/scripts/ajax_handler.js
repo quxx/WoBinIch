@@ -130,7 +130,7 @@ function testSendJSON() {
     lon = window.localStorage.getItem("lon");
     score = "40000";
     open = "true";
-    Jason = createQuestionJSON(timestamp, username, password, lat, lon, score, open);
+    Jason = createQuestionJSON(timestamp, username, lat, lon, score, open);
     alert("JSON built! Format :" + JSON.stringify(Jason));
     ajxBroadcastJSON(Jason);
 }
