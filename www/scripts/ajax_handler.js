@@ -90,13 +90,16 @@ function ajxBroadcastJSON(message) {
 function ajxSendJSON(JSONObject, recipient) {
     var Jason = JSONObject,
         image;
-    //extract the image to process it seperately, geodata can just be parsed normally!
+    //delete image data for increased readability.
     if (Jason.imageURI != null) {
         image = Jason.imageURI;
         delete Jason.imageURI;
+        ajxSendToUser(recipient, JSON.stringify(JSONObject));
+        JSONObject.imageURI = image;
+    } else {
+        ajxSendToUser(recipient, JSON.stringify(JSONObject));
     }
-    ajxSendToUser(recipient, JSON.stringify(JSONObject));
-    JSONObject.imageURI = image;
+
 }
 
 /**
@@ -133,13 +136,13 @@ function testSendJSON() {
 }
 
 /*
-* 
-* Nimmt Rohdaten vom Server und gibt sie an die Methode parseRawData weiter.
-*
-* @param {String} username - User-/Loginname für den THM Chatserver
-* @param {String} password - Passwort für den THM Chatserver
-*
-*/
+ * 
+ * Nimmt Rohdaten vom Server und gibt sie an die Methode parseRawData weiter.
+ *
+ * @param {String} username - User-/Loginname für den THM Chatserver
+ * @param {String} password - Passwort für den THM Chatserver
+ *
+ */
 
 function ajxGetRawData() {
     var getURL, timestamp, username, password;

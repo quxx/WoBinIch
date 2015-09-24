@@ -86,64 +86,56 @@ function getUserArray() {
 //currently not working correctly!
 function parseRawData(data) {
     alert("parseRawData called! Data: " + data);
-    var string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI, dataArray, outFlag, JSONFlag;
-    outFlag = /[|]out[|]/i;
+    var string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag;
+    inFlag = /[|]in[|]/i;
+    txtFlag = /[|]txt[|]/i;
+    imgFlag = /[|]img[|]/i;
     JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
     //alert(dataArray[1]);
-    alert("raw data sliced! Found "+ dataArray.length + " lines!");
+    alert("raw data sliced! Found " + dataArray.length + " lines!");
     for (i = 0; i < dataArray.length; i++) {
+
         string = dataArray[i];
         //console.log("TEST: " + string + " ******** I= " + i);
         nextString = dataArray[i + 1];
         alert("String is now: " + string + ", nextString is now: " + nextString);
-       
-        //detect and ignore outgoing messages
-        if (outFlag.test(string)) {
-            i += 1;
-            alert("|out| found! skipping line!")
-        } else {
-            //slice JSON-string and save into variable string
 
+        //detect incoming messages to parse
+        if (inFlag.test(string) == true && txtFlag.test(string) == true && JSONFlag.test(string) == true) {
+
+            //slice JSON-string and save into variable string
             str = JSONFlag.exec(string);
             alert("Sliced String: " + str);
             //parse string into JS object
             Jason = JSON.parse(str);
-            i += 1;
-            /*
 
             //check type of JSON
-            if (Jason.type == "question" && Jason.open == "true") {
-                if (nextString.search("|img|") > 0) {
-                    console.log("slice the imgURL");
-                    //slice the imgURL from the rest of the data and save as variable imgURL
-                    imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
+            if (Jason.type == "question" && Jason.open == "true" && imgFlag.test(nextString) == true) {
+                alert("found img after txt! slicing ImgURL!");
+                //slice the imgURL from the rest of the data and save as variable imgURL
+                imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
 
-                    //generate timestamp as filename for image that needs to be downloaded
-                    timest = JSON.timestamp;
-                    downloadFile(imgURL, "WoBinIch", timest);
-                    //add image attribute - Thomas, HELP!
+                //generate timestamp as filename for image that needs to be downloaded
+/*                timest = JSON.timestamp;
+                downloadFile(imgURL, "WoBinIch", timest);
+                //add image attribute - Thomas, HELP!
 
-                    Jason.image = imageURI;
-                    QArray.push(Jason);
+                Jason.image = imageURI;
+                QArray.push(Jason);
+*/
+                alert("img found - handle image here!");
+                i += 1;
+            }
+        } else {
+            //detect and ignore outgoing messages
+            alert("|out| found! skipping line!");
 
-
-                    i += 2;
-
-
-                } else {
-                    alert("expected image but found this: " + nextString);
-                }
-
-            } else {
-                string = dataArray[i];
-                string = string.slice(string.indexOf("{"), string.length);
-                Jason = JSON.parse(string);
-            }*/
         }
+
+        //    window.localstorage.setItem("questions", JSON.stringify(QArray));
+        //    window.localstorage.setItem("answers", JSON.stringify(RArray));
     }
-//    window.localstorage.setItem("questions", JSON.stringify(QArray));
-//    window.localstorage.setItem("answers", JSON.stringify(RArray));
 }
 
 function setEarliestTimestamp() {
