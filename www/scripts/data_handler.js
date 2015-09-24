@@ -117,15 +117,18 @@ function parseRawData(data) {
                 imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
 
                 //generate timestamp as filename for image that needs to be downloaded
-/*                timest = JSON.timestamp;
-                downloadFile(imgURL, "WoBinIch", timest);
-                //add image attribute - Thomas, HELP!
+                /*                timest = JSON.timestamp;
+                                downloadFile(imgURL, "WoBinIch", timest);
+                                //add image attribute - Thomas, HELP!
 
-                Jason.image = imageURI;
-                QArray.push(Jason);
-*/
+                                Jason.image = imageURI;
+                                QArray.push(Jason);
+                */
                 alert("img found - handle image here!");
                 i += 1;
+            } else if (Jason.type = "reply") {
+                //handle answerJSON here!
+
             }
         } else {
             //detect and ignore outgoing messages
