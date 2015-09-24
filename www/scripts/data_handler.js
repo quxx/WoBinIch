@@ -86,23 +86,22 @@ function getUserArray() {
 //currently not working correctly!
 function parseRawData(data) {
     alert("parseRawData called! Data: " + data);
-    var string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI, dataArray, outFlag, JSONFlag, j;
+    var string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI, dataArray, outFlag, JSONFlag;
     outFlag = /[|]out[|]/i;
     JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
-    alert(dataArray[1]);
+    //alert(dataArray[1]);
     alert("raw data sliced! Found "+ dataArray.length + " lines!");
-    for (i in dataArray) {
+    for (i = 0; i < dataArray.length; i++) {
         string = dataArray[i];
         //console.log("TEST: " + string + " ******** I= " + i);
-        j = i+1;
-        nextString = dataArray[j];
+        nextString = dataArray[i + 1];
         alert("String is now: " + string + ", nextString is now: " + nextString);
        
         //detect and ignore outgoing messages
         if (outFlag.test(string)) {
             i = i + 1;
-            console.log("|OUT|");
+            alert("|out| found! skipping line!")
         } else {
             //slice JSON-string and save into variable string
 
