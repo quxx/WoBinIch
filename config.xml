@@ -4,6 +4,7 @@
   <description>Medienprojektmanagment SS2015</description>
   <author href="" email="">Dominic Kessler, Marco D'Ambrosio, Thomas Claudi</author>
   <content src="index.html"/>
+  <preference name="phonegap-version" value="3.5.0" / > 
   <preference name="permissions" value="none"/>
   <preference name="target-device" value="universal"/>
   <preference name="webviewbounce" value="true"/>
