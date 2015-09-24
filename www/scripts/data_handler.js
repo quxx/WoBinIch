@@ -100,7 +100,7 @@ function parseRawData(data) {
        
         //detect and ignore outgoing messages
         if (outFlag.test(string)) {
-            i = i + 1;
+            i += 1;
             alert("|out| found! skipping line!")
         } else {
             //slice JSON-string and save into variable string
@@ -109,6 +109,7 @@ function parseRawData(data) {
             alert("Sliced String: " + str);
             //parse string into JS object
             Jason = JSON.parse(str);
+            i += 1;
             /*
 
             //check type of JSON
