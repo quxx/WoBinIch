@@ -104,6 +104,7 @@ function parseRawData(data) {
             alert("Sliced String: " + str);
             //parse string into JS object
             Jason = JSON.parse(str);
+            alert("JSON.timestamp = " + Jason.timestamp;
 
             //check type of JSON
             if (Jason.type == "question" && Jason.open == "true" && imgFlag.test(nextString) == true) {
@@ -112,13 +113,13 @@ function parseRawData(data) {
                 imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
 
                 //generate timestamp as filename for image that needs to be downloaded
-                /*                timest = JSON.timestamp;
+                /*                timest = Jason.timestamp;
                                 downloadFile(imgURL, "WoBinIch", timest);
                                 //add image attribute - Thomas, HELP!
 
                                 Jason.image = imageURI;
                                 QArray.push(Jason);
-                */
+                
                 alert("img found - handle image here!");
                 i += 1;
             } else if (Jason.type = "reply") {
