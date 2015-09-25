@@ -13,7 +13,6 @@ function takePicture() {
         var time, user, pass, lat, lon, score, open, Jason, userArray, i, j, recipient;
         time = Date.now();
         user = window.localStorage.getItem("loginname");
-        pass = window.localStorage.getItem("password");
         geolocation();
         lat = window.localStorage.getItem("lat");
         lon = window.localStorage.getItem("lon");

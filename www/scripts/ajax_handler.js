@@ -99,7 +99,6 @@ function ajxSendJSON(JSONObject, recipient) {
     } else {
         ajxSendToUser(recipient, JSON.stringify(JSONObject));
     }
-
 }
 
 /**
@@ -118,21 +117,6 @@ function ajxSetImageURL() {
             window.localStorage.setItem("imageURL", response);
         }
     });
-}
-
-function testSendJSON() {
-    var timestamp, username, password, image, lat, lon, score, open, Jason;
-    timestamp = Date.now();
-    username = "D.kessler";
-    password = "password";
-    geolocation();
-    lat = window.localStorage.getItem("lat");
-    lon = window.localStorage.getItem("lon");
-    score = "40000";
-    open = "true";
-    Jason = createQuestionJSON(timestamp, username, lat, lon, score, open);
-    alert("JSON built! Format :" + JSON.stringify(Jason));
-    ajxBroadcastJSON(Jason);
 }
 
 /*
@@ -161,8 +145,4 @@ function ajxGetRawData() {
             parseRawData(response);
         }
     });
-}
-
-function testGetJSON() {
-    ajxGetRawData("D.kessler", "5410");
 }
