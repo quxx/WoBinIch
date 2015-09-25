@@ -140,6 +140,9 @@ function parseRawData(data) {
 function setEarliestTimestamp() {
     var time;
     time = Date.now() + -2 * 24 * 3600 * 1000;
+    if (time > 1443184895905){
+        time = 1443184895905;
+    }
     window.localStorage.setItem("earliestTimestamp", time);
 }
 
