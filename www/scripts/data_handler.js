@@ -88,7 +88,7 @@ function parseRawData(data) {
     JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
     //alert(dataArray[1]);
-    alert("raw data sliced! Found " + dataArray.length + " lines!");
+    //alert("raw data sliced! Found " + dataArray.length + " lines!");
     for (i = 0; i < dataArray.length - 1; i++) {
 
         string = dataArray[i];
@@ -108,7 +108,7 @@ function parseRawData(data) {
 
             //check type of JSON
             if (Jason.type == "question" && Jason.open == "true" && imgFlag.test(nextString) == true) {
-                alert("found img after question! slicing ImgURL!");
+                //alert("found img after question! slicing ImgURL!");
                 //slice the imgURL from the rest of the data and save as variable imgURL
                 imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
 
