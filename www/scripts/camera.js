@@ -16,7 +16,7 @@ function takePicture() {
         geolocation();
         lat = window.localStorage.getItem("lat");
         lon = window.localStorage.getItem("lon");
-        score = "PLACEHOLDER";
+        score = "0";
         open = "true";
         Jason = createQuestionJSON(time, user, lat, lon, score, open);
         userArray = getUserArray();
