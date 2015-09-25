@@ -115,6 +115,7 @@ function parseRawData(data) {
                 //generate timestamp as filename for image that needs to be downloaded
                 timest = Jason.timestamp;
                 downloadFile(imgURL, "WoBinIch", timest);
+                Jason.imgPath = window.localStorage.getItem("imgPath");
 
                 /*
                 --------------------------------------------------
@@ -122,15 +123,13 @@ function parseRawData(data) {
                 --------------------------------------------------
                 */
                 
-                
                 QArray.push(Jason);
                 i += 1;
                 
             } else if (Jason.type == "reply") {
                 //handle answerJSON here!
                 RArray.push(Jason);
-                alert("found answer!")
-                
+                                
             }
         } else {
             //detect and ignore outgoing messages
@@ -138,6 +137,7 @@ function parseRawData(data) {
 
         }
 
+            //sollte idealerweise kein localstorage Objekt sein sondern 'n eigentständiges File. Evtl. kriegen wir das noch hin!
             window.localstorage.setItem("questions", JSON.stringify(QArray));
             window.localstorage.setItem("answers", JSON.stringify(RArray));
     }
