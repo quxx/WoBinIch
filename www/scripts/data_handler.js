@@ -104,7 +104,7 @@ function parseRawData(data) {
             alert("Sliced String: " + str);
             //parse string into JS object
             Jason = JSON.parse(str);
-            alert("JSON.timestamp = " + Jason.timestamp;
+            alert("JSON.timestamp = " + Jason.timestamp);
 
             //check type of JSON
             if (Jason.type == "question" && Jason.open == "true" && imgFlag.test(nextString) == true) {
@@ -122,7 +122,7 @@ function parseRawData(data) {
                 */
                 alert("img found - handle image here! ImgURL = " + imgURL);
                 i += 1;
-            } else if (Jason.type = "reply") {
+            } else if (Jason.type == "reply") {
                 //handle answerJSON here!
 
             }
