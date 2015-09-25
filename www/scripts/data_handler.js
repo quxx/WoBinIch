@@ -119,8 +119,8 @@ function parseRawData(data) {
 
                                 Jason.image = imageURI;
                                 QArray.push(Jason);
-                
-                alert("img found - handle image here!");
+                */
+                alert("img found - handle image here! ImgURL = " + imgURL);
                 i += 1;
             } else if (Jason.type = "reply") {
                 //handle answerJSON here!
