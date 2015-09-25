@@ -88,59 +88,65 @@ function parseRawData(data) {
     JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
     //alert(dataArray[1]);
-    //alert("raw data sliced! Found " + dataArray.length + " lines!");
+    alert("raw data sliced! Found " + dataArray.length + " lines!");
     for (i = 0; i < dataArray.length - 1; i++) {
 
         string = dataArray[i];
         //console.log("TEST: " + string + " ******** I= " + i);
         nextString = dataArray[i + 1];
-        alert("String is now: " + string + ", nextString is now: " + nextString);
+        //alert("String is now: " + string + ", nextString is now: " + nextString);
 
         //detect incoming messages to parse
         if (inFlag.test(string) == true && txtFlag.test(string) == true && JSONFlag.test(string) == true) {
 
             //slice JSON-string and save into variable string
             str = JSONFlag.exec(string);
-            alert("Sliced String: " + str);
+            //alert("Sliced String: " + str);
             //parse string into JS object
             Jason = JSON.parse(str);
-            alert("JSON.timestamp = " + Jason.timestamp);
+            //alert("JSON.timestamp = " + Jason.timestamp);
 
             //check type of JSON
             if (Jason.type == "question" && Jason.open == "true" && imgFlag.test(nextString) == true) {
-                alert("found img after txt! slicing ImgURL!");
+                alert("found img after question! slicing ImgURL!");
                 //slice the imgURL from the rest of the data and save as variable imgURL
                 imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
 
                 //generate timestamp as filename for image that needs to be downloaded
-                /*                timest = Jason.timestamp;
-                                downloadFile(imgURL, "WoBinIch", timest);
-                                //add image attribute - Thomas, HELP!
+                timest = Jason.timestamp;
+                downloadFile(imgURL, "WoBinIch", timest);
 
-                                Jason.image = imageURI;
-                                QArray.push(Jason);
+                /*
+                --------------------------------------------------
+                if need be, add more stuff to handle image here!!!
+                --------------------------------------------------
                 */
-                alert("img found - handle image here! ImgURL = " + imgURL);
+                
+                
+                QArray.push(Jason);
                 i += 1;
+                
             } else if (Jason.type == "reply") {
                 //handle answerJSON here!
-
+                RArray.push(Jason);
+                alert("found answer!")
+                
             }
         } else {
             //detect and ignore outgoing messages
-            alert("incompatible message format!");
+            alert("incompatible data format!");
 
         }
 
-        //    window.localstorage.setItem("questions", JSON.stringify(QArray));
-        //    window.localstorage.setItem("answers", JSON.stringify(RArray));
+            window.localstorage.setItem("questions", JSON.stringify(QArray));
+            window.localstorage.setItem("answers", JSON.stringify(RArray));
     }
 }
 
 function setEarliestTimestamp() {
     var time;
     time = Date.now() + -2 * 24 * 3600 * 1000;
-    if (time < 1443184895905){
+    if (time < 1443184895905) {
         time = 1443184895905;
     }
     window.localStorage.setItem("earliestTimestamp", time);
