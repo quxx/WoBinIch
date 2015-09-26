@@ -112,7 +112,6 @@ function parseRawData(data) {
                 //alert("found img after question! slicing ImgURL!");
                 //slice the imgURL from the rest of the data and save as variable imgURL
                 imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
-                alert(imgURL);
 
                 //generate timestamp as filename for image that needs to be downloaded
                 timest = Jason.timestamp;
@@ -135,7 +134,7 @@ function parseRawData(data) {
             }
         } else {
             //detect and ignore outgoing messages
-            alert("incompatible data format!");
+            //alert("incompatible data format!");
 
         }
 
