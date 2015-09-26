@@ -51,7 +51,7 @@ function uploadImage(imageURI, consignee) {
  *
  */
 function downloadFile(URL, Folder_Name, File_Name) {
-//Parameter überprüfen
+//Parameter Überprüfen
 if (URL == null && Folder_Name == null && File_Name == null) {
     return;
 } else {
@@ -76,7 +76,7 @@ function download(URL, Folder_Name, File_Name) {
         var rootdir = fileSystem.root;
         var fp = rootdir.toURL(); // Gesamter Ordnerpfad
     
-        fp = fp + "/" + Folder_Name + "/" + File_Name + "." + "jpg"; // Ordnerpfad und Dateiname für das speichern
+        fp = fp + Folder_Name + "/" + File_Name + "." + "jpg"; // Ordnerpfad und Dateiname für das speichern
         filetransfer(download_link, fp);
     }
 
