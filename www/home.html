@@ -25,9 +25,19 @@
         ons.bootstrap();
 
         ons.ready(function () {
+            //Hole QuestionArray und speichere es im Localstorage
+            setEarliestTimestamp();
+            var time = window.localStorage.getItem("earliestTimestamp");
+            var user = window.localStorage.getItem("loginname");
+            var pass = window.localStorage.getItem("password");
+            var link = "http://thm-chat.appspot.com/oop/messages?since=" + time + "&user=" + user + "&password=" + pass;
+            var req = new AjaxRequest(link, function(response){
+                parseRawData(response);
+            });
+            req.send();
+    
+    
             geolocation();
-            //var link = window.localStorage.getItem("link");
-            //document.getElementById("demo").innerHTML = link;
 			//showQuestions();
             //ajxGetRawData();
         });
