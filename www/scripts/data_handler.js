@@ -1,4 +1,4 @@
-/*global $, downloadFile, console, alert*/
+﻿/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -81,7 +81,8 @@ function getUserArray() {
 //currently not working correctly!
 function parseRawData(data) {
     //alert("parseRawData called! Data: " + data);
-    var string, nextString, i, regEx, str, imgURL, QArray, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag;
+    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag;
+    var QArray = new Array();
     inFlag = /[|]in[|]/i;
     txtFlag = /[|]txt[|]/i;
     imgFlag = /[|]img[|]/i;
@@ -111,6 +112,7 @@ function parseRawData(data) {
                 //alert("found img after question! slicing ImgURL!");
                 //slice the imgURL from the rest of the data and save as variable imgURL
                 imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
+                alert(imgURL);
 
                 //generate timestamp as filename for image that needs to be downloaded
                 timest = Jason.timestamp;
@@ -138,8 +140,8 @@ function parseRawData(data) {
         }
 
             //sollte idealerweise kein localstorage Objekt sein sondern 'n eigentständiges File. Evtl. kriegen wir das noch hin!
-            window.localstorage.setItem("questions", JSON.stringify(QArray));
-            window.localstorage.setItem("answers", JSON.stringify(RArray));
+            window.localStorage.setItem("questions", JSON.stringify(QArray));
+            window.localStorage.setItem("answers", JSON.stringify(RArray));
     }
 }
 
