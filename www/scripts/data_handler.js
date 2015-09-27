@@ -200,7 +200,7 @@ function getImage(QuestionJSON, callback) {
         var dReader = fs.createReader(),
             timestamp;
         timestamp = questionJSON.timestamp + ".jpg";
-        result = dReader.root.getFile(timestamp, {
+        dReader.root.getFile(timestamp, {
             create: false
         }, function (fileEntry) {
             var result = fileEntry.fullPath;
