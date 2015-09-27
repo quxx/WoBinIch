@@ -201,16 +201,18 @@ function getImage(timestamp) {
         var imgName = "WoBinIch/" + timestamp + ".jpg";
         fs.root.getFile(imgName, {
             create: false
-        }, function (fileEntry) {
-            //Hier img handlen!
-            alert("success! imgPath = " + fileEntry.fullPath);
-        }, function (error) {
+        }, gotImg, function (error) {
             alert("File Retrieval Error!\n\n" + error.code);
         });
     }
 
     function fsFail(error) {
         alert("FileSystem Error!\n\n" + error.code);
+    }
+    
+    function gotImg(data) {
+        alert("success! imgPath = " + fileEntry.fullPath);
+        
     }
 
 }
