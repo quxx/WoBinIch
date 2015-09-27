@@ -50,17 +50,25 @@
 
         $scope.sendMarker = function () {
             if (marker) {
+                var accuracy = 50; //Genauigkeit mit der die Punkte abstufung erfolgt (in Meter) (pro Intervall -5% Punkte)
+                var maxPoints = 75; //Maximal erreichbare Punkte bei der beantwortung über die Karte
                 var reference = window.sessionStorage.getItem("answerTimestamp").split("|");
-                var alat = reference[1];
-                var alng = reference[2];
+                var alat = reference[1].toString();
+                var alng = reference[2].toString();
                 var username = window.localStorage.getItem("loginname");
                 var date = Date.now();
-                var lat = marker.getPosition().lat();
-                var lng = marker.getPosition().lng();
-                alert(lat);
-                var distance = distance(lat,lng,alat,alng);
-                alert(distance);
-                //var answer = createAnswerJSON(date, reference, username, lat, lng, score);
+                var lat = marker.getPosition().lat().toString();
+                var lng = marker.getPosition().lng().toString();
+                var distanceKM = distance(lat, lng, alat, alng);
+                var distanceM = Math.round(distanceKM * 1000); //Entfernung beider Koordinaten in Meter
+                alert(distanceM);
+                var points;
+                if (Math.round(maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy))) < 0) {
+                    points = 0;
+                } else {
+                    points = Math.round(maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)));
+                }
+                alert(points);
 
             } else {
                 ons.notification.alert({
