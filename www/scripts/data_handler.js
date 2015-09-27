@@ -197,15 +197,20 @@ function getImage(QuestionJSON) {
 
     function onfsSuccess(fs) {
         var imgName;
-        imgName = QuestionJSON.timestamp + ".jpg";
+        //imgName = QuestionJSON.timestamp + ".jpg";
+        imgName = "1443185309418.jpg";
         fs.root.getFile(imgName, {create: false}, gotImg);
     }
 
     function gotImg(fileEntry) {
         alert(fileEntry.fullPath);
     }
+    
+    function onfail(error) {
+        //handle error
+    }
 
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess);
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess, onfail);
 
 }
 
