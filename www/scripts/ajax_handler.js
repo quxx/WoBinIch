@@ -123,8 +123,7 @@ function ajxSetImageURL() {
  * 
  * Nimmt Rohdaten vom Server und gibt sie an die Methode parseRawData weiter.
  *
- * @param {String} username - User-/Loginname für den THM Chatserver
- * @param {String} password - Passwort für den THM Chatserver
+ * @method ajxGetRawData
  *
  */
 

@@ -1,4 +1,4 @@
-﻿/*global $, downloadFile, console, alert*/
+/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -81,8 +81,7 @@ function getUserArray() {
 //currently not working correctly!
 function parseRawData(data) {
     //alert("parseRawData called! Data: " + data);
-    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag;
-    var QArray = new Array();
+    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray = [];
     inFlag = /[|]in[|]/i;
     txtFlag = /[|]txt[|]/i;
     imgFlag = /[|]img[|]/i;
@@ -123,24 +122,20 @@ function parseRawData(data) {
                 if need be, add more stuff to handle image here!!!
                 --------------------------------------------------
                 */
-                
+
                 QArray.push(Jason);
                 i += 1;
-                
+
             } else if (Jason.type == "reply") {
                 //handle answerJSON here!
                 RArray.push(Jason);
-                                
-            }
-        } else {
-            //detect and ignore outgoing messages
-            //alert("incompatible data format!");
 
+            }
         }
 
-            //sollte idealerweise kein localstorage Objekt sein sondern 'n eigentständiges File. Evtl. kriegen wir das noch hin!
-            window.localStorage.setItem("questions", JSON.stringify(QArray));
-            window.localStorage.setItem("answers", JSON.stringify(RArray));
+        //sollte idealerweise kein localstorage Objekt sein sondern 'n eigentständiges File. Evtl. kriegen wir das noch hin!
+        window.localStorage.setItem("questions", JSON.stringify(QArray));
+        window.localStorage.setItem("answers", JSON.stringify(RArray));
     }
 }
 
@@ -190,5 +185,13 @@ function scoreQuestion(questionJSON) {
         questionJSON.score = score;
     } else {
         console.log("nicht alle Spieler haben bisher geantwortet!");
+    }
+}
+
+function testQuestionArray() {
+    var questions = JSON.parse(window.localStorage.getItem("questions")),
+        i;
+    for (i in questions) {
+        alert(JSON.stringify(questions[i]));
     }
 }

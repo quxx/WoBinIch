@@ -25,7 +25,12 @@
         ons.bootstrap();
 
         ons.ready(function () {
+            
+            ajxGetRawData();
+            //Ich versteh' nicht, warum ich Funktionen schreibe, die bestimmte Sachen übernehmen wenn dann statt dessen dieselbe Funktion mit identischem Code nochmal gebaut wird :P
+            
             //Hole QuestionArray und speichere es im Localstorage
+            /* 
             setEarliestTimestamp();
             var time = window.localStorage.getItem("earliestTimestamp");
             var user = window.localStorage.getItem("loginname");
@@ -35,7 +40,7 @@
                 parseRawData(response);
             });
             req.send();
-    
+            */
     
             geolocation();
 	    showQuestions();
