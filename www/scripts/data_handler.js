@@ -116,7 +116,7 @@ function parseRawData(data) {
                 //saving image with question timestamp as image name
                 timest = Jason.timestamp;
                 downloadFile(imgURL, "WoBinIch", timest);
-    
+
                 QArray.push(Jason);
                 i += 1;
 
@@ -187,5 +187,15 @@ function testQuestionArray() {
         i;
     for (i in questions) {
         alert(JSON.stringify(questions[i]));
+    }
+}
+
+function testFileQuestion() {
+    var questions = JSON.parse(window.localStorage.getItem("questions")),
+        i, fullPath;
+    for (i in questions) {
+        getImage(questions[i]);
+        fullPath = window.localStorage.getItem("imgPath");
+        alert(questions[i].timestamp + ": " + fullPath);
     }
 }
