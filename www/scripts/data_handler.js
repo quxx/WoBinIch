@@ -220,7 +220,7 @@ function testQuestionArray() {
 function testFileQuestion() {
     var questions, i, fullPath;
     questions = JSON.parse(window.localStorage.getItem("questions"));
-    getImage(questions[i], function callback(result) {
+    getImage(questions[1], function callback(result) {
         alert(result);
     });
 }
