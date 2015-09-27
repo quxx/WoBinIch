@@ -221,5 +221,5 @@ function testQuestionArray() {
 function testFileQuestion() {
     var questions;
     questions = JSON.parse(window.localStorage.getItem("questions"));
-    getImage(questions[1]);
+    getImageURI(questions[1]);
 }
