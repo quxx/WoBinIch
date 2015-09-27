@@ -61,16 +61,15 @@
                 var lng = marker.getPosition().lng().toString();
                 var distanceKM = distance(lat, lng, alat, alng);
                 var distanceM = Math.round(distanceKM * 1000); //Entfernung beider Koordinaten in Meter
-                var points = reference[3];
+                var points = parseInt(reference[3]);
                 if (maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)) < 0) {
                     points += 0;
                 } else {
                     points += Math.round(maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)));
                 }
-                alert(points);
-                var answerJSON = createAnswerJSON(time, reference[0], username, alat, alon, points);
-                alert(answerJSON);
-                //ajxBroadcastJSON(answerJSON);
+                //alert(points);
+                var answerJSON = createAnswerJSON(time, reference[0], username, alat, alng, points);
+                ajxBroadcastJSON(answerJSON);
 
             } else {
                 ons.notification.alert({
@@ -82,7 +81,6 @@
         //Ich bin da!
         $scope.imHere = function () {
             geolocation();
-
             var lat = window.localStorage.getItem("lat");
             var lon = window.localStorage.getItem("lon");
             var position = new google.maps.LatLng(lat, lon);
@@ -108,8 +106,26 @@
                     map: $scope.map,
                     draggable: false
                 });
-            }
-
+            };
+            var maxPoints = 100; //Maximal erreichbare Punkte bei der beantwortung über die Karte
+            var accuracy = 50; //Genauigkeit mit der die Punkte abstufung erfolgt (in Meter) (pro Intervall -5% Punkte)
+            var reference = window.sessionStorage.getItem("answerTimestamp").split("|");
+            var alat = reference[1].toString();
+            var alng = reference[2].toString();
+            var username = window.localStorage.getItem("loginname");
+            var time = Date.now();
+            var lat = marker.getPosition().lat().toString();
+            var lng = marker.getPosition().lng().toString();
+            var distanceKM = distance(lat, lng, alat, alng);
+            var distanceM = Math.round(distanceKM * 1000); //Entfernung beider Koordinaten in Meter
+            var points = parseInt(reference[3]);
+            if (maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)) < 0) {
+                    points += 0;
+                } else {
+                    points += Math.round(maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)));
+                }
+            var answerJSON = createAnswerJSON(time, reference[0], username, alat, alng, points);
+            ajxBroadcastJSON(answerJSON);
 
         }
 
