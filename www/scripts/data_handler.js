@@ -196,7 +196,7 @@ function scoreQuestion(questionJSON) {
 function getImage(QuestionJSON) {
 
     function onfsSuccess(fs) {
-        var timestamp;
+        var imgName;
         imgName = QuestionJSON.timestamp + ".jpg";
         fs.root.getFile(imgName, {}, gotImg);
     }
