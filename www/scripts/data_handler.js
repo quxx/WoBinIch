@@ -194,26 +194,18 @@ function scoreQuestion(questionJSON) {
  */
 
 function getImage(QuestionJSON) {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess, onfail);
-    
-    function onfsSuccess(fs) {
-        var imgName, dReader;
-        //imgName = QuestionJSON.timestamp + ".jpg";
-        imgName = "1443185309418.jpg";
-        dReader = fs.createReader();
-        dReader.root.getFile(imgName, {create: false}, gotImg);
-        alert("I got to here!");
-    }
+    alert("getimg called!");
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess);
 
-    function gotImg(fileEntry) {
-        alert(fileEntry.fullPath);
+    function fsSuccess(fs) {
+        var imgName = QuestionJSON.timestamp + ".jpg";
+        fs.root.getFile(imgName, {
+            create: false
+        }, function(fileEntry){
+            alert("success! imgPath = " + fileEntry.toURI);
+        });
+        
     }
-    
-    function onfail(error) {
-        //handle error
-    }
-
-
 
 }
 
