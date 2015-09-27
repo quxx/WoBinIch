@@ -219,11 +219,9 @@ function testQuestionArray() {
 }
 
 function testFileQuestion() {
-    var questions = JSON.parse(window.localStorage.getItem("questions")),
-        i,
-        fullPath;
-        getImage(questions[1]);
-        fullPath = window.localStorage.getItem("imgPath");
-        alert(questions[1].timestamp + ": " + fullPath);
-    }
+    var questions, i, fullPath;
+    questions = JSON.parse(window.localStorage.getItem("questions"));
+    getImage(questions[1]);
+    fullPath = window.localStorage.getItem("imgPath");
+    alert(questions[1].timestamp + ": " + fullPath);
 }
