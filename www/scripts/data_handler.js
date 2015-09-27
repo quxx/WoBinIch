@@ -193,7 +193,7 @@ function scoreQuestion(questionJSON) {
  *
  */
 
-function getImage(timestamp) {
+function getImage(timestamp, cbFunction) {
     alert("getimg called!");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
@@ -212,7 +212,7 @@ function getImage(timestamp) {
     
     function gotImg(fileEntry) {
         alert("success! imgPath = " + fileEntry.fullPath);
-        
+        cbFunction(fileEntry);
     }
 
 }
