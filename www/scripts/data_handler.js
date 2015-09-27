@@ -195,16 +195,22 @@ function scoreQuestion(questionJSON) {
 
 function getImage(QuestionJSON) {
     alert("getimg called!");
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess);
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
     function fsSuccess(fs) {
         var imgName = QuestionJSON.timestamp + ".jpg";
         fs.root.getFile(imgName, {
             create: false
-        }, function(fileEntry){
+        }, function (fileEntry) {
             alert("success! imgPath = " + fileEntry.toURI);
+        }, function (error) {
+            alert("File Retrieval Error!\n\n" + error.code);
         });
-        
+
+    }
+
+    function fsFail(error) {
+        alert("FileSystem Error!\n\n" + error.code);
     }
 
 }
