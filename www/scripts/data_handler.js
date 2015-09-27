@@ -48,7 +48,7 @@ function createQuestionJSON(timestamp, username, lat, lon, score, open) {
  *
  */
 
-function createAnswerJSON(timestamp, reference, username, password, lat, lon, score) {
+function createAnswerJSON(timestamp, reference, username, lat, lon, score) {
     var text, formattedJSON;
     text = '{ "timestamp" : "' + timestamp + '"';
     text += ', "type" : "reply"';
