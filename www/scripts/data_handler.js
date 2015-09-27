@@ -201,12 +201,14 @@ function getImage(questionJSON) {
             timestamp,
             result;
         timestamp = questionJSON.timestamp + ".jpg";
-        dReader.root.getFile(timestamp, {
+        result = dReader.root.getFile(timestamp, {
             create: false
         }, function (fileEntry) {
             result = fileEntry.fullPath;
             window.localstorage.setItem("imgPath", fileEntry.fullPath);
+            return result;
         });
+        alert("outer result: " + result);
     }
 
 
