@@ -196,10 +196,12 @@ function scoreQuestion(questionJSON) {
 function getImage(QuestionJSON) {
 
     function onfsSuccess(fs) {
-        var imgName;
+        var imgName, dReader;
         //imgName = QuestionJSON.timestamp + ".jpg";
         imgName = "1443185309418.jpg";
-        fs.root.getFile(imgName, {create: false}, gotImg);
+        dReader = fs.createReader();
+        dReader.root.getFile(imgName, {create: false}, gotImg);
+        alert("I got to here!");
     }
 
     function gotImg(fileEntry) {
