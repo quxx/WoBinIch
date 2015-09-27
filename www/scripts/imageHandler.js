@@ -111,31 +111,6 @@ function filetransfer(download_link, fp) {
     );
 }
 
-/*
-* 
-* Sucht das zugehörige Bild zu einem Frageobjekt aus dem Gerätespeicher und legt es in den Schlüssel "imgPath" im localstorage.
-*
-* param {Object} questionJSON - Javascript Objekt, welches mit createQuestionJSON erstellt wurde
-*
-*
-*/
-
-function getImage(questionJSON) {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
-	
-	function fileSystemSuccess(fileSystem) {
-		var dReader = fileSystem.createReader(), timestamp;
-		timestamp = questionJSON.timestamp + ".jpg";
-		dReader.getFile(timestamp, {create:false}, function(fileEntry) {
-			window.localstorage.setItem("imgPath", fileEntry.fullPath);
-			});
-		}
-		
-	function fileSystemFail(error) {
-		//Fehler
-		}
-
-	}
 
 /******************************************************** Test Funktion ***************************************************/
 function downloadTest() {

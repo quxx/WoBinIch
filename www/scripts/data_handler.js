@@ -1,4 +1,4 @@
-/*global $, downloadFile, console, alert, getImage*/
+/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -116,7 +116,7 @@ function parseRawData(data) {
                 //saving image with question timestamp as image name
                 timest = Jason.timestamp;
                 downloadFile(imgURL, "WoBinIch", timest);
-                alert(JSON.sringify(Jason));
+                alert(JSON.stringify(Jason));
 
                 QArray.push(Jason);
                 i += 1;
@@ -181,6 +181,33 @@ function scoreQuestion(questionJSON) {
     } else {
         console.log("nicht alle Spieler haben bisher geantwortet!");
     }
+}
+
+
+/*
+ * 
+ * Sucht das zugehörige Bild zu einem Frageobjekt aus dem Gerätespeicher und legt es in den Schlüssel "imgPath" im localstorage.
+ *
+ * param {Object} questionJSON - Javascript Objekt, welches mit createQuestionJSON erstellt wurde
+ *
+ *
+ */
+
+function getImage(questionJSON) {
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess);
+
+    function onfsSuccess(fs) {
+        var dReader = fs.createReader(),
+            timestamp;
+        timestamp = questionJSON.timestamp + ".jpg";
+        dReader.root.getFile(timestamp, {
+            create: false
+        }, function (fileEntry) {
+            window.localstorage.setItem("imgPath", fileEntry.fullPath);
+        });
+    }
+
+
 }
 
 function testQuestionArray() {
