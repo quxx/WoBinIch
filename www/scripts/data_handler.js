@@ -218,7 +218,7 @@ function testQuestionArray() {
 }
 
 function testFileQuestion() {
-    var questions, i, fullPath;
+    var questions;
     questions = JSON.parse(window.localStorage.getItem("questions"));
     getImage(questions[1], function callback(result) {
         alert(result);
