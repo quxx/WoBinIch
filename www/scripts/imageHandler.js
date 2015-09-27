@@ -100,9 +100,12 @@ function filetransfer(download_link, fp) {
     // Image Download function
     fileTransfer.download(download_link, fp,
         function (entry) {
-            window.localStorage.setItem("imgPath", fp);
+			var qJSON = JSON.parse(window.sessionStorage.getItem("qJSON"));
+			var qArray = JSON.parse(window.localStorage.getItem("questions"));
+			qJSON.imgPath = fp;
+			qArray.push(qJSON);
+			window.localStorage.setItem("questions", JSON.stringify(qArray));
             //console.log("download complete: " + entry.fullPath); // Gibt kompletten Pfad des Bildes aus
-			//window.localStorage.setItem("imgPath", entry.fullPath);
         },
         function (error) {
             console.log("download error source " + error.source);

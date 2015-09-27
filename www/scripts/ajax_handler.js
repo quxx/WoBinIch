@@ -142,7 +142,6 @@ function ajxGetRawData() {
         type: 'get',
         url: getURL,
         success: function (response) {
-            alert("Server response: " + response);
             parseRawData(response);
         }
     });

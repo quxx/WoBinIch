@@ -82,6 +82,7 @@ function getUserArray() {
 function parseRawData(data) {
     //alert("parseRawData called! Data: " + data);
     var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray = [];
+    window.localStorage.setItem("questions", QArray);
     inFlag = /[|]in[|]/i;
     txtFlag = /[|]txt[|]/i;
     imgFlag = /[|]img[|]/i;
@@ -114,16 +115,14 @@ function parseRawData(data) {
 
                 //generate timestamp as filename for image that needs to be downloaded
                 timest = Jason.timestamp;
+                window.localStorage.setItem("qJSON", Jason);
                 downloadFile(imgURL, "WoBinIch", timest);
-                Jason.imgPath = window.localStorage.getItem("imgPath");
 
                 /*
                 --------------------------------------------------
                 if need be, add more stuff to handle image here!!!
                 --------------------------------------------------
                 */
-
-                QArray.push(Jason);
                 i += 1;
 
             } else if (Jason.type == "reply") {
@@ -134,7 +133,7 @@ function parseRawData(data) {
         }
 
         //sollte idealerweise kein localstorage Objekt sein sondern 'n eigentständiges File. Evtl. kriegen wir das noch hin!
-        window.localStorage.setItem("questions", JSON.stringify(QArray));
+        //window.localStorage.setItem("questions", JSON.stringify(QArray));
         window.localStorage.setItem("answers", JSON.stringify(RArray));
     }
 }
