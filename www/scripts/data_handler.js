@@ -118,11 +118,6 @@ function parseRawData(data) {
                 window.localStorage.setItem("qJSON", Jason);
                 downloadFile(imgURL, "WoBinIch", timest);
 
-                /*
-                --------------------------------------------------
-                if need be, add more stuff to handle image here!!!
-                --------------------------------------------------
-                */
                 i += 1;
 
             } else if (Jason.type == "reply") {
