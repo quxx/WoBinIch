@@ -78,6 +78,15 @@ function getUserArray() {
     return userArray;
 }
 
+/*
+*
+* Wandelt den String aus Rohdaten, welchen ajxGetRawData vom THM Chatserver abholt in JS Objekte um, sortiert diese nach Fragen und Antworten in entsprechende Arrays und legt diese anschließend im localstorage ab.
+*
+* @method parseRawData
+*
+* @param {String} data - Die Rohdaten, welche der THM Chatserver liefert.*
+*
+*/
 
 function parseRawData(data) {
     //alert("parseRawData called! Data: " + data);
@@ -151,6 +160,18 @@ function setEarliestTimestamp() {
     window.localStorage.setItem("earliestTimestamp", time);
 }
 
+/*
+*
+* Liefert zu einem Frageobjekt die zugehörign Antwortobjekte in einem Array.
+*
+* @method getAnswers
+*
+* @param {Object} questionJSON - Frageobjekt in JSON-formatierung, welches durch createQuestionJSON erstellt wurde
+*
+* @return {Object} - returnArray - Array aus Antwortobjekten, welche das übergebene Frageobjekt referenzieren.
+*
+*/
+
 function getAnswers(questionJSON) {
     var i, answerArray, returnArray = [];
     answerArray = window.localStorage.getItem("answers");
@@ -162,15 +183,28 @@ function getAnswers(questionJSON) {
     return returnArray;
 }
 
+/*
+*
+* Bewertet das übergebene Frageobjekt, sofern alle Antworten abgegeben wurden oder die Frage älter als 2 Tage ist und schreibt die Bewertung in das Score-Attribut des Frageobjekts.
+*
+* @method scoreQuestion
+*
+* @param {Object} questionJSON - Frageobjekt, welches bewertet werden soll
+*
+*/
+
 function scoreQuestion(questionJSON) {
     var answers = [],
         users = [],
         i,
         dist,
-        score;
+        score,
+        time;
     answers = getAnswers(questionJSON);
     users = getUserArray();
-    if (answers.length == users.length) {
+    setEarliestTimestamp();
+    time = window.localStorage.getItem("earliestTimestamp");
+    if (answers.length == users.length || questionJSON.timestamp < time) {
         for (i in anwers) {
             dist = distance(answers.lat, answers.lon, questionJSON.lat, questionJSON.lon);
 
@@ -185,7 +219,7 @@ function scoreQuestion(questionJSON) {
             score = 100;
 
         }
-        questionJSON.score = score;
+        questionJSON.score += score;
     } else {
         console.log("nicht alle Spieler haben bisher geantwortet!");
     }
@@ -196,8 +230,9 @@ function scoreQuestion(questionJSON) {
  * 
  * Sucht das zugehörige Bild zu einem Frageobjekt aus dem Gerätespeicher zeigt es an.
  *
- * param {Object} questionJSON - Javascript Objekt, welches mit createQuestionJSON erstellt wurde
+ * @method getImage
  *
+ * @param {Object} questionJSON - Javascript Objekt, welches mit createQuestionJSON erstellt wurde
  *
  */
 
