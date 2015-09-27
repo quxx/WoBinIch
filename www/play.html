@@ -1,12 +1,22 @@
-<ons-navigator>
-   <ons-page>
+﻿<ons-navigator>
+
+
+   <ons-page id="my-page">
         <ons-toolbar ng-controller="SlidingMenuController" fixed-style="">
             <div class="left">
                 <ons-toolbar-button ng-click="slidingMenu.toggleMenu()"><ons-icon icon="bars"></ons-icon></ons-toolbar-button>
             </div>
             <div class="center">Neue fragen!</div>
-        </ons-toolbar>      
+            <div class="right">
+                <ons-toolbar-button onclick="refresh()">
+                    <ons-icon icon="fa-refresh" style="font-size: 32px; width: 1em">
+                </ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+        
+        
         <ons-carousel swipeable overscrollable auto-scroll fullscreen var="carousel" id="carousel">   
+        <!-- Bildfragen werden von showQuestions() eingefügt -->
         </ons-carousel>
     </ons-page>
 </ons-navigator>
