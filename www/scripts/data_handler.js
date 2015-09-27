@@ -198,11 +198,11 @@ function getImage(QuestionJSON) {
     function onfsSuccess(fs) {
         var imgName;
         imgName = QuestionJSON.timestamp + ".jpg";
-        fs.root.getFile(imgName, {}, gotImg);
+        fs.root.getFile(imgName, {create: false}, gotImg);
     }
 
     function gotImg(fileEntry) {
-        alert(fileEntry.toURI);
+        alert(fileEntry.fullPath);
     }
 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess);
