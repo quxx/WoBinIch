@@ -108,7 +108,7 @@ function parseRawData(data) {
             //alert("JSON.timestamp = " + Jason.timestamp);
 
             //check type of JSON
-            if (Jason.type === "question" && Jason.open === "true" && imgFlag.test(nextString) === true) {
+            if (Jason.type == "question" && Jason.open == "true" && imgFlag.test(nextString) === true) {
                 //alert("found img after question! slicing ImgURL!");
                 //slice the imgURL from the rest of the data and save as variable imgURL
                 imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
@@ -121,7 +121,7 @@ function parseRawData(data) {
                 QArray.push(Jason);
                 i += 1;
 
-            } else if (Jason.type === "reply") {
+            } else if (Jason.type == "reply") {
                 //handle answerJSON here!
                 RArray.push(Jason);
 
@@ -147,7 +147,7 @@ function getAnswers(questionJSON) {
     var i, answerArray, returnArray = [];
     answerArray = window.localStorage.getItem("answers");
     for (i in answerArray) {
-        if (answerArray[i].references === questionJSON.timestamp) {
+        if (answerArray[i].references == questionJSON.timestamp) {
             returnArray.push(answerArray[i]);
         }
     }
@@ -162,7 +162,7 @@ function scoreQuestion(questionJSON) {
         score;
     answers = getAnswers(questionJSON);
     users = getUserArray();
-    if (answers.length === users.length) {
+    if (answers.length == users.length) {
         for (i in anwers) {
             dist = distance(answers.lat, answers.lon, questionJSON.lat, questionJSON.lon);
 
@@ -196,21 +196,20 @@ function scoreQuestion(questionJSON) {
 function getImage(questionJSON) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess);
 
+    var result;
     function onfsSuccess(fs) {
         var dReader = fs.createReader(),
-            timestamp,
-            result;
+            timestamp;
         timestamp = questionJSON.timestamp + ".jpg";
         result = dReader.root.getFile(timestamp, {
             create: false
         }, function (fileEntry) {
             result = fileEntry.fullPath;
-            window.localstorage.setItem("imgPath", fileEntry.fullPath);
             return result;
         });
-        alert("outer result: " + result);
+        return result;
     }
-
+return result;
 
 }
 
@@ -225,7 +224,5 @@ function testQuestionArray() {
 function testFileQuestion() {
     var questions, i, fullPath;
     questions = JSON.parse(window.localStorage.getItem("questions"));
-    getImage(questions[1]);
-    fullPath = window.localStorage.getItem("imgPath");
-    alert(questions[1].timestamp + ": " + fullPath);
+    alert(getImage(questions[1]));
 }
