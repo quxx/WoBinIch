@@ -89,7 +89,7 @@ function parseRawData(data) {
     JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
     //alert(dataArray[1]);
-    alert("raw data sliced! Found " + dataArray.length + " lines!");
+    //alert("raw data sliced! Found " + dataArray.length + " lines!");
     for (i = 0; i < dataArray.length - 1; i += 1) {
 
         string = dataArray[i];
@@ -116,7 +116,7 @@ function parseRawData(data) {
                 //saving image with question timestamp as image name
                 timest = Jason.timestamp;
                 downloadFile(imgURL, "WoBinIch", timest);
-                alert(JSON.stringify(Jason));
+                //alert(JSON.stringify(Jason));
 
                 QArray.push(Jason);
                 i += 1;
@@ -197,7 +197,7 @@ function getImageURI(QuestionJSON) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess);
 
     function onfsSuccess(fs) {
-            timestamp;
+        var timestamp;
         timestamp = questionJSON.timestamp + ".jpg";
         fs.root.getFile(timestamp, {create: false}, gotImg);
     }
