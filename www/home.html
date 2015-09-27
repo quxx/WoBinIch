@@ -17,18 +17,18 @@
     <script src="scripts/data_handler.js"></script>
     <script src="scripts/ajaxRequest.js"></script>
     <script src="scripts/ajax_handler.js"></script>
-	<script src="scripts/imageHandler.js"></script>
-	<script src="scripts/showQuestions.js"></script>
+    <script src="scripts/imageHandler.js"></script>
+    <script src="scripts/showQuestions.js"></script>
 
 
     <script>
         ons.bootstrap();
 
         ons.ready(function () {
-            
+
             ajxGetRawData();
             //Ich versteh' nicht, warum ich Funktionen schreibe, die bestimmte Sachen übernehmen wenn dann statt dessen dieselbe Funktion mit identischem Code nochmal gebaut wird :P
-            
+
             //Hole QuestionArray und speichere es im Localstorage
             /* 
             setEarliestTimestamp();
@@ -41,9 +41,9 @@
             });
             req.send();
             */
-    
+
             geolocation();
-	    showQuestions();
+            showQuestions();
             //ajxGetRawData();
         });
     </script>

@@ -91,7 +91,7 @@ function ajxSendJSON(JSONObject, recipient) {
     var Jason = JSONObject,
         image;
     //delete image data for increased readability.
-    if (Jason.imageURI != null) {
+    if (Jason.imageURI !== null) {
         image = Jason.imageURI;
         delete Jason.imageURI;
         ajxSendToUser(recipient, JSON.stringify(JSONObject));
@@ -133,9 +133,11 @@ function ajxGetRawData() {
     password = window.localStorage.getItem("password");
     setEarliestTimestamp();
     timestamp = window.localStorage.getItem("earliestTimestamp");
+    
     getURL = "http://thm-chat.appspot.com/oop/messages?since=" + timestamp;
     getURL += "&user=" + username;
     getURL += "&password=" + password;
+    
     $.ajax({
         type: 'get',
         url: getURL,
