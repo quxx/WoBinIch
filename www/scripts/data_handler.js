@@ -52,7 +52,7 @@ function createAnswerJSON(timestamp, reference, username, lat, lon, score) {
     var text, formattedJSON;
     text = '{ "timestamp" : "' + timestamp + '"';
     text += ', "type" : "reply"';
-    text += ', "references : "' + reference + '"';
+    text += ', "references" : "' + reference + '"';
     text += ', "username" : "' + username + '"';
     text += ', "geolat" : "' + lat + '"';
     text += ', "geolon" : "' + lon + '"';
@@ -198,8 +198,16 @@ function getImage(timestamp) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
     function fsSuccess(fs) {
-        var imgName = "/WoBinIch/" + timestamp + ".jpg";
-        fs.root.getFile(imgName, {
+        fs.root.getDirectory("WoBinIch", {
+            create: false
+        }, dirSuccess, dirFail);
+
+    }
+
+    function dirSuccess(directory) {
+        alert("directory: " + directory.fullPath);
+        var imgName = timestamp + ".jpg";
+        directory.getFile(imgName, {
             create: false
         }, function (fileEntry) {
             alert("success! imgPath = " + fileEntry.toURI);
@@ -209,7 +217,7 @@ function getImage(timestamp) {
     }
 
     function fsFail(error) {
-        alert("FileSystem Error!\n\n" + error.codes);
+        alert("FileSystem Error!\n\n" + error.code);
     }
 
 }
