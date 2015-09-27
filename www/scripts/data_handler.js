@@ -273,5 +273,5 @@ function testFileQuestion() {
     questions = JSON.parse(window.localStorage.getItem("questions"));
     var time = questions[0].timestamp;
     alert(time);
-    getImage(time);
+    getImage(questions[0]);
 }
