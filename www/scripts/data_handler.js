@@ -193,7 +193,7 @@ function scoreQuestion(questionJSON) {
  *
  */
 
-function getImage(timestamp, cbFunction) {
+function getImage(timestamp) {
     alert("getimg called!");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
@@ -212,7 +212,6 @@ function getImage(timestamp, cbFunction) {
 
     function gotImg(fileEntry) {
         alert("success! imgPath = " + fileEntry.fullPath);
-        cbFunction(fileEntry);
     }
 
 }
@@ -230,7 +229,5 @@ function testFileQuestion() {
     questions = JSON.parse(window.localStorage.getItem("questions"));
     var time = questions[0].timestamp;
     alert(time);
-    getImage(time, function () {
-        alert("callback function: " + fileEntry);
-    });
+    getImage(time);
 }
