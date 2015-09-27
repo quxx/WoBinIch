@@ -90,7 +90,7 @@ function parseRawData(data) {
     dataArray = data.split("\n");
     //alert(dataArray[1]);
     //alert("raw data sliced! Found " + dataArray.length + " lines!");
-    for (i = 0; i < dataArray.length - 1; i++) {
+    for (i = 0; i < dataArray.length - 1; i += 1) {
 
         string = dataArray[i];
         //console.log("TEST: " + string + " ******** I= " + i);
@@ -108,7 +108,7 @@ function parseRawData(data) {
             //alert("JSON.timestamp = " + Jason.timestamp);
 
             //check type of JSON
-            if (Jason.type == "question" && Jason.open == "true" && imgFlag.test(nextString) === true) {
+            if (Jason.type === "question" && Jason.open === "true" && imgFlag.test(nextString) === true) {
                 //alert("found img after question! slicing ImgURL!");
                 //slice the imgURL from the rest of the data and save as variable imgURL
                 imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
@@ -121,7 +121,7 @@ function parseRawData(data) {
                 QArray.push(Jason);
                 i += 1;
 
-            } else if (Jason.type == "reply") {
+            } else if (Jason.type === "reply") {
                 //handle answerJSON here!
                 RArray.push(Jason);
 
@@ -147,7 +147,7 @@ function getAnswers(questionJSON) {
     var i, answerArray, returnArray = [];
     answerArray = window.localStorage.getItem("answers");
     for (i in answerArray) {
-        if (answerArray[i].references == questionJSON.timestamp) {
+        if (answerArray[i].references === questionJSON.timestamp) {
             returnArray.push(answerArray[i]);
         }
     }
@@ -162,7 +162,7 @@ function scoreQuestion(questionJSON) {
         score;
     answers = getAnswers(questionJSON);
     users = getUserArray();
-    if (answers.length == users.length) {
+    if (answers.length === users.length) {
         for (i in anwers) {
             dist = distance(answers.lat, answers.lon, questionJSON.lat, questionJSON.lon);
 
@@ -198,11 +198,13 @@ function getImage(questionJSON) {
 
     function onfsSuccess(fs) {
         var dReader = fs.createReader(),
-            timestamp;
+            timestamp,
+            result;
         timestamp = questionJSON.timestamp + ".jpg";
         dReader.root.getFile(timestamp, {
             create: false
         }, function (fileEntry) {
+            result = fileEntry.fullPath;
             window.localstorage.setItem("imgPath", fileEntry.fullPath);
         });
     }
