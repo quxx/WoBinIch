@@ -1,4 +1,4 @@
-/*global $, downloadFile, console, alert*/
+/*global $, downloadFile, console, alert, getImage*/
 
 /**
  * 
@@ -116,6 +116,7 @@ function parseRawData(data) {
                 //saving image with question timestamp as image name
                 timest = Jason.timestamp;
                 downloadFile(imgURL, "WoBinIch", timest);
+                alert(JSON.sringify(Jason));
 
                 QArray.push(Jason);
                 i += 1;
@@ -192,7 +193,8 @@ function testQuestionArray() {
 
 function testFileQuestion() {
     var questions = JSON.parse(window.localStorage.getItem("questions")),
-        i, fullPath;
+        i,
+        fullPath;
     for (i in questions) {
         getImage(questions[i]);
         fullPath = window.localStorage.getItem("imgPath");
