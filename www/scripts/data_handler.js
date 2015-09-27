@@ -89,7 +89,7 @@ function parseRawData(data) {
     JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
     //alert(dataArray[1]);
-    //alert("raw data sliced! Found " + dataArray.length + " lines!");
+    alert("raw data sliced! Found " + dataArray.length + " lines!");
     for (i = 0; i < dataArray.length - 1; i += 1) {
 
         string = dataArray[i];
@@ -136,10 +136,10 @@ function parseRawData(data) {
 
 function setEarliestTimestamp() {
     var time;
-    time = Date.now() + -2 * 24 * 3600 * 1000;
-    if (time < 1443184895905) {
+    //time = Date.now() + -2 * 24 * 3600 * 1000;
+    //if (time < 1443184895905) {
         time = 1443184895905;
-    }
+    //}
     window.localStorage.setItem("earliestTimestamp", time);
 }
 
