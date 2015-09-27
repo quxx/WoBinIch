@@ -78,7 +78,7 @@ function getUserArray() {
     return userArray;
 }
 
-//currently not working correctly!
+
 function parseRawData(data) {
     //alert("parseRawData called! Data: " + data);
     var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray = [];
@@ -201,12 +201,12 @@ function getImage(QuestionJSON) {
         fs.root.getFile(imgName, {}, gotImg);
     }
 
+    function gotImg(fileEntry) {
+        alert(fileEntry.toURI);
+    }
+
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess);
 
-}
-
-function gotImg(fileEntry) {
-    alert(fileEntry.toURI);
 }
 
 function testQuestionArray() {
