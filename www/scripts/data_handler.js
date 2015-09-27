@@ -256,6 +256,10 @@ function getImage(questionJSON) {
 
     function gotImg(fileEntry) {
         alert("success! imgPath = " + fileEntry.fullPath);
+        //------------------------------------------------
+        //Bildpfad wird hier ermittelt und kann leider 
+        //auch nur hier weiterverarbeitet werden!
+        //------------------------------------------------
     }
 
 }
