@@ -193,10 +193,9 @@ function scoreQuestion(questionJSON) {
  *
  */
 
-function getImage(questionJSON) {
+function getImage(QuestionJSON, callback) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess);
 
-    var result;
     function onfsSuccess(fs) {
         var dReader = fs.createReader(),
             timestamp;
@@ -204,13 +203,10 @@ function getImage(questionJSON) {
         result = dReader.root.getFile(timestamp, {
             create: false
         }, function (fileEntry) {
-            result = fileEntry.fullPath;
-            return result;
+            var result = fileEntry.fullPath;
+            callback(result);
         });
-        return result;
     }
-return result;
-
 }
 
 function testQuestionArray() {
@@ -224,5 +220,7 @@ function testQuestionArray() {
 function testFileQuestion() {
     var questions, i, fullPath;
     questions = JSON.parse(window.localStorage.getItem("questions"));
-    alert(getImage(questions[1]));
+    getImage(questions[i], function callback(result) {
+        alert(result);
+    });
 }
