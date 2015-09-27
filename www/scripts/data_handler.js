@@ -98,7 +98,7 @@ function parseRawData(data) {
         //alert("String is now: " + string + ", nextString is now: " + nextString);
 
         //detect incoming messages to parse
-        if (inFlag.test(string) == true && txtFlag.test(string) == true && JSONFlag.test(string) == true) {
+        if (inFlag.test(string) === true && txtFlag.test(string) === true && JSONFlag.test(string) === true) {
 
             //slice JSON-string and save into variable string
             str = JSONFlag.exec(string);
@@ -108,17 +108,16 @@ function parseRawData(data) {
             //alert("JSON.timestamp = " + Jason.timestamp);
 
             //check type of JSON
-            if (Jason.type == "question" && Jason.open == "true" && imgFlag.test(nextString) == true) {
+            if (Jason.type == "question" && Jason.open == "true" && imgFlag.test(nextString) === true) {
                 //alert("found img after question! slicing ImgURL!");
                 //slice the imgURL from the rest of the data and save as variable imgURL
                 imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
 
-                //generate timestamp as filename for image that needs to be downloaded
+                //saving image with question timestamp as image name
                 timest = Jason.timestamp;
-                window.localStorage.setItem("Jason", JSON.stringify(Jason));
-                //downloadFile handles the rest of the question data!
                 downloadFile(imgURL, "WoBinIch", timest);
-
+    
+                QArray.push(Jason);
                 i += 1;
 
             } else if (Jason.type == "reply") {
@@ -129,7 +128,7 @@ function parseRawData(data) {
         }
 
         //sollte idealerweise kein localstorage Objekt sein sondern 'n eigentständiges File. Evtl. kriegen wir das noch hin!
-        //window.localStorage.setItem("questions", JSON.stringify(QArray));
+        window.localStorage.setItem("questions", JSON.stringify(QArray));
         window.localStorage.setItem("answers", JSON.stringify(RArray));
     }
 }
