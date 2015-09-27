@@ -202,7 +202,8 @@ function getImage(timestamp) {
         fs.root.getFile(imgName, {
             create: false
         }, function (fileEntry) {
-            alert("success! imgPath = " + fileEntry.toURI);
+            //Hier img handlen!
+            alert("success! imgPath = " + fileEntry.toURL);
         }, function (error) {
             alert("File Retrieval Error!\n\n" + error.code);
         });
