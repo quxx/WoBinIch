@@ -1,14 +1,10 @@
-var questions = window.localStorage.getItem("questions");
-var QJson = JSON.parse(questions);
+var questions = [];
+questions = JSON.parse(window.localStorage.getItem("questions"));
 document.addEventListener("pageinit", function(e) {
       if (e.target.id == "my-page") {
         var i;
-        for (i=0; i<QJson.length; i++) {
-        var carousel = document.createElement("ons-carousel-item");
-        var reference = QJson[i].timestamp + "|" + QJson[i].geolat + "|" + QJson[i].geolon + "|" + QJson[i].score;
-        //alert(timestamp);
-        carousel.innerHTML += '<div><img style="z-index: -1;" src="' + QJson[i].imgPath + '" id="picture" height="100%" width="100%"></img></div><p class="par-buttons"><button id="' + reference + '" class="btn-send" onclick="answer(this)">Beantworten</button></p>';
-        document.getElementById("carousel").appendChild(carousel);
+        for (i=0; i<questions.length; i++) {
+            getImage(questions[i]);
         }
       }
     }, false);
