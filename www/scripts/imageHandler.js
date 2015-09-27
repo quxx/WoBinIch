@@ -77,6 +77,14 @@ function download(URL, Folder_Name, File_Name) {
         var fp = rootdir.toURL(); // Gesamter Ordnerpfad
     
         fp = fp + Folder_Name + "/" + File_Name + "." + "jpg"; // Ordnerpfad und Dateiname für das speichern
+		
+		var Jason = JSON.parse(window.localStorage.getItem("Jason"));
+		var QArray = JSON.parse(window.localStorage.getItem("questions"));
+		Jason.imgPath = fp;
+		alert("JSON: " + JSON.stringify(Jason));
+		QArray.push(Jason);
+		window.localStorage.setItem("questions", JSON.stringify(QArray));
+		
         filetransfer(download_link, fp);
     }
 
@@ -101,12 +109,7 @@ function filetransfer(download_link, fp) {
     // Image Download function
     fileTransfer.download(download_link, fp,
         function (entry) {
-			var Jason = JSON.parse(window.localStorage.getItem("Jason"));
-			var QArray = JSON.parse(window.localStorage.getItem("questions"));
-			Jason.imgPath = fp;
-			alert(JSON.stringify(Jason));
-			QArray.push(Jason);
-			window.localStorage.setItem("questions", JSON.stringify(QArray));
+			
             //console.log("download complete: " + entry.fullPath); // Gibt kompletten Pfad des Bildes aus
         },
         function (error) {
