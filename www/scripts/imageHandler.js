@@ -97,16 +97,16 @@ function download(URL, Folder_Name, File_Name) {
 
 function filetransfer(download_link, fp) {
     var fileTransfer = new FileTransfer();
-	var qJSON = JSON.parse(window.localStorage.getItem("qJSON"));
-	var qArray = JSON.parse(window.localStorage.getItem("questions"));
+	
     // Image Download function
     fileTransfer.download(download_link, fp,
         function (entry) {
-			
-			qJSON.imgPath = fp;
-			alert(JSON.stringify(qJSON));
-			qArray.push(qJSON);
-			window.localStorage.setItem("questions", JSON.stringify(qArray));
+			var Jason = JSON.parse(window.localStorage.getItem("Jason"));
+			var QArray = JSON.parse(window.localStorage.getItem("questions"));
+			Jason.imgPath = fp;
+			alert(JSON.stringify(Jason));
+			QArray.push(Jason);
+			window.localStorage.setItem("questions", JSON.stringify(QArray));
             //console.log("download complete: " + entry.fullPath); // Gibt kompletten Pfad des Bildes aus
         },
         function (error) {

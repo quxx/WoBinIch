@@ -115,9 +115,8 @@ function parseRawData(data) {
 
                 //generate timestamp as filename for image that needs to be downloaded
                 timest = Jason.timestamp;
-                window.localStorage.setItem("qJSON", JSON.stringify(Jason));
+                window.localStorage.setItem("Jason", JSON.stringify(Jason));
                 //downloadFile handles the rest of the question data!
-                alert("arrived at downloadFile!");
                 downloadFile(imgURL, "WoBinIch", timest);
 
                 i += 1;
