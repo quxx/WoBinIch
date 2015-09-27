@@ -193,19 +193,20 @@ function scoreQuestion(questionJSON) {
  *
  */
 
-function getImageURI(QuestionJSON) {
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess);
-
+function getImage(QuestionJSON) {
+    
     function onfsSuccess(fs) {
         var timestamp;
-        timestamp = questionJSON.timestamp + ".jpg";
-        fs.root.getFile(timestamp, {create: false}, gotImg);
+        imgName = QuestionJSON.timestamp + ".jpg";
+        fs.root.getFile(imgName, {}, gotImg)
     }
+    
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess);
 
-    function gotImg(fileEntry) {
-        alert(fileEntry.toURI);
-    }
+}
 
+function gotImg(fileEntry) {
+    alert(fileEntry.toURI);
 }
 
 function testQuestionArray() {
@@ -219,5 +220,6 @@ function testQuestionArray() {
 function testFileQuestion() {
     var questions;
     questions = JSON.parse(window.localStorage.getItem("questions"));
-    getImageURI(questions[1]);
+    alert ("I hate my life");
+    getImage(questions[0]);
 }
