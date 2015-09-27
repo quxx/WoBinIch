@@ -222,9 +222,8 @@ function testFileQuestion() {
     var questions = JSON.parse(window.localStorage.getItem("questions")),
         i,
         fullPath;
-    for (i in questions) {
-        getImage(questions[i]);
+        getImage(questions[1]);
         fullPath = window.localStorage.getItem("imgPath");
-        alert(questions[i].timestamp + ": " + fullPath);
+        alert(questions[1].timestamp + ": " + fullPath);
     }
 }
