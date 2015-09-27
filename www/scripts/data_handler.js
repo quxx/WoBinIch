@@ -138,7 +138,7 @@ function setEarliestTimestamp() {
     var time;
     //time = Date.now() + -2 * 24 * 3600 * 1000;
     //if (time < 1443184895905) {
-        time = 1443184895905;
+    time = 1443184895905;
     //}
     window.localStorage.setItem("earliestTimestamp", time);
 }
@@ -193,20 +193,23 @@ function scoreQuestion(questionJSON) {
  *
  */
 
-function getImage(QuestionJSON, callback) {
+function getImageURI(QuestionJSON) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess);
 
-    function onfsSuccess(fs) {
-        var dReader = fs.createReader(),
+    function onfsSuccess(fs, gotImg) {
+        var dReader,
             timestamp;
+        dReader = fs.createReader();
         timestamp = questionJSON.timestamp + ".jpg";
-        dReader.root.getFile(timestamp, {
+        dReader.getFile(timestamp, {
             create: false
-        }, function (fileEntry) {
-            var result = fileEntry.fullPath;
-            callback(result);
-        });
+        }, gotImg);
     }
+
+    function gotImg(fileEntry) {
+        alert(fileEntry.toURI);
+    }
+
 }
 
 function testQuestionArray() {
@@ -220,7 +223,5 @@ function testQuestionArray() {
 function testFileQuestion() {
     var questions;
     questions = JSON.parse(window.localStorage.getItem("questions"));
-    getImage(questions[1], function callback(result) {
-        alert(result);
-    });
+    getImage(questions[1]);
 }
