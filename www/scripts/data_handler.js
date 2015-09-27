@@ -134,6 +134,14 @@ function parseRawData(data) {
     }
 }
 
+/*
+*
+* Setzt den Timestamp, ab welchem die Daten vom Server geholt werden auf aktuelles Datum minus 2 Tage.
+*
+* @method setEarliestTimestamp
+*
+*/
+
 function setEarliestTimestamp() {
     var time;
     //time = Date.now() + -2 * 24 * 3600 * 1000;
@@ -186,18 +194,19 @@ function scoreQuestion(questionJSON) {
 
 /*
  * 
- * Sucht das zugehörige Bild zu einem Frageobjekt aus dem Gerätespeicher und legt es in den Schlüssel "imgPath" im localstorage.
+ * Sucht das zugehörige Bild zu einem Frageobjekt aus dem Gerätespeicher zeigt es an.
  *
  * param {Object} questionJSON - Javascript Objekt, welches mit createQuestionJSON erstellt wurde
  *
  *
  */
 
-function getImage(timestamp) {
+function getImage(questionJSON) {
     alert("getimg called!");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
     function fsSuccess(fs) {
+        var timestamp = questionJSON.timestamp;
         var imgName = "WoBinIch/" + timestamp + ".jpg";
         fs.root.getFile(imgName, {
             create: false
