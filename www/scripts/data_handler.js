@@ -198,16 +198,8 @@ function getImage(timestamp) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
     function fsSuccess(fs) {
-        fs.root.getDirectory("WoBinIch", {
-            create: false
-        }, dirSuccess, dirFail);
-
-    }
-
-    function dirSuccess(directory) {
-        alert("directory: " + directory.fullPath);
-        var imgName = timestamp + ".jpg";
-        directory.getFile(imgName, {
+        var imgName = "/WoBinIch/" + timestamp + ".jpg";
+        fs.root.getFile(imgName, {
             create: false
         }, function (fileEntry) {
             alert("success! imgPath = " + fileEntry.toURI);
@@ -217,7 +209,7 @@ function getImage(timestamp) {
     }
 
     function fsFail(error) {
-        alert("FileSystem Error!\n\n" + error.code);
+        alert("FileSystem Error!\n\n" + error.codes);
     }
 
 }
