@@ -203,7 +203,7 @@ function getImage(timestamp) {
             create: false
         }, function (fileEntry) {
             //Hier img handlen!
-            alert("success! imgPath = " + fileEntry.toURL);
+            alert("success! imgPath = " + fileEntry.fullPath);
         }, function (error) {
             alert("File Retrieval Error!\n\n" + error.code);
         });
