@@ -1,4 +1,4 @@
-// controller.js
+﻿// controller.js
 
 (function () {
     var app = angular.module('myApp', ['onsen']);
@@ -47,15 +47,21 @@
         }, 100);
 
         //Send
+
         $scope.sendMarker = function () {
             if (marker) {
-                var str0 = JSON.stringify(marker.getPosition());
-                var str1 = str0.replace('{"G":', "");
-                var str2 = str1.replace(',"K":', "/");
-                var answer = str2.substr(0, str2.length - 1);
+                var reference = window.sessionStorage.getItem("answerTimestamp").split("|");
+                var alat = reference[1];
+                var alng = reference[2];
+                var username = window.localStorage.getItem("loginname");
+                var date = Date.now();
+                var lat = marker.getPosition().lat();
+                var lng = marker.getPosition().lng();
+                alert(lat);
+                var distance = distance(lat,lng,alat,alng);
+                alert(distance);
+                //var answer = createAnswerJSON(date, reference, username, lat, lng, score);
 
-                window.localStorage.setItem("geoAnswer", answer);
-                alert(answer);
             } else {
                 ons.notification.alert({
                     message: "Bitte setze zuerst einen Marker!"
