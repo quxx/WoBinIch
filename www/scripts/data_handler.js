@@ -198,7 +198,7 @@ function getImage(timestamp) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
     function fsSuccess(fs) {
-        var imgName = "/WoBinIch/" + timestamp + ".jpg";
+        var imgName = "WoBinIch/" + timestamp + ".jpg";
         fs.root.getFile(imgName, {
             create: false
         }, function (fileEntry) {
