@@ -193,12 +193,12 @@ function scoreQuestion(questionJSON) {
  *
  */
 
-function getImage(QuestionJSON) {
+function getImage(timestamp) {
     alert("getimg called!");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
     function fsSuccess(fs) {
-        var imgName = QuestionJSON.timestamp + ".jpg";
+        var imgName = timestamp + ".jpg";
         fs.root.getFile(imgName, {
             create: false
         }, function (fileEntry) {
@@ -226,5 +226,7 @@ function testQuestionArray() {
 function testFileQuestion() {
     var questions = [];
     questions = JSON.parse(window.localStorage.getItem("questions"));
-    getImage(questions[0]);
+    var time = questions[0].timestamp;
+    alert(time);
+    getImage(time);
 }
