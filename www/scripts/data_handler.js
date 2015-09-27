@@ -209,7 +209,7 @@ function getImage(timestamp, cbFunction) {
     function fsFail(error) {
         alert("FileSystem Error!\n\n" + error.code);
     }
-    
+
     function gotImg(fileEntry) {
         alert("success! imgPath = " + fileEntry.fullPath);
         cbFunction(fileEntry);
@@ -230,5 +230,7 @@ function testFileQuestion() {
     questions = JSON.parse(window.localStorage.getItem("questions"));
     var time = questions[0].timestamp;
     alert(time);
-    getImage(time);
+    getImage(time, function () {
+        alert("callback function: " + fileEntry);
+    });
 }
