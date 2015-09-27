@@ -194,7 +194,8 @@ function scoreQuestion(questionJSON) {
  */
 
 function getImage(QuestionJSON) {
-
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess, onfail);
+    
     function onfsSuccess(fs) {
         var imgName, dReader;
         //imgName = QuestionJSON.timestamp + ".jpg";
@@ -212,7 +213,7 @@ function getImage(QuestionJSON) {
         //handle error
     }
 
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess, onfail);
+
 
 }
 
@@ -225,8 +226,7 @@ function testQuestionArray() {
 }
 
 function testFileQuestion() {
-    var questions;
+    var questions = [];
     questions = JSON.parse(window.localStorage.getItem("questions"));
-    alert("I hate my life");
     getImage(questions[0]);
 }
