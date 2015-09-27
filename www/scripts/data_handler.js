@@ -197,11 +197,9 @@ function getImageURI(QuestionJSON) {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onfsSuccess);
 
     function onfsSuccess(fs) {
-        var dReader,
             timestamp;
-        dReader = fs.createReader();
         timestamp = questionJSON.timestamp + ".jpg";
-        dReader.getFile(timestamp, {}, gotImg);
+        fs.root.getFile(timestamp, {create: false}, gotImg);
     }
 
     function gotImg(fileEntry) {
