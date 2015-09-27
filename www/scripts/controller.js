@@ -56,19 +56,21 @@
                 var alat = reference[1].toString();
                 var alng = reference[2].toString();
                 var username = window.localStorage.getItem("loginname");
-                var date = Date.now();
+                var time = Date.now();
                 var lat = marker.getPosition().lat().toString();
                 var lng = marker.getPosition().lng().toString();
                 var distanceKM = distance(lat, lng, alat, alng);
                 var distanceM = Math.round(distanceKM * 1000); //Entfernung beider Koordinaten in Meter
-                alert(distanceM);
-                var points;
-                if (Math.round(maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy))) < 0) {
-                    points = 0;
+                var points = reference[3];
+                if (maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)) < 0) {
+                    points += 0;
                 } else {
-                    points = Math.round(maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)));
+                    points += Math.round(maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)));
                 }
                 alert(points);
+                var answerJSON = createAnswerJSON(time, reference[0], username, alat, alon, points);
+                alert(answerJSON);
+                //ajxBroadcastJSON(answerJSON);
 
             } else {
                 ons.notification.alert({
