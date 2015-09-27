@@ -210,7 +210,7 @@ function getImage(timestamp) {
         alert("FileSystem Error!\n\n" + error.code);
     }
     
-    function gotImg(data) {
+    function gotImg(fileEntry) {
         alert("success! imgPath = " + fileEntry.fullPath);
         
     }
