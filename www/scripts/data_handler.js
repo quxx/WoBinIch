@@ -79,14 +79,14 @@ function getUserArray() {
 }
 
 /*
- *
- * Wandelt den String aus Rohdaten, welchen ajxGetRawData vom THM Chatserver abholt in JS Objekte um, sortiert diese nach Fragen und Antworten in entsprechende Arrays und legt diese anschließend im localstorage ab.
- *
- * @method parseRawData
- *
- * @param {String} data - Die Rohdaten, welche der THM Chatserver liefert.*
- *
- */
+*
+* Wandelt den String aus Rohdaten, welchen ajxGetRawData vom THM Chatserver abholt in JS Objekte um, sortiert diese nach Fragen und Antworten in entsprechende Arrays und legt diese anschließend im localstorage ab.
+*
+* @method parseRawData
+*
+* @param {String} data - Die Rohdaten, welche der THM Chatserver liefert.*
+*
+*/
 
 function parseRawData(data) {
     //alert("parseRawData called! Data: " + data);
@@ -144,12 +144,12 @@ function parseRawData(data) {
 }
 
 /*
- *
- * Setzt den Timestamp, ab welchem die Daten vom Server geholt werden auf aktuelles Datum minus 2 Tage.
- *
- * @method setEarliestTimestamp
- *
- */
+*
+* Setzt den Timestamp, ab welchem die Daten vom Server geholt werden auf aktuelles Datum minus 2 Tage.
+*
+* @method setEarliestTimestamp
+*
+*/
 
 function setEarliestTimestamp() {
     var time;
@@ -161,16 +161,16 @@ function setEarliestTimestamp() {
 }
 
 /*
- *
- * Liefert zu einem Frageobjekt die zugehörign Antwortobjekte in einem Array.
- *
- * @method getAnswers
- *
- * @param {Object} questionJSON - Frageobjekt in JSON-formatierung, welches durch createQuestionJSON erstellt wurde
- *
- * @return {Object} - returnArray - Array aus Antwortobjekten, welche das übergebene Frageobjekt referenzieren.
- *
- */
+*
+* Liefert zu einem Frageobjekt die zugehörign Antwortobjekte in einem Array.
+*
+* @method getAnswers
+*
+* @param {Object} questionJSON - Frageobjekt in JSON-formatierung, welches durch createQuestionJSON erstellt wurde
+*
+* @return {Object} - returnArray - Array aus Antwortobjekten, welche das übergebene Frageobjekt referenzieren.
+*
+*/
 
 function getAnswers(questionJSON) {
     var i, answerArray, returnArray = [];
@@ -184,14 +184,14 @@ function getAnswers(questionJSON) {
 }
 
 /*
- *
- * Bewertet das übergebene Frageobjekt, sofern alle Antworten abgegeben wurden oder die Frage älter als 2 Tage ist und schreibt die Bewertung in das Score-Attribut des Frageobjekts.
- *
- * @method scoreQuestion
- *
- * @param {Object} questionJSON - Frageobjekt, welches bewertet werden soll
- *
- */
+*
+* Bewertet das übergebene Frageobjekt, sofern alle Antworten abgegeben wurden oder die Frage älter als 2 Tage ist und schreibt die Bewertung in das Score-Attribut des Frageobjekts.
+*
+* @method scoreQuestion
+*
+* @param {Object} questionJSON - Frageobjekt, welches bewertet werden soll
+*
+*/
 
 function scoreQuestion(questionJSON) {
     var answers = [],
@@ -287,12 +287,12 @@ function getScore(username) {
     qArray = JSON.parse(window.localStorage.getItem("questions"));
     rArray = JSON.parse(window.localStorage.getItem("answers"));
     for (i in qArray) {
-        if (score < qArray[i].score) {
+        if (score < qArray[i].score && username == qArray[i].username) {
             score = qArray[i].score;
         }
     }
     for (j in rArray) {
-        if (score < rArray[j].score) {
+        if (score < rArray[j].score && username == rArray[j].username) {
             score = rArray[j].score;
         }
     }
