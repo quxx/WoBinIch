@@ -5,13 +5,8 @@ body {
         width: 100%;
 
     }
-    .container {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-    }
 
-    #canvas {
+#canvas {
         display: block;
         padding: 0;
         margin: 0 auto;
@@ -20,7 +15,7 @@ body {
         background-color:red;
     }
 
-    @media(max-width:1080px) {
+@media(max-width:1080px) {
         #canvas {
             width: 100%;
             height: auto;
