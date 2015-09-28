@@ -61,7 +61,7 @@
                 var lng = marker.getPosition().lng().toString();
                 var distanceKM = distance(lat, lng, alat, alng);
                 var distanceM = Math.round(distanceKM * 1000); //Entfernung beider Koordinaten in Meter
-                var points = getScore(username);
+                var points = 0; //= getScore(username);
                 if (maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)) < 0) {
                     points += 0;
                 } else {
@@ -70,6 +70,12 @@
                 //alert(points);
                 var answerJSON = createAnswerJSON(time, reference[0], username, alat, alng, points);
                 ajxBroadcastJSON(answerJSON);
+                var answered = window.localStorage.getItem("answeredQ");
+                    answered =+ "|" + reference[0].toString();
+                window.localStorage.setItem("answeredQ", answered);
+                alert("Antwort abgeschickt");
+                window.location("home.html");
+
 
             } else {
                 ons.notification.alert({
@@ -118,7 +124,7 @@
             var lng = marker.getPosition().lng().toString();
             var distanceKM = distance(lat, lng, alat, alng);
             var distanceM = Math.round(distanceKM * 1000); //Entfernung beider Koordinaten in Meter
-            var points = getScore(username);
+            var points //= getScore(username);
             if (maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)) < 0) {
                     points += 0;
                 } else {
@@ -126,6 +132,11 @@
                 }
             var answerJSON = createAnswerJSON(time, reference[0], username, alat, alng, points);
             ajxBroadcastJSON(answerJSON);
+            var answered = window.localStorage.getItem("answeredQ");
+                answered =+ "|" + reference[0].toString();
+            window.localStorage.setItem("answeredQ", answered);
+            alert("Antwort abgeschickt");
+            window.location("home.html");
 
         }
 
