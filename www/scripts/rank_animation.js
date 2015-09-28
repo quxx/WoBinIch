@@ -75,4 +75,11 @@ var ct = {
 };
         
 
-window.onload = ct.init;
+function start() {
+    document.addEventListener("deviceready", onDeviceReady, false);
+}
+
+function onDeviceReady() {
+    bc.init();
+}
+}
