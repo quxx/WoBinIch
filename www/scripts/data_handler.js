@@ -1,4 +1,4 @@
-﻿/*global $, downloadFile, console, alert*/
+/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -324,11 +324,11 @@ function updateScore(JSONObj, addedPoints) {
     return JSONObj;
 }
 
-function testQuestionArray() {
-    var questions = JSON.parse(window.localStorage.getItem("questions")),
+function testAnswerArray() {
+    var answers = JSON.parse(window.localStorage.getItem("answers")),
         i;
-    for (i in questions) {
-        alert(JSON.stringify(questions[i]));
+    for (i in answers) {
+        alert(JSON.stringify(answers[i]));
     }
 }
 
