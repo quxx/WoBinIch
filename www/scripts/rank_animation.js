@@ -1,8 +1,11 @@
-document.addEventListener("deviceready", onDeviceReady, false);
-document.addEventListener("onpageshow", onPageShow, false);
 
-function onDeviceReady() {
-    function onPageShow() {
+function start(){
+  document.addEventListener("deviceready", onDeviceReady, false);
+}
+
+function onDeviceReady(){
+  alert('123');
+
         var ct = {
         canvas:null,
         ctx:null,
@@ -22,7 +25,7 @@ function onDeviceReady() {
     
     init: function() {
         ct.canvas = document.getElementById("canvas");
-        alert(ct.values);
+        
         if(ct.canvas && ct.canvas.getContext) {
             ct.ctx = ct.canvas.getContext("2d");
                 
@@ -79,5 +82,5 @@ function onDeviceReady() {
       
     }
 };
-    }
 }
+
