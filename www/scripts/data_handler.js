@@ -1,4 +1,4 @@
-/*global $, downloadFile, console, alert*/
+﻿/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -239,7 +239,7 @@ function scoreQuestion(questionJSON) {
  */
 
 function getImage(questionJSON) {
-    alert("getimg called!");
+    //alert("getimg called!");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
     function fsSuccess(fs) {
@@ -262,12 +262,8 @@ function getImage(questionJSON) {
         //Bildpfad wird hier ermittelt und kann leider 
         //auch nur hier weiterverarbeitet werden!
         //------------------------------------------------
-        var carousel = document.createElement("ons-carousel-item");
         var reference = questionJSON.timestamp + "|" + questionJSON.geolat + "|" + questionJSON.geolon;
-        //alert(reference);
-        //alert(timestamp);
-        carousel.innerHTML += '<div><img style="z-index: -1;" src="' + imgPath + '" id="picture" height="100%" width="100%"></img></div><p class="par-buttons"><button id="' + reference + '" class="btn-send" onclick="answer(this)">Beantworten</button></p>';
-        document.getElementById("carousel").appendChild(carousel);
+        document.getElementById("question").innerHTML = '<div><img style="z-index: -1;" src="' + imgPath + '" id="picture" height="100%" width="100%"></img></div><p class="par-buttons"><ons-button id="' + reference + '" class="btn-send" onclick="answer(this)">Beantworten</ons-button></p>'
     }
 
 }
