@@ -1,4 +1,4 @@
-/*global $, downloadFile, console, alert*/
+﻿/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -263,7 +263,7 @@ function getImage(questionJSON) {
         //auch nur hier weiterverarbeitet werden!
         //------------------------------------------------
         var carousel = document.createElement("ons-carousel-item");
-        var reference = questionJSON.timestamp + "|" + questionJSON.geolat + "|" + questionJSON.geolon + "|" + questionJSON.score;
+        var reference = questionJSON.timestamp + "|" + questionJSON.geolat + "|" + questionJSON.geolon;
         //alert(reference);
         //alert(timestamp);
         carousel.innerHTML += '<div><img style="z-index: -1;" src="' + imgPath + '" id="picture" height="100%" width="100%"></img></div><p class="par-buttons"><button id="' + reference + '" class="btn-send" onclick="answer(this)">Beantworten</button></p>';
