@@ -4,25 +4,25 @@ document.addEventListener("onpageshow", onPageShow, false);
 function onDeviceReady() {
     function onPageShow() {
         var ct = {
-    canvas:null,
-    ctx:null,
+        canvas:null,
+        ctx:null,
     
-    values:[13, 44, 22, 153],
-    barWidth:30,
-    barFill:null,
-    backgroundFill:null,
+        values:[13, 44, 22, 153],
+        barWidth:30,
+        barFill:null,
+        backgroundFill:null,
     
-    scale:0,
-    duration:2.0,
-    fps:30,
-    startTime:0,
-    timer:null,
+        scale:0,
+        duration:2.0,
+        fps:30,
+        startTime:0,
+        timer:null,
     
     
     
     init: function() {
         ct.canvas = document.getElementById("canvas");
-    
+        alert(ct.values);
         if(ct.canvas && ct.canvas.getContext) {
             ct.ctx = ct.canvas.getContext("2d");
                 
