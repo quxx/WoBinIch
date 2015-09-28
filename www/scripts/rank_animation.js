@@ -1,6 +1,16 @@
 ﻿document.addEventListener("pageinit", function (e) {
     if (e.target.id == "my-ranking") {
+        var viewport = {
+            width  : $(window).width(),
+            height : $(window).height()
+        };
+        
+//        alert(viewport.height);
+//        alert(viewport.width);
+        
         var c = document.getElementById("myCanvas");
+        c.width = viewport.width-5;
+        c.height = viewport.height-50;
 
         //Text Technsiche Hochschule
         var ctx = c.getContext("2d");
