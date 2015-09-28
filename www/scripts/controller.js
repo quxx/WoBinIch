@@ -70,12 +70,14 @@
                 //alert(points);
                 var answerJSON = createAnswerJSON(time, reference[0], username, alat, alng, points);
                 ajxBroadcastJSON(answerJSON);
-                var answered = window.localStorage.getItem("answeredQ");
-                    answered =+ "|" + reference[0].toString();
-                window.localStorage.setItem("answeredQ", answered);
-                alert("Antwort abgeschickt");
-                window.location("home.html");
-
+                var answered = [];
+                if (window.localStorage.getItem("answeredQ") !== "" ){
+                    answered = JSON.parse(window.localStorage.getItem("answeredQ"));
+                }
+                answered.push(reference[0]);
+                window.localStorage.setItem("answeredQ",JSON.stringify(answered));
+                alert('Antwort abgeschickt \nPunktezahl: ' + points);
+                window.location = "home.html";
 
             } else {
                 ons.notification.alert({
@@ -132,11 +134,14 @@
                 }
             var answerJSON = createAnswerJSON(time, reference[0], username, alat, alng, points);
             ajxBroadcastJSON(answerJSON);
-            var answered = window.localStorage.getItem("answeredQ");
-                answered =+ "|" + reference[0].toString();
-            window.localStorage.setItem("answeredQ", answered);
-            alert("Antwort abgeschickt");
-            window.location("home.html");
+            var answered = [];
+            if (window.localStorage.getItem("answeredQ") !== "" ){
+                answered = JSON.parse(window.localStorage.getItem("answeredQ"));
+            }
+            answered.push(reference[0]);
+            window.localStorage.setItem("answeredQ",JSON.stringify(answered));
+            alert('Antwort abgeschickt \nPunktezahl: ' + points);
+            window.location = "home.html";
 
         }
 
