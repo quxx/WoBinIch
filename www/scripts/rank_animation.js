@@ -50,40 +50,49 @@ document.addEventListener("pageinit", function (e) {
         };
      
 var ct = {
-       canvas:null,
-        ctx:null,
+    canvas:null,
+    ctx:null,
     
-        values:[13, 44, 22, 153],
-        barWidth:30,
-        barFill:null,
-        backgroundFill:null,
+    values:[1223, 344, 4422, 5555],
+    newValues:[],
+    barWidth:30,
+    barFill:null,
+    backgroundFill:null,
     
-        scale:0,
-        duration:2.0,
-        fps:30,
-        startTime:0,
-        timer:null,
+    scale:0,
+    duration:2.0,
+    fps:30,
+    startTime:0,
+    timer:null,
+    maxP:0,
     
     
     
     init: function() {
         ct.canvas = document.getElementById("canvas");
-        
+    
         if(ct.canvas && ct.canvas.getContext) {
             ct.ctx = ct.canvas.getContext("2d");
                 
             //Farbverläufe
-            ct.barFill = ct.ctx.createLinearGradient(0, 0, 0, 200);
+            ct.barFill = ct.ctx.createLinearGradient(0, 0, 0, 350);
             ct.barFill.addColorStop(0.0, "white");
             ct.barFill.addColorStop(1.0, "#6E6E6E");
-            
+        
             ct.backgroundFill = "black";
             
             //Array aufsteigen sortieren
             ct.values.sort(function(a,b){return b-a});
+            //Punkte in relation zum höchsten Punktestand setzen
+            ct.maxP = ct.values[0];
+            
+            for(var i = 0; i < ct.values.length; i++) {
+                ct.newValues[i] = ((ct.values[i] * (ct.canvas.height - 50)) / ct.maxP);
+            }
+        }
+            
         
             ct.animStart();
-        }
     },
     
     animStart: function() {
@@ -116,9 +125,9 @@ var ct = {
         ct.ctx.scale(1, -1);
    
         //Säulen zeichnen
-        for(var i = 0; i < ct.values.length; i++) {
+        for(var i = 0; i < ct.newValues.length; i++) {
             ct.ctx.fillStyle = ct.barFill;
-            ct.ctx.fillRect(i * (ct.barWidth +10), 0, ct.barWidth, ct.scale * ct.values[i]);
+            ct.ctx.fillRect(i * (ct.barWidth +10), 0, ct.barWidth, ct.scale * ct.newValues[i]);
         }
         
         ct.ctx.restore();
