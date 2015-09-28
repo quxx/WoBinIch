@@ -1,13 +1,13 @@
-    var questions = [];
-    questions = JSON.parse(window.localStorage.getItem("questions"));
-    document.addEventListener("pageinit", function (e) {
-        if (e.target.id == "my-page") {
-            var i;
-            for (i = 0; i < questions.length; i++) {
-                getImage(questions[i]);
-            }
+var questions = [];
+questions = JSON.parse(window.localStorage.getItem("questions"));
+document.addEventListener("pageinit", function (e) {
+    if (e.target.id == "my-page") {
+        var i;
+        for (i = 0; i < questions.length; i++) {
+            getImage(questions[i]);
         }
-    }, false);
+    }
+}, false);
 
 
 function refresh() {
