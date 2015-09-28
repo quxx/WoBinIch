@@ -115,7 +115,6 @@ function parseRawData(data) {
             //parse string into JS object
             Jason = JSON.parse(str);
             //alert("JSON.timestamp = " + Jason.timestamp);
-
             //check type of JSON
             if (Jason.type == "question" && Jason.open == "true" && imgFlag.test(nextString) === true) {
                 //alert("found img after question! slicing ImgURL!");
@@ -218,6 +217,9 @@ function scoreQuestion(questionJSON) {
         if (score > 100) {
             score = 100;
 
+        }
+        if (score < 0) {
+            score = 0;
         }
         questionJSON.score += score;
     } else {
