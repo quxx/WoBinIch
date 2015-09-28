@@ -1,9 +1,6 @@
-document.addEventListener("deviceready", onDeviceReady, false);
-
-function onDeviceReady() {
     var questions = [];
     questions = JSON.parse(window.localStorage.getItem("questions"));
-    document.addEventListener("onpageshow", function (e) {
+    document.addEventListener("pageinit", function (e) {
         if (e.target.id == "my-page") {
             var i;
             for (i = 0; i < questions.length; i++) {
@@ -11,7 +8,7 @@ function onDeviceReady() {
             }
         }
     }, false);
-}
+
 
 function refresh() {
     window.location = "home.html";
