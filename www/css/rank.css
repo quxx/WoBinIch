@@ -1,0 +1,29 @@
+body {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        width: 100%;
+
+    }
+    .container {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    #canvas {
+        display: block;
+        padding: 0;
+        margin: 0 auto;
+        
+        border: 1px solid red;
+        background-color:red;
+    }
+
+    @media(max-width:1080px) {
+        #canvas {
+            width: 100%;
+            height: auto;
+            background-color:red;
+        }
+    }
