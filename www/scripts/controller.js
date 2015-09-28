@@ -141,7 +141,8 @@
             answered.push(reference[0]);
             window.localStorage.setItem("answeredQ",JSON.stringify(answered));
             alert('Antwort abgeschickt \nPunktezahl: ' + points);
-            window.location = "home.html";
+           
+            window.location = "ranking.html";
 
         }
 
