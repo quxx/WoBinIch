@@ -1,5 +1,5 @@
 <ons-navigator>
-   <ons-page>
+   <ons-page id="my-ranking">
         <ons-toolbar ng-controller="SlidingMenuController" fixed-style="">
             <div class="left">
                 <ons-toolbar-button ng-click="slidingMenu.toggleMenu()"><ons-icon icon="bars"></ons-icon></ons-toolbar-button>
@@ -7,9 +7,7 @@
             <div class="center">Ranking</div>
         </ons-toolbar>
         
-       <body onload="onDeviceReady()">
-        <canvas id="canvas" width="510" height="400"></canvas>
-       </body>
-        
+        <canvas id="myCanvas" width="500" height="180">
+
     </ons-page>
 </ons-navigator>
