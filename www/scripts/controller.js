@@ -76,8 +76,12 @@
                 }
                 answered.push(reference[0]);
                 window.localStorage.setItem("answeredQ",JSON.stringify(answered));
-                alert('Antwort abgeschickt \nPunktezahl: ' + points);
-                window.location = "home.html";
+                
+                ons.notification.alert({
+                    title: 'Antwort abgeschickt',
+                    message: 'Punktezahl: ' + points, 
+                    callback: function() {window.location = "ranking.html"}
+                });
 
             } else {
                 ons.notification.alert({
@@ -140,9 +144,11 @@
             }
             answered.push(reference[0]);
             window.localStorage.setItem("answeredQ",JSON.stringify(answered));
-            alert('Antwort abgeschickt \nPunktezahl: ' + points);
-           
-            window.location = "ranking.html";
+            ons.notification.alert({
+                title: 'Antwort abgeschickt',
+                message: 'Punktezahl: ' + points, 
+                callback: function() {window.location = "ranking.html"}
+            });
 
         }
 
