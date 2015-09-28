@@ -1,4 +1,4 @@
-﻿/*global $, downloadFile, console, alert*/
+/*global $, downloadFile, console, alert*/
 
 /**
  * 
@@ -61,6 +61,7 @@ function createAnswerJSON(timestamp, reference, username, lat, lon, score) {
     formattedJSON = JSON.parse(text);
     return formattedJSON;
 }
+
 /**
  * 
  * Lädt eine vorher im localstorage unter dem Key "userlist" hinterlegte Liste in ein Array und spaltet sie entsprechend in einzelne Benutzernamen auf.
@@ -89,20 +90,21 @@ function getUserArray() {
  */
 
 function parseRawData(data) {
-    //alert("parseRawData called! Data: " + data);
-    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray = [];
-    window.localStorage.setItem("questions", QArray);
+    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray;
+    RArray = [];
+    QArray = [];
     inFlag = /[|]in[|]/i;
     txtFlag = /[|]txt[|]/i;
     imgFlag = /[|]img[|]/i;
     JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
-    //alert(dataArray[1]);
+    window.localStorage.setItem("questions", QArray);
+    window.localStorage.setItem("answers", RArray);
     //alert("raw data sliced! Found " + dataArray.length + " lines!");
     for (i = 0; i < dataArray.length - 1; i += 1) {
 
         string = dataArray[i];
-        //console.log("TEST: " + string + " ******** I= " + i);
+
         nextString = dataArray[i + 1];
         //alert("String is now: " + string + ", nextString is now: " + nextString);
 
@@ -111,29 +113,34 @@ function parseRawData(data) {
 
             //slice JSON-string and save into variable string
             str = JSONFlag.exec(string);
-            //alert("Sliced String: " + str);
+
             //parse string into JS object
             Jason = JSON.parse(str);
-            //alert("JSON.timestamp = " + Jason.timestamp);
+
             //check type of JSON
-            if (Jason.type == "question" && Jason.open == "true" && imgFlag.test(nextString) === true) {
-                //alert("found img after question! slicing ImgURL!");
-                //slice the imgURL from the rest of the data and save as variable imgURL
-                imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
+            switch (Jason.type) {
 
-                //saving image with question timestamp as image name
-                timest = Jason.timestamp;
-                downloadFile(imgURL, "WoBinIch", timest);
-                //alert(JSON.stringify(Jason));
+            case "question":
+                if (imgFlag.test(nextString) === true) {
+                    //slice the imgURL from the rest of the data and save as variable imgURL
+                    imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
 
-                QArray.push(Jason);
-                i += 1;
+                    //saving image with question timestamp as image name
+                    timest = Jason.timestamp;
+                    downloadFile(imgURL, "WoBinIch", timest);
 
-            } else if (Jason.type == "reply") {
-                //handle answerJSON here!
+                    QArray.push(Jason);
+                    i += 1;
+                } else {
+                    QArray.push(Jason);
+                }
+                break;
+
+            case "reply":
                 RArray.push(Jason);
-
+                break;
             }
+
         }
 
         //sollte idealerweise kein localstorage Objekt sein sondern 'n eigentständiges File. Evtl. kriegen wir das noch hin!
@@ -263,7 +270,7 @@ function getImage(questionJSON) {
         //auch nur hier weiterverarbeitet werden!
         //------------------------------------------------
         var reference = questionJSON.timestamp + "|" + questionJSON.geolat + "|" + questionJSON.geolon;
-        document.getElementById("question").innerHTML = '<div><img style="z-index: -1;" src="' + imgPath + '" id="picture" height="100%" width="100%"></img></div><p class="par-buttons"><ons-button id="' + reference + '" class="btn-send" onclick="answer(this)">Beantworten</ons-button></p>'
+        document.getElementById("question").innerHTML = '<div><img style="z-index: -1;" src="' + imgPath + '" id="picture" height="100%" width="100%"></img></div><p class="par-buttons"><ons-button id="' + reference + '" class="btn-send" onclick="answer(this)">Beantworten</ons-button></p>';
     }
 
 }
@@ -298,25 +305,25 @@ function getScore(username) {
 }
 
 /*
-*
-* Erhöht den Punktestand des übergebenen Objektes um addedPoints
-*
-* @method updateScore
-*
-* @param {Object} JSONObj - Objekt, dessen Punktestand erhöht werden soll. Muss durch createQuestionJSON oder createAnswerJSON erstellt werden.
-* @param {Integer} addedPoints - Betrag, um welchen der Punktestand erhöht werden soll
-*
-* @result {Object} JSONObj - Objekt mit neuem Punktestand
-*
-*/
+ *
+ * Erhöht den Punktestand des übergebenen Objektes um addedPoints
+ *
+ * @method updateScore
+ *
+ * @param {Object} JSONObj - Objekt, dessen Punktestand erhöht werden soll. Muss durch createQuestionJSON oder createAnswerJSON erstellt werden.
+ * @param {Integer} addedPoints - Betrag, um welchen der Punktestand erhöht werden soll
+ *
+ * @result {Object} JSONObj - Objekt mit neuem Punktestand
+ *
+ */
 
 function updateScore(JSONObj, addedPoints) {
     var score;
-    
+
     score = getScore(JSONObj.score);
     score += addedPoints;
     JSONObj.score = score;
-    
+
     return JSONObj;
 }
 
