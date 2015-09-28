@@ -74,12 +74,4 @@ var ct = {
     }
 };
         
-
-function start() {
-    document.addEventListener("deviceready", onDeviceReady, false);
-}
-
-function onDeviceReady() {
-    bc.init();
-}
-}
+window.onload = ct.init;
