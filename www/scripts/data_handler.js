@@ -301,6 +301,29 @@ function getScore(username) {
     return score;
 }
 
+/*
+*
+* Erhöht den Punktestand des übergebenen Objektes um addedPoints
+*
+* @method updateScore
+*
+* @param {Object} JSONObj - Objekt, dessen Punktestand erhöht werden soll. Muss durch createQuestionJSON oder createAnswerJSON erstellt werden.
+* @param {Integer} addedPoints - Betrag, um welchen der Punktestand erhöht werden soll
+*
+* @result {Object} JSONObj - Objekt mit neuem Punktestand
+*
+*/
+
+function updateScore(JSONObj, addedPoints) {
+    var score;
+    
+    score = getScore(JSONObj.score);
+    score += addedPoints;
+    JSONObj.score = score;
+    
+    return JSONObj;
+}
+
 function testQuestionArray() {
     var questions = JSON.parse(window.localStorage.getItem("questions")),
         i;
