@@ -7,7 +7,16 @@
             <div class="center">Ranking</div>
         </ons-toolbar>
         
-        <canvas id="myCanvas" width="500" height="180">
+        <div class="wrapper">
+            <div class="container">
+                <div class="canvas-container">
+                    <canvas id="canvas" width="510" height="400"></canvas>
+        
+                    <input class="button" type="button" id="buttonx" value="Tabelle erstellen" onclick="GenerateTable()" />
+                    <div id="dvTable"></div>
+                </div>
+            </div>
+        </div>
 
     </ons-page>
 </ons-navigator>
