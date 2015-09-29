@@ -53,7 +53,7 @@ var ct = {
     
     values:[1223, 344, 4422, 5555],
     newValues:[],
-    barWidth:30,
+    barWidth:40,
     barFill:null,
     backgroundFill:null,
     
