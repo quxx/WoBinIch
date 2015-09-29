@@ -10,7 +10,7 @@ document.addEventListener("pageinit", function (e) {
         var x = false;
 //        alert(questions[i].timestamp)
         while (x == false) {
-            if (answered.search(questions[i].timestamp) == -1){
+            if (answered.search(questions[i].timestamp) == -1 && questions[i].open != false){
                 getImage(questions[i]);
                 x = true;
             } else {
