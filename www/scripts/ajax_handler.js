@@ -101,24 +101,6 @@ function ajxSendJSON(JSONObject, recipient) {
     }
 }
 
-/**
- *
- * Lädt die zum Upload von Bilddateien benötigte ImageURL vom Server und speichert sie unter dem Key "imageURL" in den localstorage.
- *
- * @method ajxsetImageURL
- *
- */
-
-function ajxSetImageURL() {
-    $.ajax({
-        type: 'post',
-        url: 'http://thm-chat.appspot.com/oop/uploadURL',
-        success: function (response) {
-            window.localStorage.setItem("imageURL", response);
-        }
-    });
-}
-
 /*
  * 
  * Nimmt Rohdaten vom Server und gibt sie an die Methode parseRawData weiter.

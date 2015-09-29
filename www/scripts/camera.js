@@ -10,13 +10,13 @@ function takePicture() {
     });
 
     function onSuccess(imageURI) {
-        var time, user, pass, lat, lon, score, open, Jason, userArray, i, j, recipient;
+        var time, user, pass, lat, lon, score, open, Jason, userArray, i, recipient;
         time = Date.now();
         user = window.localStorage.getItem("loginname");
         geolocation();
         lat = window.localStorage.getItem("lat");
         lon = window.localStorage.getItem("lon");
-        score = "0";
+        score = getScore(user);
         open = "true";
         Jason = createQuestionJSON(time, user, lat, lon, score, open);
         userArray = getUserArray();
