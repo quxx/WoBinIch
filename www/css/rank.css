@@ -19,9 +19,19 @@
 
     @media(max-width:1200px) {
         .canvas-container {
-            margin: 0 50px;
+            margin: 0 auto;
         }
         #myCanvas {
+            width: 100%;
+            height: auto;
+        }
+    }
+    
+    @media(max-width:1200px) {
+        .canvas-container {
+            margin: 0 auto;
+        }
+        table {
             width: 100%;
             height: auto;
         }
