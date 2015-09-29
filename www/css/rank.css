@@ -1,16 +1,3 @@
-.wrapper {
-    display: table;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
-
-.container {
-    display: table-cell;
-    vertical-align: middle;
-}
-
 .canvas-container {
     position: relative;
     max-width: 1024px;
@@ -24,6 +11,7 @@
     height: auto;
     top: 0;
     left: 0;
+    margin: 0 auto;
 
 }
 
@@ -37,6 +25,9 @@ table {
 	text-shadow: 1px 1px 0px #fff;
 	background:#eaebec;
 	border:#ccc 1px solid;
+    
+    max-width: 1024px;
+    min-width: 320px;
     
     display: block;
     padding: 0;
