@@ -134,10 +134,50 @@ var ct = {
     }
 }
 
+//Tabelle
+function generateTable() {
+    //Build an array containing Customer records.
+    var customers = new Array();
+    customers.push(["Customer Id", "Name", "Country"]);
+    customers.push([1, "John Hammond", "United States"]);
+    customers.push([2, "Mudassar Khan", "India"]);
+    customers.push([3, "Suzanne Mathews", "France"]);
+    customers.push([4, "Robert Schidner", "Russia"]);
+ 
+    //Tabellen Element erstellen
+    var table = document.createElement("TABLE");
+    table.border = "1";
+ 
+    //Spalten Anzahl
+    var columnCount = customers[0].length;
+ 
+    //Hinzufügen der Kopfzeilen
+    var row = table.insertRow(-1);
+    for (var i = 0; i < columnCount; i++) {
+        var headerCell = document.createElement("TH");
+        headerCell.innerHTML = customers[0][i];
+        row.appendChild(headerCell);
+    }
+ 
+    //Daten einfügen
+    for (var i = 1; i < customers.length; i++) {
+        row = table.insertRow(-1);
+        for (var j = 0; j < columnCount; j++) {
+            var cell = row.insertCell(-1);
+            cell.innerHTML = customers[i][j];
+        }
+    }
+ 
+    var dvTable = document.getElementById("dvTable");
+    dvTable.innerHTML = "";
+    dvTable.appendChild(table);
+}
+
 
 document.addEventListener("pageinit", function (e) {
     if (e.target.id == "my-ranking") {
         ct.init();
+        generateTable();
      
 }
 });
