@@ -25,13 +25,11 @@ table {
 	text-shadow: 1px 1px 0px #fff;
 	background:#eaebec;
 	border:#ccc 1px solid;
+
     
-    max-width: 1024px;
-    min-width: 320px;
-    
-    display: block;
-    padding: 0;
-    margin: 0 auto;
+    	display: block;
+    	padding: 0;
+    	margin: 0 auto;
 
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
@@ -43,7 +41,7 @@ table {
 table th {
 	padding:21px 25px 22px 25px;
 	border-top:1px solid #e0e0e0;
-    border-left:1px solid #e0e0e0;
+    	border-left:1px solid #e0e0e0;
 	border-bottom:1px solid #e0e0e0;
 
 	
