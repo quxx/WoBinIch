@@ -109,6 +109,7 @@ function parseRawData(data) {
             switch (Jason.type) {
 
             case "question":
+                alert("case: question")
                 if (imgFlag.test(nextString) === true) {
                     //slice the imgURL from the rest of the data and save as variable imgURL
                     imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
@@ -125,7 +126,7 @@ function parseRawData(data) {
                 break;
 
             case "reply":
-                testAnswerArray();
+                alert("case: reply")
                 RArray.push(Jason);
                 break;
             }
@@ -198,9 +199,9 @@ function scoreQuestion(questionJSON) {
                 correct += 1;
             };
         }
-        
+
         percent = (correct / answers.length) * 100;
-    
+
         score = -0.0000003984868 * Math.pow(percent, 5);
         score += 0.0001186065769 * Math.pow(percent, 4);
         score -= 0.0118659541345 * Math.pow(percent, 3);
