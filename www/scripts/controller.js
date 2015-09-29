@@ -61,7 +61,7 @@
                 var lng = marker.getPosition().lng().toString();
                 var distanceKM = distance(lat, lng, alat, alng);
                 var distanceM = Math.round(distanceKM * 1000); //Entfernung beider Koordinaten in Meter
-                var points = 0; = getScore(username);
+                var points = getScore(username);
                 if (maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)) < 0) {
                     points += 0;
                 } else {
@@ -76,7 +76,7 @@
                 }
                 answered.push(reference[0]);
                 window.localStorage.setItem("answeredQ",JSON.stringify(answered));
-                scoreQuestion();
+                //scoreQuestion();
                 
                 ons.notification.alert({
                     title: 'Antwort abgeschickt',
@@ -145,7 +145,7 @@
             }
             answered.push(reference[0]);
             window.localStorage.setItem("answeredQ",JSON.stringify(answered));
-            scoreQuestion();
+            //scoreQuestion();
             ons.notification.alert({
                 title: 'Antwort abgeschickt',
                 message: 'Punktezahl: ' + points, 
