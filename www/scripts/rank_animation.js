@@ -1,4 +1,4 @@
-/*document.addEventListener("pageinit", function (e) {
+﻿/*document.addEventListener("pageinit", function (e) {
     if (e.target.id == "my-ranking") {
         var viewport = {
             width  : $(window).width(),
@@ -42,21 +42,11 @@
     }
 });
 */
-
-
-document.addEventListener("pageinit", function (e) {
-    if (e.target.id == "my-ranking") {
-        var viewport = {
+var viewport = {
             width  : $(window).width(),
             height : $(window).height()
         };
-        
-    ct.canvas = document.getElementById("canvas");
-    
-        if(ct.canvas && ct.canvas.getContext) {
-            ct.ctx = ct.canvas.getContext("2d");
-        }
-     
+
 var ct = {
     canvas:null,
     ctx:null,
@@ -77,17 +67,21 @@ var ct = {
     
     
     init: function() {
+        ct.canvas = document.getElementById("myCanvas");
+        ct.canvas.width = viewport.width-5;
+        ct.canvas.height = viewport.height-50;
+        if(ct.canvas && ct.canvas.getContext) {
+            ct.ctx = ct.canvas.getContext("2d");
+                
             //Farbverläufe
             ct.barFill = ct.ctx.createLinearGradient(0, 0, 0, 350);
-            ct.barFill.addColorStop(0.0, "#F5A9A9");
-            ct.barFill.addColorStop(0.5, "#FE2E2E");
-            ct.barFill.addColorStop(1.0, "#DF0101");
+            ct.barFill.addColorStop(0.0, "white");
+            ct.barFill.addColorStop(1.0, "#6E6E6E");
         
-            ct.backgroundFill = "#F2F2F2";
+            ct.backgroundFill = "black";
             
-            //Array aufsteigend sortieren
+            //Array aufsteigen sortieren
             ct.values.sort(function(a,b){return b-a});
-            
             //Punkte in relation zum höchsten Punktestand setzen
             ct.maxP = ct.values[0];
             
@@ -140,46 +134,11 @@ var ct = {
     }
 }
 
-function GenerateTable() {
-    //Build an array containing Customer records.
-    var customers = new Array();
-    customers.push(["aaa", "dddd", "cxv"]);
-    customers.push([1, "John", "United States"]);
-    customers.push([2, "Mu", "India"]);
-    customers.push([3, "Su", "France"]);
-    customers.push([4, "Robert", "Russia"]);
- 
-    //Tabellen Element erstellen
-    var table = document.createElement("TABLE");
-    table.border = "1";
- 
-    //Spalten Anzahl
-    var columnCount = customers[0].length;
- 
-    //Hinzufügen der Kopfzeilen
-    var row = table.insertRow(-1);
-    for (var i = 0; i < columnCount; i++) {
-        var headerCell = document.createElement("TH");
-        headerCell.innerHTML = customers[0][i];
-        row.appendChild(headerCell);
-    }
- 
-    //Daten einfügen
-    for (var i = 1; i < customers.length; i++) {
-        row = table.insertRow(-1);
-        for (var j = 0; j < columnCount; j++) {
-            var cell = row.insertCell(-1);
-            cell.innerHTML = customers[i][j];
-        }
-    }
- 
-    var dvTable = document.getElementById("dvTable");
-    dvTable.innerHTML = "";
-    dvTable.appendChild(table);
-}
 
-
-
+document.addEventListener("pageinit", function (e) {
+    if (e.target.id == "my-ranking") {
+        ct.init();
+     
 }
 });
 
