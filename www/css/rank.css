@@ -13,6 +13,7 @@
 
 .canvas-container {
   position: relative;
+  display: block;
   max-width: 1024px;
   min-width: 320px;
   margin: 0 auto;
@@ -30,7 +31,7 @@
     padding: 0;
     margin: 5 auto;
 
-    font: 12üx Verdana,Helvetica, sans-serif;
+    font: 12px Verdana,Helvetica, sans-serif;
 }
 
 
