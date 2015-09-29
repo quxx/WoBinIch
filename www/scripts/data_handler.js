@@ -78,7 +78,7 @@ function getUserArray() {
  * @param {String} data Die Rohdaten, welche der THM Chatserver liefert.*
  */
 function parseRawData(data) {
-    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray;
+    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray, usr;
     RArray = [];
     QArray = [];
     inFlag = /[|]in[|]/i;
@@ -88,6 +88,7 @@ function parseRawData(data) {
     dataArray = data.split("\n");
     window.localStorage.setItem("questions", QArray);
     window.localStorage.setItem("answers", RArray);
+    usr = window.localStorage.getItem("loginname");
     //alert("raw data sliced! Found " + dataArray.length + " lines!");
     for (i = 0; i < dataArray.length - 1; i += 1) {
 
@@ -95,11 +96,23 @@ function parseRawData(data) {
 
         nextString = dataArray[i + 1];
         //alert("String is now: " + string + ", nextString is now: " + nextString);
+        if (inFlag.test(string) === false && txtFlag.test(string) === true && JSONFlag.test(string) === true) {
+            //slice JSON-string and save into variable str
+            str = JSONFlag.exec(string);
+
+            //parse string into JS object
+            Jason = JSON.parse(str);
+
+            if (Jason.username == usr && Jason.type == "reply") {
+                RArray.push(Jason);
+            }
+
+        }
 
         //detect incoming messages to parse
         if (inFlag.test(string) === true && txtFlag.test(string) === true && JSONFlag.test(string) === true) {
 
-            //slice JSON-string and save into variable string
+            //slice JSON-string and save into variable str
             str = JSONFlag.exec(string);
 
             //parse string into JS object
@@ -109,7 +122,6 @@ function parseRawData(data) {
             switch (Jason.type) {
 
             case "question":
-                alert("case: question")
                 if (imgFlag.test(nextString) === true) {
                     //slice the imgURL from the rest of the data and save as variable imgURL
                     imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
@@ -126,7 +138,6 @@ function parseRawData(data) {
                 break;
 
             case "reply":
-                alert("case: reply")
                 RArray.push(Jason);
                 break;
             }
@@ -197,7 +208,7 @@ function scoreQuestion(questionJSON) {
         for (i in anwers) {
             if (distance(answers.lat, answers.lon, questionJSON.lat, questionJSON.lon) < 1) {
                 correct += 1;
-            };
+            }
         }
 
         percent = (correct / answers.length) * 100;
