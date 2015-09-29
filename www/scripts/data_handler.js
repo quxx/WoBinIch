@@ -280,7 +280,7 @@ function getScore(username) {
         }
     }
     for (j in rArray) {
-        if (score < rArray[j].score && username == rArray[j].username) {
+        if (score < rArray[j].score && username == rArray[j].username && rArray[j].score != "NaN") {
             score = rArray[j].score;
         }
     }
