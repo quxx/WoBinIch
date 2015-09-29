@@ -21,17 +21,11 @@
     <script src="scripts/ajax_handler.js"></script>
     <script src="scripts/imageHandler.js"></script>
     <script src="scripts/rank_animation.js"></script>
-    
-
-
-
     <script>
         ons.bootstrap();
-
-        ons.ready(function () {
-
+        ons.ready(function()
+        {
             //Ich versteh' nicht, warum ich Funktionen schreibe, die bestimmte Sachen übernehmen wenn dann statt dessen dieselbe Funktion mit identischem Code nochmal gebaut wird :P
-
             //Hole QuestionArray und speichere es im Localstorage
             /* 
             setEarliestTimestamp();
@@ -44,14 +38,13 @@
             });
             req.send();
             */
-
             geolocation();
             ajxGetRawData();
         });
     </script>
-
     <script>
-        function quit() {
+        function quit()
+        {
             window.localStorage.setItem("loginname", "");
             window.localStorage.setItem("password", "");
             window.localStorage.setItem("link", "");
@@ -61,8 +54,7 @@
 </head>
 
 <body>
-    <ons-sliding-menu swipeable="true" var="slidingMenu" menu-page="menu.html" main-page="play.html" side="left" type="overlay" max-slide-distance="200px">
-    </ons-sliding-menu>
+    <ons-sliding-menu swipeable="false" var="slidingMenu" menu-page="menu.html" main-page="play.html" side="left" type="overlay" max-slide-distance="200px"></ons-sliding-menu>
 </body>
 
 </html>
