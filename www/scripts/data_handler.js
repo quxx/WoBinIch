@@ -271,7 +271,7 @@ function getScore(username) {
     qArray = JSON.parse(window.localStorage.getItem("questions"));
     rArray = JSON.parse(window.localStorage.getItem("answers"));
     for (i in qArray) {
-        if (score < qArray[i].score && username == qArray[i].username) {
+        if (score < qArray[i].score && username == qArray[i].username && qArray[i].score != "NaN") {
             score = qArray[i].score;
         }
     }
