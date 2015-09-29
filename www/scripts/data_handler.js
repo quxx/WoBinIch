@@ -6,14 +6,14 @@
  *
  * @method formatJSON
  *
- * @param {Date} timestamp - Timestamp des Eintrags auf den Chatserver, dient als eindeutige ID
- * @param {String} username - User-/Loginname für THM Chatserver
- * @param {String} lat - Latitude der geodaten
- * @param {String} lon - Longitude der geodaten
- * @param {String} score - Aktueller Punktestand des Spielers
- * @param {Boolean} open - Ist die Frage noch offen oder bereits beantwortet?
+ * @param {Date} timestamp Timestamp des Eintrags auf den Chatserver, dient als eindeutige ID
+ * @param {String} username User-/Loginname für THM Chatserver
+ * @param {String} lat Latitude der geodaten
+ * @param {String} lon Longitude der geodaten
+ * @param {String} score Aktueller Punktestand des Spielers
+ * @param {Boolean} open Ist die Frage noch offen oder bereits beantwortet?
  *
- * @result {Object} formattedJSON - Javascript Object in JSON Formatierung, welches die obigen Parameter beinhaltet
+ * @return {Object} formattedJSON - Javascript Object in JSON Formatierung, welches die obigen Parameter beinhaltet
  *
  */
 
@@ -37,12 +37,12 @@ function createQuestionJSON(timestamp, username, lat, lon, score, open) {
  *
  * @method formatJSON
  *
- * @param {Date} timestamp - Timestamp des Eintrags auf den Chatserver, dient als eindeutige ID
- * @param {String} reference - Timestamp der Frage, auf die sich die Antwort bezieht
- * @param {String} username - User-/Loginname für THM Chatserver
- * @param {String} lat - Latitude der geodaten
- * @param {String} lon - Longitude der geodaten
- * @param {String} score - Aktueller Punktestand des Spielers
+ * @param {Date} timestamp Timestamp des Eintrags auf den Chatserver, dient als eindeutige ID
+ * @param {String} reference Timestamp der Frage, auf die sich die Antwort bezieht
+ * @param {String} username User-/Loginname für THM Chatserver
+ * @param {String} lat Latitude der geodaten
+ * @param {String} lon Longitude der geodaten
+ * @param {String} score Aktueller Punktestand des Spielers
  *
  * @result {Object} formattedJSON - Javascript Object in JSON Formatierung, welches die obigen Parameter beinhaltet
  *
@@ -68,7 +68,7 @@ function createAnswerJSON(timestamp, reference, username, lat, lon, score) {
  *
  * @method getUserArray
  *
- * @result {Object} userArray - Array aller auf dem Server registrierter Spielernamen
+ * @result {Object} userArray Array aller auf dem Server registrierter Spielernamen
  *
  */
 
@@ -79,13 +79,13 @@ function getUserArray() {
     return userArray;
 }
 
-/*
+/**
  *
  * Wandelt den String aus Rohdaten, welchen ajxGetRawData vom THM Chatserver abholt in JS Objekte um, sortiert diese nach Fragen und Antworten in entsprechende Arrays und legt diese anschließend im localstorage ab.
  *
  * @method parseRawData
  *
- * @param {String} data - Die Rohdaten, welche der THM Chatserver liefert.*
+ * @param {String} data Die Rohdaten, welche der THM Chatserver liefert.*
  *
  */
 
@@ -149,7 +149,7 @@ function parseRawData(data) {
     }
 }
 
-/*
+/**
  *
  * Setzt den Timestamp, ab welchem die Daten vom Server geholt werden auf aktuelles Datum minus 2 Tage.
  *
@@ -166,15 +166,15 @@ function setEarliestTimestamp() {
     window.localStorage.setItem("earliestTimestamp", time);
 }
 
-/*
+/**
  *
  * Liefert zu einem Frageobjekt die zugehörign Antwortobjekte in einem Array.
  *
  * @method getAnswers
  *
- * @param {Object} questionJSON - Frageobjekt in JSON-formatierung, welches durch createQuestionJSON erstellt wurde
+ * @param {Object} questionJSON Frageobjekt in JSON-formatierung, welches durch createQuestionJSON erstellt wurde
  *
- * @return {Object} - returnArray - Array aus Antwortobjekten, welche das übergebene Frageobjekt referenzieren.
+ * @return {Object} returnArray Array aus Antwortobjekten, welche das übergebene Frageobjekt referenzieren.
  *
  */
 
@@ -189,13 +189,13 @@ function getAnswers(questionJSON) {
     return returnArray;
 }
 
-/*
+/**
  *
  * Bewertet das übergebene Frageobjekt, sofern alle Antworten abgegeben wurden oder die Frage älter als 2 Tage ist und schreibt die Bewertung in das Score-Attribut des Frageobjekts.
  *
  * @method scoreQuestion
  *
- * @param {Object} questionJSON - Frageobjekt, welches bewertet werden soll
+ * @param {Object} questionJSON Frageobjekt, welches bewertet werden soll
  *
  */
 
@@ -235,13 +235,13 @@ function scoreQuestion(questionJSON) {
 }
 
 
-/*
+/**
  * 
  * Sucht das zugehörige Bild zu einem Frageobjekt aus dem Gerätespeicher zeigt es an.
  *
  * @method getImage
  *
- * @param {Object} questionJSON - Javascript Objekt, welches mit createQuestionJSON erstellt wurde
+ * @param {Object} questionJSON Javascript Objekt, welches mit createQuestionJSON erstellt wurde
  *
  */
 
@@ -275,20 +275,21 @@ function getImage(questionJSON) {
 
 }
 
-/*
+/**
  *
  * Ermittelt den Punktestand des übergebenen Benutzers anhand der im localstorage hinterlegten Datensätze für Fragen und Antworten.
  *
  * @method getScore
  *
- * @param {String} username - Benutzername des Spielers
+ * @param {String} username Benutzername des Spielers
  *
- * @result {String} Score - Punktestand des Spielers
+ * @result {String} Score Punktestand des Spielers
  *
  */
 
 function getScore(username) {
     var qArray, rArray, i, j, score;
+    score = 0;
     qArray = JSON.parse(window.localStorage.getItem("questions"));
     rArray = JSON.parse(window.localStorage.getItem("answers"));
     for (i in qArray) {
@@ -304,29 +305,6 @@ function getScore(username) {
     return score;
 }
 
-/*
- *
- * Erhöht den Punktestand des übergebenen Objektes um addedPoints
- *
- * @method updateScore
- *
- * @param {Object} JSONObj - Objekt, dessen Punktestand erhöht werden soll. Muss durch createQuestionJSON oder createAnswerJSON erstellt werden.
- * @param {Integer} addedPoints - Betrag, um welchen der Punktestand erhöht werden soll
- *
- * @result {Object} JSONObj - Objekt mit neuem Punktestand
- *
- */
-
-function updateScore(JSONObj, addedPoints) {
-    var score;
-
-    score = getScore(JSONObj.score);
-    score += addedPoints;
-    JSONObj.score = score;
-
-    return JSONObj;
-}
-
 function testAnswerArray() {
     var answers = JSON.parse(window.localStorage.getItem("answers")),
         i;
@@ -335,10 +313,10 @@ function testAnswerArray() {
     }
 }
 
-function testFileQuestion() {
-    var questions = [];
-    questions = JSON.parse(window.localStorage.getItem("questions"));
-    var time = questions[0].timestamp;
-    alert(time);
-    getImage(questions[0]);
+function testQuestionArray() {
+    var questions = JSON.parse(window.localStorage.getItem("questions")),
+        i;
+    for (i in questions) {
+        alert(JSON.stringify(questions[i]));
+    }
 }
