@@ -125,6 +125,7 @@ function parseRawData(data) {
                 break;
 
             case "reply":
+                testAnswerArray();
                 RArray.push(Jason);
                 break;
             }
