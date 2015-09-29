@@ -143,11 +143,11 @@ var ct = {
 function GenerateTable() {
     //Build an array containing Customer records.
     var customers = new Array();
-    customers.push(["Customer Id", "Name", "Country"]);
-    customers.push([1, "John Hammond", "United States"]);
-    customers.push([2, "Mudassar Khan", "India"]);
-    customers.push([3, "Suzanne Mathews", "France"]);
-    customers.push([4, "Robert Schidner", "Russia"]);
+    customers.push(["aaa", "dddd", "cxv"]);
+    customers.push([1, "John", "United States"]);
+    customers.push([2, "Mu", "India"]);
+    customers.push([3, "Su", "France"]);
+    customers.push([4, "Robert", "Russia"]);
  
     //Tabellen Element erstellen
     var table = document.createElement("TABLE");
