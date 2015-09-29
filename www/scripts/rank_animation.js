@@ -127,7 +127,7 @@ var ct = {
         //Säulen zeichnen
         for(var i = 0; i < ct.newValues.length; i++) {
             ct.ctx.fillStyle = ct.barFill;
-            ct.ctx.fillRect(i * (ct.barWidth +10), 0, ct.barWidth, ct.scale * ct.newValues[i]);
+            ct.ctx.fillRect(i * (ct.barWidth +20), 0, ct.barWidth, ct.scale * ct.newValues[i]);
         }
         
         ct.ctx.restore();
