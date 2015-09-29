@@ -72,7 +72,8 @@ var ct = {
     
     init: function() {
         ct.canvas = document.getElementById("canvas");
-    
+        ct.canvas.width = viewport.width-5;
+        ct.canvas.height = viewport.height-50;
         if(ct.canvas && ct.canvas.getContext) {
             ct.ctx = ct.canvas.getContext("2d");
                 
