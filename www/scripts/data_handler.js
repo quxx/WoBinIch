@@ -1,7 +1,6 @@
 /*global $, downloadFile, console, alert*/
 
 /**
- * 
  * Erstellt aus Rohdaten ein Objekt nach JSON und modelliert eine Bildfrage.
  *
  * @method formatJSON
@@ -14,7 +13,6 @@
  * @param {Boolean} open Ist die Frage noch offen oder bereits beantwortet?
  *
  * @return {Object} formattedJSON - Javascript Object in JSON Formatierung, welches die obigen Parameter beinhaltet
- *
  */
 
 function createQuestionJSON(timestamp, username, lat, lon, score, open) {
@@ -31,8 +29,7 @@ function createQuestionJSON(timestamp, username, lat, lon, score, open) {
     return formattedJSON;
 }
 
-/**
- * 
+/** 
  * Erstellt aus Rohdaten ein Objekt nach JSON und modelliert ein Antwortobjekt auf eine Bildfrage.
  *
  * @method formatJSON
@@ -45,7 +42,6 @@ function createQuestionJSON(timestamp, username, lat, lon, score, open) {
  * @param {String} score Aktueller Punktestand des Spielers
  *
  * @result {Object} formattedJSON - Javascript Object in JSON Formatierung, welches die obigen Parameter beinhaltet
- *
  */
 
 function createAnswerJSON(timestamp, reference, username, lat, lon, score) {
@@ -63,13 +59,11 @@ function createAnswerJSON(timestamp, reference, username, lat, lon, score) {
 }
 
 /**
- * 
  * Lädt eine vorher im localstorage unter dem Key "userlist" hinterlegte Liste in ein Array und spaltet sie entsprechend in einzelne Benutzernamen auf.
  *
  * @method getUserArray
  *
  * @result {Object} userArray Array aller auf dem Server registrierter Spielernamen
- *
  */
 
 function getUserArray() {
@@ -80,13 +74,11 @@ function getUserArray() {
 }
 
 /**
- *
  * Wandelt den String aus Rohdaten, welchen ajxGetRawData vom THM Chatserver abholt in JS Objekte um, sortiert diese nach Fragen und Antworten in entsprechende Arrays und legt diese anschließend im localstorage ab.
  *
  * @method parseRawData
  *
  * @param {String} data Die Rohdaten, welche der THM Chatserver liefert.*
- *
  */
 
 function parseRawData(data) {
@@ -150,11 +142,9 @@ function parseRawData(data) {
 }
 
 /**
- *
  * Setzt den Timestamp, ab welchem die Daten vom Server geholt werden auf aktuelles Datum minus 2 Tage.
  *
  * @method setEarliestTimestamp
- *
  */
 
 function setEarliestTimestamp() {
@@ -167,7 +157,6 @@ function setEarliestTimestamp() {
 }
 
 /**
- *
  * Liefert zu einem Frageobjekt die zugehörign Antwortobjekte in einem Array.
  *
  * @method getAnswers
@@ -175,7 +164,6 @@ function setEarliestTimestamp() {
  * @param {Object} questionJSON Frageobjekt in JSON-formatierung, welches durch createQuestionJSON erstellt wurde
  *
  * @return {Object} returnArray Array aus Antwortobjekten, welche das übergebene Frageobjekt referenzieren.
- *
  */
 
 function getAnswers(questionJSON) {
@@ -190,13 +178,11 @@ function getAnswers(questionJSON) {
 }
 
 /**
- *
  * Bewertet das übergebene Frageobjekt, sofern alle Antworten abgegeben wurden oder die Frage älter als 2 Tage ist und schreibt die Bewertung in das Score-Attribut des Frageobjekts.
  *
  * @method scoreQuestion
  *
  * @param {Object} questionJSON Frageobjekt, welches bewertet werden soll
- *
  */
 
 function scoreQuestion(questionJSON) {
@@ -236,13 +222,11 @@ function scoreQuestion(questionJSON) {
 
 
 /**
- * 
  * Sucht das zugehörige Bild zu einem Frageobjekt aus dem Gerätespeicher zeigt es an.
  *
  * @method getImage
  *
  * @param {Object} questionJSON Javascript Objekt, welches mit createQuestionJSON erstellt wurde
- *
  */
 
 function getImage(questionJSON) {
@@ -276,7 +260,6 @@ function getImage(questionJSON) {
 }
 
 /**
- *
  * Ermittelt den Punktestand des übergebenen Benutzers anhand der im localstorage hinterlegten Datensätze für Fragen und Antworten.
  *
  * @method getScore
@@ -284,7 +267,6 @@ function getImage(questionJSON) {
  * @param {String} username Benutzername des Spielers
  *
  * @result {String} Score Punktestand des Spielers
- *
  */
 
 function getScore(username) {
@@ -319,4 +301,9 @@ function testQuestionArray() {
     for (i in questions) {
         alert(JSON.stringify(questions[i]));
     }
+}
+
+function testScore() {
+    var score = getScore("thomas.claudi");
+    alert(score);
 }
