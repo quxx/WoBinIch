@@ -200,26 +200,26 @@ function scoreQuestion(questionJSON) {
         for (i in anwers) {
             dist = distance(answers.lat, answers.lon, questionJSON.lat, questionJSON.lon);
 
-        }
-        score = -0.0000003984868 * Math.pow(dist, 5);
-        score += 0.0001186065769 * Math.pow(dist, 4);
-        score -= 0.0118659541345 * Math.pow(dist, 3);
-        score += 0.40644 * Math.pow(dist, 2);
-        score -= 0.4924343 * dist - 25;
+            score = -0.0000003984868 * Math.pow(dist, 5);
+            score += 0.0001186065769 * Math.pow(dist, 4);
+            score -= 0.0118659541345 * Math.pow(dist, 3);
+            score += 0.40644 * Math.pow(dist, 2);
+            score -= 0.4924343 * dist - 25;
 
-        if (score > 100) {
-            score = 100;
+            if (score > 100) {
+                score = 100;
 
+            }
+            if (score < 0) {
+                score = 0;
+            }
+            questionJSON.score += score;
         }
-        if (score < 0) {
-            score = 0;
-        }
-        questionJSON.score += score;
     } else {
         console.log("nicht alle Spieler haben bisher geantwortet!");
     }
 }
-
+}
 
 /**
  * Sucht das zugehörige Bild zu einem Frageobjekt aus dem Gerätespeicher zeigt es an.
