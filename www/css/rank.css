@@ -1,41 +1,32 @@
-.canvas-container {
-    position: relative;
-    max-width: 1024px;
-    min-width: 320px;
-    margin: 0 auto;
-    display: block;
-}
+ #wrapper {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        width: 100%;
 
-#myCanvas {
-    width: 100%;
-    height: auto;
-    top: 0;
-    left: 0;
-    margin: 0 auto;
+    }
+    .canvas-container {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
 
-}
+    #myCanvas {
+        display: block;
+        padding: 0;
+        margin: 0 auto;
+    }
 
-
-/* Tabelle */
-table {
-	font-family:Verdana, Helvetica, sans-serif;
-	color:#666;
-	font-size:12px;
-	text-shadow: 1px 1px 0px #fff;
-	background:#eaebec;
-	border:#ccc 1px solid;
-
-    
-    	display: block;
-    	padding: 0;
-    	margin: 0 auto;
-
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	
-
-
-}
+    @media(max-width:1200px) {
+        .canvas-container {
+            margin: 0 50px;
+        }
+        #myCanvas {
+            width: 100%;
+            height: auto;
+            background-color:red;
+        }
+    }
 
 table th {
 	padding:21px 25px 22px 25px;
