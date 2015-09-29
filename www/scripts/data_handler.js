@@ -75,19 +75,19 @@ function getUserArray() {
  *
  * @method parseRawData
  *
- * @param {String} data Die Rohdaten, welche der THM Chatserver liefert.*
+ * @param {String} data Die Rohdaten, welche der THM Chatserver liefert.
  */
 function parseRawData(data) {
-    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray, usr;
+    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray, usr, QOArray, ROArray;
     RArray = [];
     QArray = [];
+    QOArray = [];
+    ROArray = [];
     inFlag = /[|]in[|]/i;
     txtFlag = /[|]txt[|]/i;
     imgFlag = /[|]img[|]/i;
     JSONFlag = /[{].+[}]/i;
     dataArray = data.split("\n");
-    window.localStorage.setItem("questions", QArray);
-    window.localStorage.setItem("answers", RArray);
     usr = window.localStorage.getItem("loginname");
     //alert("raw data sliced! Found " + dataArray.length + " lines!");
     for (i = 0; i < dataArray.length - 1; i += 1) {
@@ -96,55 +96,70 @@ function parseRawData(data) {
 
         nextString = dataArray[i + 1];
         //alert("String is now: " + string + ", nextString is now: " + nextString);
-        if (inFlag.test(string) === false && txtFlag.test(string) === true && JSONFlag.test(string) === true) {
-            //slice JSON-string and save into variable str
-            str = JSONFlag.exec(string);
 
-            //parse string into JS object
-            Jason = JSON.parse(str);
+        switch (inFlag.test(string)) {
 
-            if (Jason.username == usr && Jason.type == "reply") {
-                RArray.push(Jason);
-            }
+        case false:
+            if (txtFlag.test(string) === true && JSONFlag.test(string) === true) {
+                //slice JSON-string and save into variable str
+                str = JSONFlag.exec(string);
+                //parse string into JS object
+                Jason = JSON.parse(str);
 
-        }
+                switch (Jason.type) {
 
-        //detect incoming messages to parse
-        if (inFlag.test(string) === true && txtFlag.test(string) === true && JSONFlag.test(string) === true) {
+                case "reply":
+                    if (Jason.username == usr) {
+                        ROArray.push(Jason);
+                    }
+                    break;
 
-            //slice JSON-string and save into variable str
-            str = JSONFlag.exec(string);
-
-            //parse string into JS object
-            Jason = JSON.parse(str);
-
-            //check type of JSON
-            switch (Jason.type) {
-
-            case "question":
-                if (imgFlag.test(nextString) === true) {
-                    //slice the imgURL from the rest of the data and save as variable imgURL
-                    imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
-
-                    //saving image with question timestamp as image name
-                    timest = Jason.timestamp;
-                    downloadFile(imgURL, "WoBinIch", timest);
-
-                    QArray.push(Jason);
-                    i += 1;
-                } else {
-                    QArray.push(Jason);
+                case "question":
+                    if (Jason.username == usr) {
+                        QOArray.push(Jason);
+                    }
+                    break;
                 }
-                break;
 
-            case "reply":
-                RArray.push(Jason);
-                break;
             }
+            break;
+        case true:
+            //detect incoming messages to parse
+            if (txtFlag.test(string) === true && JSONFlag.test(string) === true) {
 
+                //slice JSON-string and save into variable str
+                str = JSONFlag.exec(string);
+
+                //parse string into JS object
+                Jason = JSON.parse(str);
+
+                //check type of JSON
+                switch (Jason.type) {
+
+                case "question":
+                    if (imgFlag.test(nextString) === true) {
+                        //slice the imgURL from the rest of the data and save as variable imgURL
+                        imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
+
+                        //saving image with question timestamp as image name
+                        timest = Jason.timestamp;
+                        downloadFile(imgURL, "WoBinIch", timest);
+
+                        QArray.push(Jason);
+                    }
+                    break;
+
+                case "reply":
+                    RArray.push(Jason);
+                    break;
+                }
+
+            }
+            break;
         }
-
         //sollte idealerweise kein localstorage Objekt sein sondern 'n eigentständiges File. Evtl. kriegen wir das noch hin!
+        window.localStorage.setItem("outquestions", JSON.stringify(QOArray));
+        window.localStorage.setItem("outanswers", JSON.stringify(ROArray));
         window.localStorage.setItem("questions", JSON.stringify(QArray));
         window.localStorage.setItem("answers", JSON.stringify(RArray));
     }
@@ -279,10 +294,12 @@ function getImage(questionJSON) {
  * @result {String} Score Punktestand des Spielers
  */
 function getScore(username) {
-    var qArray, rArray, i, j, score;
+    var qArray, rArray, i, j, score, qoArray, roArray, k, l;
     score = 0;
     qArray = JSON.parse(window.localStorage.getItem("questions"));
     rArray = JSON.parse(window.localStorage.getItem("answers"));
+    qoArray = JSON.parse(window.localStorage.getItem("outquestions"));
+    roArray = JSON.parse(window.localStorage.getItem("outanswers"));
     for (i in qArray) {
         if (score < qArray[i].score && username == qArray[i].username && qArray[i].score != "NaN") {
             score = qArray[i].score;
@@ -291,6 +308,16 @@ function getScore(username) {
     for (j in rArray) {
         if (score < rArray[j].score && username == rArray[j].username && rArray[j].score != "NaN") {
             score = rArray[j].score;
+        }
+    }
+    for (k in qoArray) {
+        if (score < qoArray[k].score && username == qoArray[k].username && qoArray[k].score != "NaN") {
+            score = qoArray[k].score;
+        }
+    }
+    for (l in roArray) {
+        if (score < roArray[l].score && username == roArray[l].username && roArray[l].score != "NaN") {
+            score = roArray[l].score;
         }
     }
     return score;
