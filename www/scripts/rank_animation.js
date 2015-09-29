@@ -42,11 +42,11 @@
     }
 });
 */
-/*var viewport = {
+var viewport = {
             width  : $(window).width(),
             height : $(window).height()
         };
-*/
+
 var ct = {
     canvas:null,
     ctx:null,
