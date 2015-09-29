@@ -79,11 +79,11 @@ var ct = {
     init: function() {
             //Farbverläufe
             ct.barFill = ct.ctx.createLinearGradient(0, 0, 0, 350);
-            ct.barFill.addColorStop(0.0, "white");
-            ct.barFill.addColorStop(0.0, "#BDBDBD");
-            ct.barFill.addColorStop(1.0, "#6E6E6E");
+            ct.barFill.addColorStop(0.0, "#F5A9A9");
+            ct.barFill.addColorStop(0.5, "#FE2E2E");
+            ct.barFill.addColorStop(1.0, "#DF0101");
         
-            ct.backgroundFill = "#black";
+            ct.backgroundFill = "#F2F2F2";
             
             //Array aufsteigend sortieren
             ct.values.sort(function(a,b){return b-a});
