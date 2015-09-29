@@ -1,4 +1,14 @@
-// This is a JavaScript file
+/**
+ *
+ * Läd das Übergeben Bild an den Empfänger auf den Server
+ *
+ * @method downloadFile
+ *
+ * @param {String} imageURI - Die Pfad angabe zu dem hochzuladenen Bild
+ * @param {String} consignee - Der Empfänger der Bildnachricht
+ *
+ *
+ */
 function uploadImage(imageURI, consignee)
 {
     var req = new AjaxRequest("http://thm-chat.appspot.com/oop/uploadURL", function(response)
