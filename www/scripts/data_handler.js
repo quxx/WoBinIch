@@ -1,4 +1,4 @@
-﻿/*global $, downloadFile, console, alert*/
+/*global $, downloadFile, console, alert*/
 
 /**
  * Erstellt aus Rohdaten ein Objekt nach JSON und modelliert eine Bildfrage.
@@ -14,7 +14,6 @@
  *
  * @return {Object} formattedJSON - Javascript Object in JSON Formatierung, welches die obigen Parameter beinhaltet
  */
-
 function createQuestionJSON(timestamp, username, lat, lon, score, open) {
     var text, formattedJSON;
     text = '{ "timestamp" : "' + timestamp + '"';
@@ -43,7 +42,6 @@ function createQuestionJSON(timestamp, username, lat, lon, score, open) {
  *
  * @result {Object} formattedJSON - Javascript Object in JSON Formatierung, welches die obigen Parameter beinhaltet
  */
-
 function createAnswerJSON(timestamp, reference, username, lat, lon, score) {
     var text, formattedJSON;
     text = '{ "timestamp" : "' + timestamp + '"';
@@ -65,7 +63,6 @@ function createAnswerJSON(timestamp, reference, username, lat, lon, score) {
  *
  * @result {Object} userArray Array aller auf dem Server registrierter Spielernamen
  */
-
 function getUserArray() {
     var userlist, userArray;
     userlist = window.localStorage.getItem("userlist");
@@ -80,7 +77,6 @@ function getUserArray() {
  *
  * @param {String} data Die Rohdaten, welche der THM Chatserver liefert.*
  */
-
 function parseRawData(data) {
     var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray;
     RArray = [];
@@ -146,7 +142,6 @@ function parseRawData(data) {
  *
  * @method setEarliestTimestamp
  */
-
 function setEarliestTimestamp() {
     var time;
     //time = Date.now() + -2 * 24 * 3600 * 1000;
@@ -165,7 +160,6 @@ function setEarliestTimestamp() {
  *
  * @return {Object} returnArray Array aus Antwortobjekten, welche das übergebene Frageobjekt referenzieren.
  */
-
 function getAnswers(questionJSON) {
     var i, answerArray, returnArray = [];
     answerArray = window.localStorage.getItem("answers");
@@ -184,7 +178,6 @@ function getAnswers(questionJSON) {
  *
  * @param {Object} questionJSON Frageobjekt, welches bewertet werden soll
  */
-
 function scoreQuestion(questionJSON) {
     var correct,
         percent,
@@ -233,7 +226,6 @@ function scoreQuestion(questionJSON) {
  *
  * @param {Object} questionJSON Javascript Objekt, welches mit createQuestionJSON erstellt wurde
  */
-
 function getImage(questionJSON) {
     //alert("getimg called!");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
@@ -273,7 +265,6 @@ function getImage(questionJSON) {
  *
  * @result {String} Score Punktestand des Spielers
  */
-
 function getScore(username) {
     var qArray, rArray, i, j, score;
     score = 0;
