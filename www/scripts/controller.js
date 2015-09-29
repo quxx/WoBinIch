@@ -51,18 +51,27 @@
             {
                 var accuracy = 50; //Genauigkeit mit der die Punkte abstufung erfolgt (in Meter) (pro Intervall -5% Punkte)
                 var maxPoints = 75; //Maximal erreichbare Punkte bei der beantwortung über die Karte
-                var reference = window.sessionStorage.getItem("answerTimestamp")
-                    .split("|");
-                var alat = reference[1].toString();
-                var alng = reference[2].toString();
+                var reference = window.sessionStorage.getItem("answerTimestamp");
+                var questionsArray = [];
+                questionsArray = JSON.parse(window.localStorage.getItem("questions"));
+                alert(JSON.stringify(questionsArray));
+                var Qjson, i ;
+                //hol timestamp und array in die variablen
+                for (i in questionsArray){
+                    if (questionsArray[i].timestamp == reference){
+                        Qjson = questionsArray[i];
+                    }
+                }
+                var alat = Qjson.geolat;
+                var alng = Qjson.geolon;
                 var username = window.localStorage.getItem("loginname");
                 var time = Date.now();
                 var lat = marker.getPosition()
-                    .lat()
-                    .toString();
+                .lat()
+                .toString();
                 var lng = marker.getPosition()
-                    .lng()
-                    .toString();
+                .lng()
+                .toString();
                 var distanceKM = distance(lat, lng, alat, alng);
                 var distanceM = Math.round(distanceKM * 1000); //Entfernung beider Koordinaten in Meter
                 var points = parseInt(getScore(username));
@@ -74,17 +83,17 @@
                 {
                     points += Math.round(maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)));
                 }
-                //alert(points);
-                var answerJSON = createAnswerJSON(time, reference[0], username, alat, alng, points);
+                var answerJSON = createAnswerJSON(time, reference, username, alat, alng, points);
                 ajxBroadcastJSON(answerJSON);
                 var answered = [];
                 if (window.localStorage.getItem("answeredQ") !== "")
                 {
                     answered = JSON.parse(window.localStorage.getItem("answeredQ"));
                 }
-                answered.push(reference[0]);
+                answered.push(reference);
                 window.localStorage.setItem("answeredQ", JSON.stringify(answered));
-                //scoreQuestion();
+                
+                scoreQuestion(Qjson);
                 ons.notification.alert(
                 {
                     title: 'Antwort abgeschickt',
@@ -136,19 +145,28 @@
             };
             var maxPoints = 100; //Maximal erreichbare Punkte bei der beantwortung über die Karte
             var accuracy = 50; //Genauigkeit mit der die Punkte abstufung erfolgt (in Meter) (pro Intervall -5% Punkte)
-            var reference = window.sessionStorage.getItem("answerTimestamp")
-                .split("|");
-            var alat = reference[1].toString();
-            var alng = reference[2].toString();
-            var username = window.localStorage.getItem("loginname");
-            var time = Date.now();
-            var lat = marker.getPosition()
+            var reference = window.sessionStorage.getItem("answerTimestamp");
+                var questionsArray = [];
+                questionsArray = JSON.parse(window.localStorage.getItem("questions"));
+                alert(JSON.stringify(questionsArray));
+                var Qjson, i ;
+                //hol timestamp und array in die variablen
+                for (i in questionsArray){
+                    if (questionsArray[i].timestamp == reference){
+                        Qjson = questionsArray[i];
+                    }
+                }
+                var alat = Qjson.geolat;
+                var alng = Qjson.geolon;
+                var username = window.localStorage.getItem("loginname");
+                var time = Date.now();
+                var lat = marker.getPosition()
                 .lat()
                 .toString();
-            var lng = marker.getPosition()
+                var lng = marker.getPosition()
                 .lng()
                 .toString();
-            var distanceKM = distance(lat, lng, alat, alng);
+                var distanceKM = distance(lat, lng, alat, alng);
             var distanceM = Math.round(distanceKM * 1000); //Entfernung beider Koordinaten in Meter
             var points = parseInt(getScore(username));
             if (maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)) < 0)
@@ -159,14 +177,14 @@
             {
                 points += Math.round(maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)));
             }
-            var answerJSON = createAnswerJSON(time, reference[0], username, alat, alng, points);
+            var answerJSON = createAnswerJSON(time, reference, username, alat, alng, points);
             ajxBroadcastJSON(answerJSON);
             var answered = [];
             if (window.localStorage.getItem("answeredQ") !== "")
             {
                 answered = JSON.parse(window.localStorage.getItem("answeredQ"));
             }
-            answered.push(reference[0]);
+            answered.push(reference);
             window.localStorage.setItem("answeredQ", JSON.stringify(answered));
             //scoreQuestion();
             ons.notification.alert(

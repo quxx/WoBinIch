@@ -276,10 +276,10 @@ function getImage(questionJSON) {
         var imgPath = fileEntry.toNativeURL();
         //------------------------------------------------
         //Bildpfad wird hier ermittelt und kann leider 
-        //auch nur hier weiterverarbeitet werden!
+        //auch nur hier weiterverarbeitet werden! [{"timestamp":"1443451735100","type":"question","username":"D.kessler","geolat":"50.5765787","geolon":"8.6767309","score":"0","open":"true"}]
         //------------------------------------------------
-        var reference = questionJSON.timestamp + "|" + questionJSON.geolat + "|" + questionJSON.geolon;
-        document.getElementById("question").innerHTML = '<div><img style="z-index: -1;" src="' + imgPath + '" id="picture" height="100%" width="100%"></img></div><p class="par-buttons"><ons-button id="' + reference + '" class="btn-send" onclick="answer(this)">Beantworten</ons-button></p>';
+        var reference = questionJSON.timestamp;
+        document.getElementById("question").innerHTML = '<div><img style="z-index: -1;" src="' + imgPath + '" id="picture" height="100%" width="100%"></img></div><p class="par-buttons"><button id="' + reference + '" class="btn-send" onclick="answer(this)">Beantworten</button></p>';
     }
 
 }
