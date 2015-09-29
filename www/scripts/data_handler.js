@@ -1,4 +1,4 @@
-/*global $, downloadFile, console, alert*/
+﻿/*global $, downloadFile, console, alert*/
 
 /**
  * Erstellt aus Rohdaten ein Objekt nach JSON und modelliert eine Bildfrage.
@@ -186,7 +186,9 @@ function getAnswers(questionJSON) {
  */
 
 function scoreQuestion(questionJSON) {
-    var answers = [],
+    var correct,
+        percent,
+        answers = [],
         users = [],
         i,
         dist,
@@ -198,27 +200,30 @@ function scoreQuestion(questionJSON) {
     time = window.localStorage.getItem("earliestTimestamp");
     if (answers.length == users.length - 1 || questionJSON.timestamp < time) {
         for (i in anwers) {
-            dist = distance(answers.lat, answers.lon, questionJSON.lat, questionJSON.lon);
-
-            score = -0.0000003984868 * Math.pow(dist, 5);
-            score += 0.0001186065769 * Math.pow(dist, 4);
-            score -= 0.0118659541345 * Math.pow(dist, 3);
-            score += 0.40644 * Math.pow(dist, 2);
-            score -= 0.4924343 * dist - 25;
-
-            if (score > 100) {
-                score = 100;
-
-            }
-            if (score < 0) {
-                score = 0;
-            }
-            questionJSON.score += score;
+            if (distance(answers.lat, answers.lon, questionJSON.lat, questionJSON.lon) < 1) {
+                correct += 1;
+            };
         }
+        
+        percent = (correct / answers.length) * 100;
+    
+        score = -0.0000003984868 * Math.pow(percent, 5);
+        score += 0.0001186065769 * Math.pow(percent, 4);
+        score -= 0.0118659541345 * Math.pow(percent, 3);
+        score += 0.40644 * Math.pow(percent, 2);
+        score -= 0.4924343 * percent - 25;
+
+        if (score > 100) {
+            score = 100;
+
+        }
+        if (score < 0) {
+            score = 0;
+        }
+        questionJSON.score += score;
     } else {
         console.log("nicht alle Spieler haben bisher geantwortet!");
     }
-}
 }
 
 /**
