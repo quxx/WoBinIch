@@ -1,4 +1,4 @@
-/*﻿document.addEventListener("pageinit", function (e) {
+﻿document.addEventListener("pageinit", function (e) {
     if (e.target.id == "my-ranking") {
         var viewport = {
             width  : $(window).width(),
@@ -41,7 +41,9 @@
         }
     }
 });
-*/
+
+
+/*
 document.addEventListener("pageinit", function (e) {
     if (e.target.id == "my-ranking") {
         var viewport = {
@@ -134,3 +136,4 @@ var ct = {
       
     }
 };
+*/
