@@ -108,12 +108,11 @@ function generateTable()
     //Build an array containing Customer records.
     var ret = scoreArray();
     var names = ret[0];
-    alert(names.length);
     var points = ret[1];
     var customers = new Array();
     customers.push(["Spieler", "Name", "Punkte"]);
     var x;
-    for (x = 0; x < names.length; x++)
+    for (x = 0; x < names.length-1; x++)
     {
         customers.push([parseInt(x + 1), names[x], points[x]]);
     }
