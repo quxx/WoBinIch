@@ -1,4 +1,4 @@
-/*global $, downloadFile, console, alert*/
+﻿/*global $, downloadFile, console, alert*/
 
 /**
  * Erstellt aus Rohdaten ein Objekt in JSON-Formatierung und modelliert eine Bildfrage.
@@ -73,7 +73,7 @@ function getUserArray() {
 /**
  * Wandelt den String aus Rohdaten, welchen ajxGetRawData vom THM Chatserver abholt in JS Objekte um, sortiert diese nach Fragen und Antworten in entsprechende Arrays und legt diese anschließend im localstorage ab.
  *
- * @function parseRawData
+ * @method parseRawData
  *
  * @param {String} data Die Rohdaten, welche der THM Chatserver liefert.*
  */
@@ -89,11 +89,13 @@ function parseRawData(data) {
     window.localStorage.setItem("questions", QArray);
     window.localStorage.setItem("answers", RArray);
     usr = window.localStorage.getItem("loginname");
+    //alert("raw data sliced! Found " + dataArray.length + " lines!");
     for (i = 0; i < dataArray.length - 1; i += 1) {
 
         string = dataArray[i];
 
         nextString = dataArray[i + 1];
+        //alert("String is now: " + string + ", nextString is now: " + nextString);
         if (inFlag.test(string) === false && txtFlag.test(string) === true && JSONFlag.test(string) === true) {
             //slice JSON-string and save into variable str
             str = JSONFlag.exec(string);
@@ -142,6 +144,7 @@ function parseRawData(data) {
 
         }
 
+        //sollte idealerweise kein localstorage Objekt sein sondern 'n eigentständiges File. Evtl. kriegen wir das noch hin!
         window.localStorage.setItem("questions", JSON.stringify(QArray));
         window.localStorage.setItem("answers", JSON.stringify(RArray));
     }
