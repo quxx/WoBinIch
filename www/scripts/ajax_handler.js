@@ -3,7 +3,7 @@
 /**
  * Holt eine Liste von registrierten Benutzern vom Server ab und legt sie in den localstorage. Setzt voraus, das der "loginname" und das "password" beim start der App gesetzt und in den localstorage abgelegt wurden.
  *
- * @method ajxGetUserList
+ * @function ajxGetUserList
  */
 function ajxGetUserList() {
     var usr, pwd, baseURL, link;
@@ -27,7 +27,7 @@ function ajxGetUserList() {
 /**
  * Sendet eine Textnachricht an einen Empfänger auf dem THM Chatserver. Nimmt voraus, das der Benutzer eingeloggt ist, also im localstorage Benutzername und Passwort hinterlegt wurden.
  *
- * @method ajxSendToUser
+ * @function ajxSendToUser
  *
  * @param {String} recipient - Benutzername des Empfängers der Nachricht
  * @param {String} message - Inhalt der Textnachricht
@@ -51,7 +51,7 @@ function ajxSendToUser(recipient, message) {
 /**
  * Sendet eine Textnachricht an alle Benutzer des THM-Chatservers.
  *
- * @method ajxBroadcast
+ * @function ajxBroadcast
  *
  * @param {String} message - Zu sendende Textnachricht
  */
@@ -69,7 +69,7 @@ function ajxBroadcastJSON(message) {
 /**
  * Legt ein in einen String umgewandeltes Javascript Objekt in JSON-Notation auf dem Server ab. Hierbei wird der Empfänger nacheinander mit zwei Nachrichten angeschrieben, die erste Nachricht ist ein Bild, die zweite die dazugehörigen Daten als Text.
  *
- * @method ajxsendJSON
+ * @function ajxsendJSON
  *
  * @param {Object} JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen. Erwartet wird ein durch createJSON erstelltes Objet in JSON-formatierung.
  * @param {String} recipient - Der Empfänger der Nachricht
@@ -91,7 +91,7 @@ function ajxSendJSON(JSONObject, recipient) {
 /** 
  * Nimmt Rohdaten vom Server und gibt sie an die Methode parseRawData weiter.
  *
- * @method ajxGetRawData
+ * @function ajxGetRawData
  */
 function ajxGetRawData() {
     var getURL, timestamp, username, password;

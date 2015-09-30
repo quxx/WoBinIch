@@ -25,19 +25,6 @@
         ons.bootstrap();
         ons.ready(function()
         {
-            //Ich versteh' nicht, warum ich Funktionen schreibe, die bestimmte Sachen übernehmen wenn dann statt dessen dieselbe Funktion mit identischem Code nochmal gebaut wird :P
-            //Hole QuestionArray und speichere es im Localstorage
-            /* 
-            setEarliestTimestamp();
-            var time = window.localStorage.getItem("earliestTimestamp");
-            var user = window.localStorage.getItem("loginname");
-            var pass = window.localStorage.getItem("password");
-            var link = "http://thm-chat.appspot.com/oop/messages?since=" + time + "&user=" + user + "&password=" + pass;
-            var req = new AjaxRequest(link, function(response){
-                parseRawData(response);
-            });
-            req.send();
-            */
             geolocation();
             ajxGetRawData();
         });
