@@ -226,7 +226,9 @@ function scoreQuestion(questionJSON) {
         if (score < 0) {
             score = 0;
         }
-        questionJSON.score += score;
+        score += parseInt(getscore(questionJSON.username));
+        
+        createQuestionJSON(questionJSON.timestamp, questionJSON.username, questionJSON.geolat, questionJSON.geolon, score, "false");
     } else {
         console.log("nicht alle Spieler haben bisher geantwortet!");
     }
