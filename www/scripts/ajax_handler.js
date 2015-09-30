@@ -1,9 +1,9 @@
-﻿/*global $, geolocation, alert, parseRawData, getUserArray,setEarliestTimestamp, createQuestionJSON*/
+/*global $, geolocation, alert, parseRawData, getUserArray,setEarliestTimestamp, createQuestionJSON*/
 
 /**
  * Holt eine Liste von registrierten Benutzern vom Server ab und legt sie in den localstorage. Setzt voraus, das der "loginname" und das "password" beim start der App gesetzt und in den localstorage abgelegt wurden.
  *
- * @method ajxGetUserList
+ * @function ajxGetUserList
  */
 function ajxGetUserList() {
     var usr, pwd, baseURL, link;
@@ -27,7 +27,7 @@ function ajxGetUserList() {
 /**
  * Sendet eine Textnachricht an einen Empfänger auf dem THM Chatserver. Nimmt voraus, das der Benutzer eingeloggt ist, also im localstorage Benutzername und Passwort hinterlegt wurden.
  *
- * @method ajxSendToUser
+ * @function ajxSendToUser
  *
  * @param {String} recipient - Benutzername des Empfängers der Nachricht
  * @param {String} message - Inhalt der Textnachricht
@@ -51,7 +51,7 @@ function ajxSendToUser(recipient, message) {
 /**
  * Sendet eine Textnachricht an alle Benutzer des THM-Chatservers.
  *
- * @method ajxBroadcast
+ * @function ajxBroadcast
  *
  * @param {String} message - Zu sendende Textnachricht
  */
@@ -75,23 +75,14 @@ function ajxBroadcastJSON(message) {
  * @param {String} recipient - Der Empfänger der Nachricht
  */
 function ajxSendJSON(JSONObject, recipient) {
-    var Jason = JSONObject,
-        image;
-    //delete image data for increased readability.
-    if (Jason.imageURI !== null) {
-        image = Jason.imageURI;
-        delete Jason.imageURI;
-        ajxSendToUser(recipient, JSON.stringify(JSONObject));
-        JSONObject.imageURI = image;
-    } else {
-        ajxSendToUser(recipient, JSON.stringify(JSONObject));
-    }
+    var Jason = JSONObject;
+    ajxSendToUser(recipient, JSON.stringify(JSONObject));
 }
 
 /** 
- * Nimmt Rohdaten vom Server und gibt sie an die Methode parseRawData weiter.
+ * Nimmt Rohdaten der letzten zwei Tage vom Server und gibt sie im callback an die Funktion parseRawData weiter.
  *
- * @method ajxGetRawData
+ * @function ajxGetRawData
  */
 function ajxGetRawData() {
     var getURL, timestamp, username, password;
