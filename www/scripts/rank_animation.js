@@ -17,7 +17,7 @@
      // chart sample data
     var ret = scoreArray();
     var arrVisitors = new Array();
-    for (var i=0; i <= ret[0].length-1;i++) {
+    for (var i=0; i < ret[0].length-1;i++) {
         arrVisitors[i] = ret[0][i] + "," + ret[1][i];
     }
 
