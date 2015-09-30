@@ -1,9 +1,11 @@
 /**
- Sends an Ajax Request.
- 
- @param sURL The request url
- @param fCallback Callback function after successfull request
- @param sContent (optional) POST-Content passed to the server
+ * Sendet einen Ajax Request an eine bestimme URL, und kann die Antwort in der Callback Funktion verarbeiten
+ *
+ * @function AjaxRequest
+ * 
+ * @param {String} sURL Die Server URL für den Request
+ * @param {function} fCallback eine Callbackfuntion die nach dem Request ausgeführt werden soll
+ * @param {String} sContent (Optional) Post Content welches an den Server Übermittelt werden soll
  */
 function AjaxRequest(sURL, fCallback, sContent)
 {
