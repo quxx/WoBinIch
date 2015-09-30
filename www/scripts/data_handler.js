@@ -1,7 +1,7 @@
 /*global $, downloadFile, console, alert*/
 
 /**
- * Erstellt aus Rohdaten ein Objekt nach JSON und modelliert eine Bildfrage.
+ * Erstellt aus Rohdaten ein Objekt in JSON-Formatierung und modelliert eine Bildfrage.
  *
  * @function formatJSON
  *
@@ -29,7 +29,7 @@ function createQuestionJSON(timestamp, username, lat, lon, score, open) {
 }
 
 /** 
- * Erstellt aus Rohdaten ein Objekt nach JSON und modelliert ein Antwortobjekt auf eine Bildfrage.
+ * Erstellt aus Rohdaten ein Objekt nach JSON-Formatierung und modelliert ein Antwortobjekt auf eine Bildfrage.
  *
  * @function formatJSON
  *
