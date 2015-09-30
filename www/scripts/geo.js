@@ -2,11 +2,8 @@
  *
  * Holt sich die aktuellen Geodaten in Form von Altidue und Longitude und speichert sie in den Localstorage
  *
- * @method geolocation
- *
- *
+ * @function geolocation
  */
-
 function geolocation() {
 
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
