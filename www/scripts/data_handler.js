@@ -89,13 +89,11 @@ function parseRawData(data) {
     window.localStorage.setItem("questions", QArray);
     window.localStorage.setItem("answers", RArray);
     usr = window.localStorage.getItem("loginname");
-    //alert("raw data sliced! Found " + dataArray.length + " lines!");
     for (i = 0; i < dataArray.length - 1; i += 1) {
 
         string = dataArray[i];
 
         nextString = dataArray[i + 1];
-        //alert("String is now: " + string + ", nextString is now: " + nextString);
         if (inFlag.test(string) === false && txtFlag.test(string) === true && JSONFlag.test(string) === true) {
             //slice JSON-string and save into variable str
             str = JSONFlag.exec(string);
@@ -143,8 +141,6 @@ function parseRawData(data) {
             }
 
         }
-
-        //sollte idealerweise kein localstorage Objekt sein sondern 'n eigentständiges File. Evtl. kriegen wir das noch hin!
         window.localStorage.setItem("questions", JSON.stringify(QArray));
         window.localStorage.setItem("answers", JSON.stringify(RArray));
     }
@@ -158,9 +154,6 @@ function parseRawData(data) {
 function setEarliestTimestamp() {
     var time;
     time = Date.now() + -2 * 24 * 3600 * 1000;
-    //if (time < 1443184895905) {
-    //time = 1443184895905;
-    //}
     window.localStorage.setItem("earliestTimestamp", time);
 }
 
@@ -242,7 +235,6 @@ function scoreQuestion(questionJSON) {
  * @param {Object} questionJSON Javascript Objekt, welches mit createQuestionJSON erstellt wurde
  */
 function getImage(questionJSON) {
-    //alert("getimg called!");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
     function fsSuccess(fs) {
@@ -297,25 +289,4 @@ function getScore(username) {
         }
     }
     return score;
-}
-
-function testAnswerArray() {
-    var answers = JSON.parse(window.localStorage.getItem("answers")),
-        i;
-    for (i in answers) {
-        alert(JSON.stringify(answers[i]));
-    }
-}
-
-function testQuestionArray() {
-    var questions = JSON.parse(window.localStorage.getItem("questions")),
-        i;
-    for (i in questions) {
-        alert(JSON.stringify(questions[i]));
-    }
-}
-
-function testScore() {
-    var score = getScore("thomas.claudi");
-    alert(score);
 }

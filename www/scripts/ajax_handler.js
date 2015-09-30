@@ -76,16 +76,7 @@ function ajxBroadcastJSON(message) {
  */
 function ajxSendJSON(JSONObject, recipient) {
     var Jason = JSONObject,
-        image;
-    //delete image data for increased readability.
-    if (Jason.imageURI !== null) {
-        image = Jason.imageURI;
-        delete Jason.imageURI;
         ajxSendToUser(recipient, JSON.stringify(JSONObject));
-        JSONObject.imageURI = image;
-    } else {
-        ajxSendToUser(recipient, JSON.stringify(JSONObject));
-    }
 }
 
 /** 
