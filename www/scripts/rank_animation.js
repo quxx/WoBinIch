@@ -1,4 +1,9 @@
-﻿function scoreArray()
+
+
+/**
+ * Die Punktestände der Spieler werden eingeholt
+ */
+function scoreArray()
 {
     ajxGetUserList();
     var arr = [];
@@ -14,24 +19,24 @@
     ret.push(points);
     return ret;
 }
-     // chart sample data
+   
     var ret = scoreArray();
     var arrVisitors = new Array();
-    for (var i=0; i < ret[0].length-1;i++) {
+    for (var i=0; i <= ret[0].length-1;i++) {
         arrVisitors[i] = ret[0][i] + "," + ret[1][i];
     }
-
+    // Canvas Variablen
     var canvas;
     var context;
-     // chart properties
+    // Diagramm Eigenschaften
     var cWidth, cHeight, cMargin, cSpace;
     var cMarginSpace, cMarginHeight;
-     // bar properties
+    // Saeulen Eigenschaften
     var bWidth, bMargin, totalBars, maxDataValue;
     var bWidthMargin;
-     // bar animation
+    // Saeulen Animation
     var ctr, numctr, speed;
-     // axis property
+    // Achsen Eigenschaften
     var totLabelsOnYAxis;
     document.addEventListener("pageinit", function(e)
     {
@@ -43,8 +48,7 @@
                 height: $(window)
                     .height()
             };
-            //        alert(viewport.height);
-            //        alert(viewport.width);
+
             canvas = document.getElementById("myCanvas");
             canvas.width = viewport.width - 5;
             canvas.height = viewport.height - 50;
@@ -57,21 +61,25 @@
             drawChartWithAnimation();
         }
     });
-     // initialize the chart and bar values
+    
+    
+     /** 
+      * Diagramm und Saeulen werden initialisiert. Variablen zum zeichnen und animieren werden errechnet bzw. bereitgestellt. Außerdem wird die größte Punktzahl ermittelt.
+      */ 
     function chartSettings()
     {
-        // chart properties
+        // Diagramm Eigenschaften
         cMargin = 25;
         cSpace = 30;
         cHeight = canvas.height - 2 * cMargin - cSpace;
         cWidth = canvas.width - 2 * cMargin - cSpace;
         cMarginSpace = cMargin + cSpace;
         cMarginHeight = cMargin + cHeight;
-        // bar properties
+        // Saeulen Eigenschaften
         bMargin = 15;
         totalBars = arrVisitors.length;
         bWidth = (cWidth / totalBars) - bMargin;
-        // find maximum value to plot on chart
+        // ermitteln des maximalen Wertes für die Spitze
         maxDataValue = 0;
         for (var i = 0; i < totalBars; i++)
         {
@@ -81,23 +89,31 @@
         }
         totLabelsOnYAxis = 10;
         context.font = "10pt Garamond";
-        // initialize Animation variables
+        // initialisieren der Animationswerte
         ctr = 0;
         numctr = 100;
         speed = 10;
     }
-     // draw chart axis, labels and markers
+     /**
+      * Uebergeben der Daten an drawAxis(), damit dort die Achsen gezeichnet werden können. Zusätzlich werden die Achsenbezeichnungen aufgerufen.
+      */
     function drawAxisLabelMarkers()
     {
         context.lineWidth = "2.0";
-        // draw y axis
+        // zeichne y Achse
         drawAxis(cMarginSpace, cMarginHeight, cMarginSpace, cMargin);
-        // draw x axis
+        // zeichne x Achse
         drawAxis(cMarginSpace, cMarginHeight, cMarginSpace + cWidth, cMarginHeight);
         context.lineWidth = "1.0";
         drawMarkers();
     }
-     // draw X and Y axis
+     /**
+      * Zeichenfunktion der Achsen mittels übergebenen Parametern.
+      * @param {strin} x - Startpostion der X-Achse
+      * @param {strin} y - Startpostion der X-Achse
+      * @param {strin} X - Startpostion der Y-Achse
+      * @param {strin} Y - Startpostion der Y-Achse
+      */
     function drawAxis(x, y, X, Y)
     {
         context.beginPath();
@@ -106,13 +122,16 @@
         context.closePath();
         context.stroke();
     }
-     // draw chart markers on X and Y Axis
+    
+    /**
+     * Ermitteln und zeichnen der Markierungen für die Achsen, sowie der Achsenbezeichnung von X und Y Achse.
+     */
     function drawMarkers()
     {
         var numMarkers = parseInt(maxDataValue / totLabelsOnYAxis);
         context.textAlign = "right";
         context.fillStyle = "#000";;
-        // Y Axis
+        // Y Achse
         for (var i = 0; i <= totLabelsOnYAxis; i++)
         {
             markerVal = i * numMarkers;
@@ -121,7 +140,7 @@
             var yMarkers = cMarginHeight - (markerValHt / maxDataValue);
             context.fillText(markerVal, xMarkers, yMarkers, cSpace);
         }
-        // X Axis
+        // X Achse
         context.textAlign = 'center';
         for (var i = 0; i < totalBars; i++)
         {
@@ -132,18 +151,20 @@
             context.fillText(name, markerXPos, markerYPos, bWidth);
         }
         context.save();
-        // Add Y Axis title
+        // Y Achsen Bezeichnung
         context.translate(cMargin - 10, cHeight / 2);
         context.rotate(Math.PI * -90 / 180);
         context.fillText('Punkte', 0, 0);
         context.restore();
-        // Add X Axis Title
+        // X Achsen Bezeichnung
         context.fillText('Spieler', cMarginSpace + (cWidth / 2), cMarginHeight + 30);
     }
-    
+    /**
+     * Ist für die animierte Darstellung der Saeulen zuständig. Die Anzahl der benoetigten Saeulen wird ermittelt und initialisiert.
+     */
     function drawChartWithAnimation()
     {
-        // Loop through the total bars and draw
+        // Spieler array wird durchlaufen und animiert dargestellt
         for (var i = 0; i < totalBars; i++)
         {
             var arrVal = arrVisitors[i].split(",");
@@ -153,8 +174,8 @@
             bY = cMarginHeight - bHt - 2;
             drawRectangle(bX, bY, bWidth, bHt, true);
         }
-        // timeout runs and checks if bars have reached
-        // the desired height; if not, keep growing
+        // timeout überprüft ob gewollte Höhe der Saeule erreicht ist,
+        // wenn nicht wächst sie weiter
         if (ctr < numctr)
         {
             ctr = ctr + 1;
@@ -162,6 +183,15 @@
         }
     }
     
+    /**
+     * Zeichnet die benötigten Saeulen. Bekommt alle nötigen Parameter aus drawCharWithAnimation().
+     * 
+     * @param {String}  x - x Position im Diagramm
+     * @param {String}  y - y Position im Diagramm
+     * @param {String}  w - breite der Saeule
+     * @param {String}  h - hoehe der Saeule
+     * @param {String}  fill - true oder falls, ob farbig zeichnen
+     */
     function drawRectangle(x, y, w, h, fill)
     {
         context.beginPath();
