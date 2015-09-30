@@ -106,7 +106,9 @@ function getUserArray() {
  * @param {String} data Die Rohdaten, welche der THM Chatserver liefert.*
  */
 function parseRawData(data) {
-    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray, usr;
+    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray, usr, ROArray, QOArray;
+    ROArray = [];
+    QOArray = [];
     RArray = [];
     QArray = [];
     inFlag = /[|]in[|]/i;
@@ -130,8 +132,12 @@ function parseRawData(data) {
             Jason = JSON.parse(str);
 
             if (Jason.username == usr &amp;&amp; Jason.type == "reply") {
-                RArray.push(Jason);
+                ROArray.push(Jason);
+            } else if (Jason.username == usr &amp;&amp; Jason.type == "question") {
+                QOArray.push(Jason);
             }
+
+
 
         }
 
@@ -169,7 +175,8 @@ function parseRawData(data) {
             }
 
         }
-
+        window.localStorage.setItem("outquestions", JSON.stringify(QOArray));
+        window.localStorage.setItem("outanswers", JSON.stringify(ROArray));
         window.localStorage.setItem("questions", JSON.stringify(QArray));
         window.localStorage.setItem("answers", JSON.stringify(RArray));
     }
@@ -252,7 +259,7 @@ function scoreQuestion(questionJSON) {
             score = 0;
         }
         score += parseInt(getscore(questionJSON.username));
-        
+
         createQuestionJSON(questionJSON.timestamp, questionJSON.username, questionJSON.geolat, questionJSON.geolon, score, "false");
     } else {
         console.log("nicht alle Spieler haben bisher geantwortet!");
@@ -307,8 +314,10 @@ function getImage(questionJSON) {
  * @result {String} Score Punktestand des Spielers
  */
 function getScore(username) {
-    var qArray, rArray, i, j, score;
+    var qArray, rArray, i, j, score,roArray, qoArray;
     score = 0;
+    qoArray = JSON.parse(window.localStorage.getItem("outquestions"));
+    roArray = JSON.parse(window.localStorage.getItem("outanswers"));
     qArray = JSON.parse(window.localStorage.getItem("questions"));
     rArray = JSON.parse(window.localStorage.getItem("answers"));
     for (i in qArray) {
@@ -319,6 +328,16 @@ function getScore(username) {
     for (j in rArray) {
         if (score &lt; rArray[j].score &amp;&amp; username == rArray[j].username &amp;&amp; rArray[j].score != "NaN") {
             score = rArray[j].score;
+        }
+    }
+        for (k in qoArray) {
+        if (score &lt; qoArray[k].score &amp;&amp; username == qoArray[k].username &amp;&amp; qoArray[k].score != "NaN") {
+            score = qoArray[k].score;
+        }
+    }
+    for (l in roArray) {
+        if (score &lt; roArray[l].score &amp;&amp; username == roArray[l].username &amp;&amp; roArray[l].score != "NaN") {
+            score = roArray[l].score;
         }
     }
     return score;
@@ -332,13 +351,13 @@ function getScore(username) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addOnClick">addOnClick</a></li><li><a href="global.html#AjaxRequest">AjaxRequest</a></li><li><a href="global.html#ajxBroadcast">ajxBroadcast</a></li><li><a href="global.html#ajxGetRawData">ajxGetRawData</a></li><li><a href="global.html#ajxGetUserList">ajxGetUserList</a></li><li><a href="global.html#ajxsendJSON">ajxsendJSON</a></li><li><a href="global.html#ajxSendToUser">ajxSendToUser</a></li><li><a href="global.html#answer">answer</a></li><li><a href="global.html#distance">distance</a></li><li><a href="global.html#donwload">donwload</a></li><li><a href="global.html#downloadFile">downloadFile</a></li><li><a href="global.html#formatJSON">formatJSON</a></li><li><a href="global.html#geolocation">geolocation</a></li><li><a href="global.html#getAnswers">getAnswers</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getScore">getScore</a></li><li><a href="global.html#getUserArray">getUserArray</a></li><li><a href="global.html#imHere">imHere</a></li><li><a href="global.html#parseRawData">parseRawData</a></li><li><a href="global.html#scoreQuestion">scoreQuestion</a></li><li><a href="global.html#sendMarker">sendMarker</a></li><li><a href="global.html#setEarliestTimestamp">setEarliestTimestamp</a></li><li><a href="global.html#takePicture">takePicture</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addOnClick">addOnClick</a></li><li><a href="global.html#AjaxRequest">AjaxRequest</a></li><li><a href="global.html#ajxBroadcast">ajxBroadcast</a></li><li><a href="global.html#ajxGetRawData">ajxGetRawData</a></li><li><a href="global.html#ajxGetUserList">ajxGetUserList</a></li><li><a href="global.html#ajxsendJSON">ajxsendJSON</a></li><li><a href="global.html#ajxSendToUser">ajxSendToUser</a></li><li><a href="global.html#answer">answer</a></li><li><a href="global.html#chartSettings">chartSettings</a></li><li><a href="global.html#distance">distance</a></li><li><a href="global.html#donwload">donwload</a></li><li><a href="global.html#downloadFile">downloadFile</a></li><li><a href="global.html#drawAxis">drawAxis</a></li><li><a href="global.html#drawAxisLabelMarkers">drawAxisLabelMarkers</a></li><li><a href="global.html#drawChartWithAnimation">drawChartWithAnimation</a></li><li><a href="global.html#drawMarkers">drawMarkers</a></li><li><a href="global.html#drawRectangle">drawRectangle</a></li><li><a href="global.html#formatJSON">formatJSON</a></li><li><a href="global.html#geolocation">geolocation</a></li><li><a href="global.html#getAnswers">getAnswers</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getScore">getScore</a></li><li><a href="global.html#getUserArray">getUserArray</a></li><li><a href="global.html#imHere">imHere</a></li><li><a href="global.html#parseRawData">parseRawData</a></li><li><a href="global.html#scoreArray">scoreArray</a></li><li><a href="global.html#scoreQuestion">scoreQuestion</a></li><li><a href="global.html#sendMarker">sendMarker</a></li><li><a href="global.html#setEarliestTimestamp">setEarliestTimestamp</a></li><li><a href="global.html#takePicture">takePicture</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Wed Sep 30 2015 19:59:15 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Wed Sep 30 2015 21:00:35 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>
