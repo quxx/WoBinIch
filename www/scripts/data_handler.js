@@ -1,9 +1,9 @@
-/*global $, downloadFile, console, alert*/
+﻿/*global $, downloadFile, console, alert*/
 
 /**
  * Erstellt aus Rohdaten ein Objekt nach JSON und modelliert eine Bildfrage.
  *
- * @function formatJSON
+ * @method formatJSON
  *
  * @param {Date} timestamp Timestamp des Eintrags auf den Chatserver, dient als eindeutige ID
  * @param {String} username User-/Loginname für THM Chatserver
@@ -31,7 +31,7 @@ function createQuestionJSON(timestamp, username, lat, lon, score, open) {
 /** 
  * Erstellt aus Rohdaten ein Objekt nach JSON und modelliert ein Antwortobjekt auf eine Bildfrage.
  *
- * @function formatJSON
+ * @method formatJSON
  *
  * @param {Date} timestamp Timestamp des Eintrags auf den Chatserver, dient als eindeutige ID
  * @param {String} reference Timestamp der Frage, auf die sich die Antwort bezieht
@@ -73,7 +73,7 @@ function getUserArray() {
 /**
  * Wandelt den String aus Rohdaten, welchen ajxGetRawData vom THM Chatserver abholt in JS Objekte um, sortiert diese nach Fragen und Antworten in entsprechende Arrays und legt diese anschließend im localstorage ab.
  *
- * @function parseRawData
+ * @method parseRawData
  *
  * @param {String} data Die Rohdaten, welche der THM Chatserver liefert.*
  */
@@ -89,11 +89,13 @@ function parseRawData(data) {
     window.localStorage.setItem("questions", QArray);
     window.localStorage.setItem("answers", RArray);
     usr = window.localStorage.getItem("loginname");
+    //alert("raw data sliced! Found " + dataArray.length + " lines!");
     for (i = 0; i < dataArray.length - 1; i += 1) {
 
         string = dataArray[i];
 
         nextString = dataArray[i + 1];
+        //alert("String is now: " + string + ", nextString is now: " + nextString);
         if (inFlag.test(string) === false && txtFlag.test(string) === true && JSONFlag.test(string) === true) {
             //slice JSON-string and save into variable str
             str = JSONFlag.exec(string);
@@ -141,6 +143,8 @@ function parseRawData(data) {
             }
 
         }
+
+        //sollte idealerweise kein localstorage Objekt sein sondern 'n eigentständiges File. Evtl. kriegen wir das noch hin!
         window.localStorage.setItem("questions", JSON.stringify(QArray));
         window.localStorage.setItem("answers", JSON.stringify(RArray));
     }
@@ -149,18 +153,21 @@ function parseRawData(data) {
 /**
  * Setzt den Timestamp, ab welchem die Daten vom Server geholt werden auf aktuelles Datum minus 2 Tage.
  *
- * @function setEarliestTimestamp
+ * @method setEarliestTimestamp
  */
 function setEarliestTimestamp() {
     var time;
     time = Date.now() + -2 * 24 * 3600 * 1000;
+    //if (time < 1443184895905) {
+    //time = 1443184895905;
+    //}
     window.localStorage.setItem("earliestTimestamp", time);
 }
 
 /**
  * Liefert zu einem Frageobjekt die zugehörign Antwortobjekte in einem Array.
  *
- * @function getAnswers
+ * @method getAnswers
  *
  * @param {Object} questionJSON Frageobjekt in JSON-formatierung, welches durch createQuestionJSON erstellt wurde
  *
@@ -180,7 +187,7 @@ function getAnswers(questionJSON) {
 /**
  * Bewertet das übergebene Frageobjekt, sofern alle Antworten abgegeben wurden oder die Frage älter als 2 Tage ist und schreibt die Bewertung in das Score-Attribut des Frageobjekts.
  *
- * @function scoreQuestion
+ * @method scoreQuestion
  *
  * @param {Object} questionJSON Frageobjekt, welches bewertet werden soll
  */
@@ -230,11 +237,12 @@ function scoreQuestion(questionJSON) {
 /**
  * Sucht das zugehörige Bild zu einem Frageobjekt aus dem Gerätespeicher zeigt es an.
  *
- * @function getImage
+ * @method getImage
  *
  * @param {Object} questionJSON Javascript Objekt, welches mit createQuestionJSON erstellt wurde
  */
 function getImage(questionJSON) {
+    //alert("getimg called!");
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
 
     function fsSuccess(fs) {
@@ -267,7 +275,7 @@ function getImage(questionJSON) {
 /**
  * Ermittelt den Punktestand des übergebenen Benutzers anhand der im localstorage hinterlegten Datensätze für Fragen und Antworten.
  *
- * @function getScore
+ * @method getScore
  *
  * @param {String} username Benutzername des Spielers
  *
@@ -289,4 +297,25 @@ function getScore(username) {
         }
     }
     return score;
+}
+
+function testAnswerArray() {
+    var answers = JSON.parse(window.localStorage.getItem("answers")),
+        i;
+    for (i in answers) {
+        alert(JSON.stringify(answers[i]));
+    }
+}
+
+function testQuestionArray() {
+    var questions = JSON.parse(window.localStorage.getItem("questions")),
+        i;
+    for (i in questions) {
+        alert(JSON.stringify(questions[i]));
+    }
+}
+
+function testScore() {
+    var score = getScore("thomas.claudi");
+    alert(score);
 }
