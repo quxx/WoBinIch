@@ -1,4 +1,3 @@
-/*global $, geolocation, alert, parseRawData, getUserArray,setEarliestTimestamp, createQuestionJSON*/
 
 /**
  * Holt eine Liste von registrierten Benutzern vom Server ab und legt sie in den localstorage. Setzt voraus, das der "loginname" und das "password" beim start der App gesetzt und in den localstorage abgelegt wurden.
