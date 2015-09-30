@@ -1,4 +1,10 @@
-﻿// controller.js
+﻿/**
+ *
+ * Guckt das sich das Sliding Menu nich per Slide öffnen lässt während die Karte aktiv ist. Enthält außerdem die verschiednen Funktionen die für das Anzeigen der Map und für die Beantwortung 
+ * und Bewertung der Fragen verantwortlich sind.
+ *
+ * @function 
+ */
 (function()
 {
     var app = angular.module('myApp', ['onsen']);
@@ -19,11 +25,16 @@
         };
         $scope.checkSlidingMenuStatus();
     });
-    //Map controller
+
     app.controller('MapController', function($scope, $timeout)
     {
         $scope.map;
-        //Map initialieren  
+/**
+ *
+ * Initialisiert die Map mit Hilfe der GoogleMaps API und fügt sie in die map.html seite ein.
+ *
+ * @function 
+ */  
         $timeout(function()
         {
             var latlng = new google.maps.LatLng(window.localStorage.getItem("lat"), window.localStorage.getItem("lon"));
@@ -44,7 +55,18 @@
                     $scope.addOnClick(event);
                 });
         }, 100);
-        //Send
+/**
+ *
+ * Handelt die Beantwortung der Frage über den gesetzten Marker auf der Karte.
+ * Legt zuerst fest wieviel Punkte maximal erreichbar sind und bei wieviel ungenauigkeit entsprechende Punkte reduziert werden. 
+ * Holt sich außerdem das dazugehrige QuestionJSON aus dem Localstorage (über den übergeben referent Timestamp). Ermittelt dann mit Hilfe von distance() wie viele Meter die Antwort von der Lösung entfernt ist
+ * und errechnet daraus die Punkte für den Spieler addiert diese mit seinen vorherigen Punkten und erstellt ein answerJSON und sendet dies an alle Benutzer des Spiels. Gibt außerdem eine Message an den Spieler aus 
+ * mit den Infos wie er bei der Frage abgeschnitten hat.
+ * 
+ * Falls der Spieler kein Marker gestezt hat, wird eine entsprechende Fehlermeldung ausgegeben.
+ *
+ * @function sendMarker
+ */
         $scope.sendMarker = function()
         {
             if (marker)
@@ -75,8 +97,8 @@
                     .toString();
                 var distanceKM = distance(lat, lng, alat, alng);
                 var distanceM = Math.round(distanceKM * 1000); //Entfernung beider Koordinaten in Meter
-                var points = parseInt(getScore(username));
-                var aScore;
+                var points = parseInt(getScore(username)); // Hole alten Punktestand
+                var aScore; // Punktestand für diese Frage (Nur für die Alert Message)
                 if (maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)) < 0)
                 {
                     aScore = 0;
@@ -115,7 +137,18 @@
                 });
             }
         };
-        //Ich bin da!
+/**
+ *
+ * Analog zu der Beantwortung über den Marker wird die Möglichkeit gegeben zusagen, dass man sich schon an dem gefragten Ort befinden. Über diese Methode kann man eine größee maximal Punktzahl erreichen
+ * Legt zuerst fest wieviel Punkte maximal erreichbar sind und bei wieviel ungenauigkeit entsprechende Punkte reduziert werden. 
+ * Holt sich außerdem das dazugehrige QuestionJSON aus dem Localstorage (über den übergeben referent Timestamp). Nun wird der aktuelle Standpunkt des Spielers abgefragt und an dieser Stelle ein Marker gesetzt.
+ * Ermittelt dann mit Hilfe von distance() wie viele Meter die Antwort von der Lösung entfernt ist
+ * und errechnet daraus die Punkte für den Spieler addiert diese mit seinen vorherigen Punkten und erstellt ein answerJSON und sendet dies an alle Benutzer des Spiels. Gibt außerdem eine Message an den Spieler aus 
+ * mit den Infos wie er bei der Frage abgeschnitten hat.
+ * 
+ *
+ * @function imHere
+ */
         $scope.imHere = function()
         {
             geolocation();
@@ -152,7 +185,7 @@
             var questionsArray = [];
             questionsArray = JSON.parse(window.localStorage.getItem("questions"));
             var Qjson, i;
-            //hol timestamp und array in die variablen
+            //Hol timestamp und array in die variablen
             for (i in questionsArray)
             {
                 if (questionsArray[i].timestamp == reference)
@@ -172,8 +205,8 @@
                 .toString();
             var distanceKM = distance(lat, lng, alat, alng);
             var distanceM = Math.round(distanceKM * 1000); //Entfernung beider Koordinaten in Meter
-            var points = parseInt(getScore(username));
-            var aScore;
+            var points = parseInt(getScore(username)); //Hole alten Punktestand des Spielers
+            var aScore; //Punktestand für diese Frage (Nur für die Alert Message)
             if (maxPoints - ((maxPoints / 20) * Math.floor(distanceM / accuracy)) < 0)
             {
                 aScore = 0;
@@ -193,7 +226,7 @@
             }
             answered.push(reference);
             window.localStorage.setItem("answeredQ", JSON.stringify(answered));
-            //scoreQuestion();
+            scoreQuestion(username);
             ons.notification.alert(
             {
                 title: 'Antwort abgeschickt',
@@ -204,7 +237,12 @@
                 }
             });
         }
-        //Marker hinzufügen
+/**
+ * 
+ * Setzt einen Marker an die vom User geklickte Stelle auf der Karte. Ist schon ein Marker gestezt wird nur die Position des aktuellen Markers geändert, ist noch keiner gestezt wird ein neuer erstellt und an die Position gesetzt
+ *
+ * @function addOnClick
+ */
         $scope.addOnClick = function(event)
         {
             var x = event.gesture.center.pageX;
