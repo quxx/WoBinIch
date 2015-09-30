@@ -1,6 +1,6 @@
-﻿/**
+/**
  * 
- * Bekommt 2 Koordinaten Paare übergeben (einmal die vom Spieler eingegebene und die richtige Antwort aus der Bildfrage) hiermit ermittelt die Funktion die Entfernung ziwschen diesen beiden und gibt sie in Km zurück.
+ * Ermittelt die Distanz zwischen zwei Koordinaten, bestehend aus Latitude und Longitude und gibt diese Distanz anschließend in Kilometern zurück.
  *
  * @function distance
  *

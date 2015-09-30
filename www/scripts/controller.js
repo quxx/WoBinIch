@@ -53,7 +53,7 @@
          * und errechnet daraus die Punkte für den Spieler addiert diese mit seinen vorherigen Punkten und erstellt ein answerJSON und sendet dies an alle Benutzer des Spiels. Gibt außerdem eine Message an den Spieler aus 
          * mit den Infos wie er bei der Frage abgeschnitten hat.
          * 
-         * Falls der Spieler kein Marker gestezt hat, wird eine entsprechende Fehlermeldung ausgegeben.
+         * Falls der Spieler kein Marker gesetzt hat, wird eine entsprechende Fehlermeldung ausgegeben.
          *
          * @function sendMarker
          */
