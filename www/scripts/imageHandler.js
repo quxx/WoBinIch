@@ -1,4 +1,4 @@
-/**
+﻿/**
  *
  * Läd das Übergeben Bild an den Empfänger auf den Server
  *
@@ -125,13 +125,4 @@ function filetransfer(download_link, fp)
     {
         console.log("download error source " + error.source);
     });
-}
-/******************************************************** Test Funktion ***************************************************/
-function downloadTest()
-{
-    console.log("Test");
-    var url = "http://lh3.googleusercontent.com/JT2wCIrlSJEmGVbBs4uCP85IgWROl1D_AMOzJDtrXob3WA9zbH5QcsfyEycA_gYQ8J7xofQqnBtnnXK8m9Ze";
-    var folder = "WoBinIchTest";
-    var name = "test";
-    downloadFile(url, folder, name);
 }
