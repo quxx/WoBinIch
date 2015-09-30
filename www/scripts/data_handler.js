@@ -78,7 +78,9 @@ function getUserArray() {
  * @param {String} data Die Rohdaten, welche der THM Chatserver liefert.*
  */
 function parseRawData(data) {
-    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray, usr;
+    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray, usr, ROArray, QOArray;
+    ROArray = [];
+    QOArray = [];
     RArray = [];
     QArray = [];
     inFlag = /[|]in[|]/i;
@@ -102,8 +104,12 @@ function parseRawData(data) {
             Jason = JSON.parse(str);
 
             if (Jason.username == usr && Jason.type == "reply") {
-                RArray.push(Jason);
+                ROArray.push(Jason);
+            } else if (Jason.username == usr && Jason.type == "question") {
+                QOArray.push(Jason);
             }
+
+
 
         }
 
@@ -141,7 +147,8 @@ function parseRawData(data) {
             }
 
         }
-
+        window.localStorage.setItem("outquestions", JSON.stringify(QOArray));
+        window.localStorage.setItem("outanswers", JSON.stringify(ROArray));
         window.localStorage.setItem("questions", JSON.stringify(QArray));
         window.localStorage.setItem("answers", JSON.stringify(RArray));
     }
@@ -224,7 +231,7 @@ function scoreQuestion(questionJSON) {
             score = 0;
         }
         score += parseInt(getscore(questionJSON.username));
-        
+
         createQuestionJSON(questionJSON.timestamp, questionJSON.username, questionJSON.geolat, questionJSON.geolon, score, "false");
     } else {
         console.log("nicht alle Spieler haben bisher geantwortet!");
@@ -279,8 +286,10 @@ function getImage(questionJSON) {
  * @result {String} Score Punktestand des Spielers
  */
 function getScore(username) {
-    var qArray, rArray, i, j, score;
+    var qArray, rArray, i, j, score,roArray, qoArray;
     score = 0;
+    qoArray = JSON.parse(window.localStorage.getItem("outquestions"));
+    roArray = JSON.parse(window.localStorage.getItem("outanswers"));
     qArray = JSON.parse(window.localStorage.getItem("questions"));
     rArray = JSON.parse(window.localStorage.getItem("answers"));
     for (i in qArray) {
@@ -291,6 +300,16 @@ function getScore(username) {
     for (j in rArray) {
         if (score < rArray[j].score && username == rArray[j].username && rArray[j].score != "NaN") {
             score = rArray[j].score;
+        }
+    }
+        for (k in qoArray) {
+        if (score < qoArray[k].score && username == qoArray[k].username && qoArray[k].score != "NaN") {
+            score = qoArray[k].score;
+        }
+    }
+    for (l in roArray) {
+        if (score < roArray[l].score && username == roArray[l].username && roArray[l].score != "NaN") {
+            score = roArray[l].score;
         }
     }
     return score;
