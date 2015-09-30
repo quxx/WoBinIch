@@ -1,37 +1,28 @@
-
 <ons-page>
-<ons-toolbar modifier="transparent">
-          <div class="right">
-            <ons-toolbar-button class="menu-close" ng-click="slidingMenu.close()">
-              Close
-            </ons-toolbar-button>
-          </div>
-</ons-toolbar>
+    <ons-toolbar modifier="transparent">
+        <div class="right">
+            <ons-toolbar-button class="menu-close" ng-click="slidingMenu.close()">Close</ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+    <p style="text-align: center; padding-top: 20px; padding-bottom: 20px;">Navigation</p>
+    <!-- ********************    Menü Liste   ********************** -->
+    <ons-list>
+        <ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('play.html', {closeMenu: true})">Play</ons-list-item>
+        <ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('question.html', {closeMenu: true})">Frage erstellen</ons-list-item>
+        <ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('ranking.html', {closeMenu: true})">Rangliste</ons-list-item>
+        <ons-list-item modifier="tappable" onclick="quit()">Log Out</ons-list-item>
+    </ons-list>
+    <!-- ********************    Menü Footer   ******************** -->
+    <div class="nav-fut" align="center">	<span class="list-item-action">
 
-<p style="text-align: center; padding-top: 20px; padding-bottom: 20px;">Navigation</p>
-        <!-- Menü Liste -->
-		<ons-list>
-			<ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('play.html', {closeMenu: true})">
-    		    Play   
-			</ons-list-item>         
-            <ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('question.html', {closeMenu: true})">
-				Frage erstellen
-			</ons-list-item>
-            <ons-list-item modifier="tappable" onclick="slidingMenu.setMainPage('ranking.html', {closeMenu: true})">
-    			Rangliste
-			</ons-list-item>
-			<ons-list-item modifier="tappable" onclick="quit()">
-				Log Out
-			</ons-list-item>
-		</ons-list>
-        
-        <!-- ********************    Menü Footer   ******************** -->		
-		<div class="nav-fut" align="center">
-		<span class="list-item-action">
 			<ons-icon icon="fa-globe" size="30px"></ons-icon>
-		</span>
-		<hr>
-		<p class="aut">Wo bin ich? <br> Dominic Kessler <br> Marco D'Ambrosio <br> Thomas Claudi <br> Version: 1.2 </p>
-		</div>
 
+		</span>
+        <hr>
+        <p class="aut">Wo bin ich?
+            <br>Dominic Kessler
+            <br>Marco D'Ambrosio
+            <br>Thomas Claudi
+            <br>Version: 1.2</p>
+    </div>
 </ons-page>
