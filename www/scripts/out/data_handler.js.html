@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: data_handler.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: data_handler.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*global $, downloadFile, console, alert*/
+
+/**
+ * Erstellt aus Rohdaten ein Objekt in JSON-Formatierung und modelliert eine Bildfrage.
+ *
+ * @function formatJSON
+ *
+ * @param {Date} timestamp Timestamp des Eintrags auf den Chatserver, dient als eindeutige ID
+ * @param {String} username User-/Loginname für THM Chatserver
+ * @param {String} lat Latitude der geodaten
+ * @param {String} lon Longitude der geodaten
+ * @param {String} score Aktueller Punktestand des Spielers
+ * @param {Boolean} open Ist die Frage noch offen oder bereits beantwortet?
+ *
+ * @return {Object} formattedJSON - Javascript Object in JSON Formatierung, welches die obigen Parameter beinhaltet
+ */
+function createQuestionJSON(timestamp, username, lat, lon, score, open) {
+    var text, formattedJSON;
+    text = '{ "timestamp" : "' + timestamp + '"';
+    text += ', "type" : "question"';
+    text += ', "username" : "' + username + '"';
+    text += ', "geolat" : "' + lat + '"';
+    text += ', "geolon" : "' + lon + '"';
+    text += ', "score" : "' + score + '"';
+    text += ', "open" : "' + open + '" }';
+
+    formattedJSON = JSON.parse(text);
+    return formattedJSON;
+}
+
+/** 
+ * Erstellt aus Rohdaten ein Objekt nach JSON-Formatierung und modelliert ein Antwortobjekt auf eine Bildfrage.
+ *
+ * @function formatJSON
+ *
+ * @param {Date} timestamp Timestamp des Eintrags auf den Chatserver, dient als eindeutige ID
+ * @param {String} reference Timestamp der Frage, auf die sich die Antwort bezieht
+ * @param {String} username User-/Loginname für THM Chatserver
+ * @param {String} lat Latitude der geodaten
+ * @param {String} lon Longitude der geodaten
+ * @param {String} score Aktueller Punktestand des Spielers
+ *
+ * @result {Object} formattedJSON - Javascript Object in JSON Formatierung, welches die obigen Parameter beinhaltet
+ */
+function createAnswerJSON(timestamp, reference, username, lat, lon, score) {
+    var text, formattedJSON;
+    text = '{ "timestamp" : "' + timestamp + '"';
+    text += ', "type" : "reply"';
+    text += ', "references" : "' + reference + '"';
+    text += ', "username" : "' + username + '"';
+    text += ', "geolat" : "' + lat + '"';
+    text += ', "geolon" : "' + lon + '"';
+    text += ', "score" : "' + score + '" }';
+
+    formattedJSON = JSON.parse(text);
+    return formattedJSON;
+}
+
+/**
+ * Lädt eine vorher im localstorage unter dem Key "userlist" hinterlegte Liste in ein Array und spaltet sie entsprechend in einzelne Benutzernamen auf.
+ *
+ * @function getUserArray
+ *
+ * @result {Object} userArray Array aller auf dem Server registrierter Spielernamen
+ */
+function getUserArray() {
+    var userlist, userArray;
+    userlist = window.localStorage.getItem("userlist");
+    userArray = userlist.split("\n");
+    return userArray;
+}
+
+/**
+ * Wandelt den String aus Rohdaten, welchen ajxGetRawData vom THM Chatserver abholt in JS Objekte um, sortiert diese nach Fragen und Antworten in entsprechende Arrays und legt diese anschließend im localstorage ab.
+ *
+ * @function parseRawData
+ *
+ * @param {String} data Die Rohdaten, welche der THM Chatserver liefert.*
+ */
+function parseRawData(data) {
+    var string, nextString, i, regEx, str, imgURL, RArray, Jason, timest, imageURI, dataArray, inFlag, JSONFlag, txtFlag, imgFlag, QArray, usr;
+    RArray = [];
+    QArray = [];
+    inFlag = /[|]in[|]/i;
+    txtFlag = /[|]txt[|]/i;
+    imgFlag = /[|]img[|]/i;
+    JSONFlag = /[{].+[}]/i;
+    dataArray = data.split("\n");
+    window.localStorage.setItem("questions", QArray);
+    window.localStorage.setItem("answers", RArray);
+    usr = window.localStorage.getItem("loginname");
+    for (i = 0; i &lt; dataArray.length - 1; i += 1) {
+
+        string = dataArray[i];
+
+        nextString = dataArray[i + 1];
+        if (inFlag.test(string) === false &amp;&amp; txtFlag.test(string) === true &amp;&amp; JSONFlag.test(string) === true) {
+            //slice JSON-string and save into variable str
+            str = JSONFlag.exec(string);
+
+            //parse string into JS object
+            Jason = JSON.parse(str);
+
+            if (Jason.username == usr &amp;&amp; Jason.type == "reply") {
+                RArray.push(Jason);
+            }
+
+        }
+
+        //detect incoming messages to parse
+        if (inFlag.test(string) === true &amp;&amp; txtFlag.test(string) === true &amp;&amp; JSONFlag.test(string) === true) {
+
+            //slice JSON-string and save into variable str
+            str = JSONFlag.exec(string);
+
+            //parse string into JS object
+            Jason = JSON.parse(str);
+
+            //check type of JSON
+            switch (Jason.type) {
+
+            case "question":
+                if (imgFlag.test(nextString) === true) {
+                    //slice the imgURL from the rest of the data and save as variable imgURL
+                    imgURL = nextString.slice(nextString.lastIndexOf("|") + 1, nextString.length);
+
+                    //saving image with question timestamp as image name
+                    timest = Jason.timestamp;
+                    downloadFile(imgURL, "WoBinIch", timest);
+
+                    QArray.push(Jason);
+                    i += 1;
+                } else {
+                    QArray.push(Jason);
+                }
+                break;
+
+            case "reply":
+                RArray.push(Jason);
+                break;
+            }
+
+        }
+
+        window.localStorage.setItem("questions", JSON.stringify(QArray));
+        window.localStorage.setItem("answers", JSON.stringify(RArray));
+    }
+}
+
+/**
+ * Setzt den Timestamp, ab welchem die Daten vom Server geholt werden auf aktuelles Datum minus 2 Tage.
+ *
+ * @function setEarliestTimestamp
+ */
+function setEarliestTimestamp() {
+    var time;
+    time = Date.now() + -2 * 24 * 3600 * 1000;
+    //if (time &lt; 1443184895905) {
+    //time = 1443184895905;
+    //}
+    window.localStorage.setItem("earliestTimestamp", time);
+}
+
+/**
+ * Liefert zu einem Frageobjekt die zugehörign Antwortobjekte in einem Array.
+ *
+ * @function getAnswers
+ *
+ * @param {Object} questionJSON Frageobjekt in JSON-formatierung, welches durch createQuestionJSON erstellt wurde
+ *
+ * @return {Object} returnArray Array aus Antwortobjekten, welche das übergebene Frageobjekt referenzieren.
+ */
+function getAnswers(questionJSON) {
+    var i, answerArray, returnArray = [];
+    answerArray = window.localStorage.getItem("answers");
+    for (i in answerArray) {
+        if (answerArray[i].references == questionJSON.timestamp) {
+            returnArray.push(answerArray[i]);
+        }
+    }
+    return returnArray;
+}
+
+/**
+ * Bewertet das übergebene Frageobjekt, sofern alle Antworten abgegeben wurden oder die Frage älter als 2 Tage ist und schreibt die Bewertung in das Score-Attribut des Frageobjekts.
+ *
+ * @function scoreQuestion
+ *
+ * @param {Object} questionJSON Frageobjekt, welches bewertet werden soll
+ */
+function scoreQuestion(questionJSON) {
+    var correct,
+        percent,
+        answers = [],
+        users = [],
+        i,
+        dist,
+        score,
+        time;
+    answers = getAnswers(questionJSON);
+    users = getUserArray();
+    setEarliestTimestamp();
+    time = window.localStorage.getItem("earliestTimestamp");
+    if (answers.length == users.length - 1 || questionJSON.timestamp &lt; time) {
+        for (i in anwers) {
+            if (distance(answers.lat, answers.lon, questionJSON.lat, questionJSON.lon) &lt; 1) {
+                correct += 1;
+            }
+        }
+
+        percent = (correct / answers.length) * 100;
+
+        score = -0.0000003984868 * Math.pow(percent, 5);
+        score += 0.0001186065769 * Math.pow(percent, 4);
+        score -= 0.0118659541345 * Math.pow(percent, 3);
+        score += 0.40644 * Math.pow(percent, 2);
+        score -= 0.4924343 * percent - 25;
+
+        if (score > 100) {
+            score = 100;
+
+        }
+        if (score &lt; 0) {
+            score = 0;
+        }
+        score += parseInt(getscore(questionJSON.username));
+        
+        createQuestionJSON(questionJSON.timestamp, questionJSON.username, questionJSON.geolat, questionJSON.geolon, score, "false");
+    } else {
+        console.log("nicht alle Spieler haben bisher geantwortet!");
+    }
+}
+
+/**
+ * Sucht das zugehörige Bild zu einem Frageobjekt aus dem Gerätespeicher zeigt es an.
+ *
+ * @function getImage
+ *
+ * @param {Object} questionJSON Javascript Objekt, welches mit createQuestionJSON erstellt wurde
+ */
+function getImage(questionJSON) {
+    //alert("getimg called!");
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fsSuccess, fsFail);
+
+    function fsSuccess(fs) {
+        var timestamp = questionJSON.timestamp;
+        var imgName = "WoBinIch/" + timestamp + ".jpg";
+        fs.root.getFile(imgName, {
+            create: false
+        }, gotImg, function (error) {
+            alert("File Retrieval Error!\n\n" + error.code);
+        });
+    }
+
+    function fsFail(error) {
+        alert("FileSystem Error!\n\n" + error.code);
+    }
+
+    function gotImg(fileEntry) {
+        var imgPath = fileEntry.toNativeURL();
+        //------------------------------------------------
+        //Bildpfad wird hier ermittelt und kann leider 
+        //auch nur hier weiterverarbeitet werden! 
+        //------------------------------------------------
+        var reference = questionJSON.timestamp;
+        document.getElementById("question").innerHTML = '&lt;div>&lt;img style="z-index: -1;" src="' + imgPath + '" id="picture" height="100%" width="100%">&lt;/img>&lt;/div>&lt;p class="par-buttons"> ' +
+            '&lt;button class="button button--large btn-send" id="' + reference + '" onclick="answer(this)">Beantworten&lt;/button>&lt;/p>';
+    }
+
+}
+
+/**
+ * Ermittelt den Punktestand des übergebenen Benutzers anhand der im localstorage hinterlegten Datensätze für Fragen und Antworten.
+ *
+ * @function getScore
+ *
+ * @param {String} username Benutzername des Spielers
+ *
+ * @result {String} Score Punktestand des Spielers
+ */
+function getScore(username) {
+    var qArray, rArray, i, j, score;
+    score = 0;
+    qArray = JSON.parse(window.localStorage.getItem("questions"));
+    rArray = JSON.parse(window.localStorage.getItem("answers"));
+    for (i in qArray) {
+        if (score &lt; qArray[i].score &amp;&amp; username == qArray[i].username &amp;&amp; qArray[i].score != "NaN") {
+            score = qArray[i].score;
+        }
+    }
+    for (j in rArray) {
+        if (score &lt; rArray[j].score &amp;&amp; username == rArray[j].username &amp;&amp; rArray[j].score != "NaN") {
+            score = rArray[j].score;
+        }
+    }
+    return score;
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addOnClick">addOnClick</a></li><li><a href="global.html#AjaxRequest">AjaxRequest</a></li><li><a href="global.html#ajxBroadcast">ajxBroadcast</a></li><li><a href="global.html#ajxGetRawData">ajxGetRawData</a></li><li><a href="global.html#ajxGetUserList">ajxGetUserList</a></li><li><a href="global.html#ajxsendJSON">ajxsendJSON</a></li><li><a href="global.html#ajxSendToUser">ajxSendToUser</a></li><li><a href="global.html#answer">answer</a></li><li><a href="global.html#distance">distance</a></li><li><a href="global.html#donwload">donwload</a></li><li><a href="global.html#downloadFile">downloadFile</a></li><li><a href="global.html#formatJSON">formatJSON</a></li><li><a href="global.html#geolocation">geolocation</a></li><li><a href="global.html#getAnswers">getAnswers</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getScore">getScore</a></li><li><a href="global.html#getUserArray">getUserArray</a></li><li><a href="global.html#imHere">imHere</a></li><li><a href="global.html#parseRawData">parseRawData</a></li><li><a href="global.html#scoreQuestion">scoreQuestion</a></li><li><a href="global.html#sendMarker">sendMarker</a></li><li><a href="global.html#setEarliestTimestamp">setEarliestTimestamp</a></li><li><a href="global.html#takePicture">takePicture</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Wed Sep 30 2015 19:35:16 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

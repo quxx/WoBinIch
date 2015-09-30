@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: imageHandler.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: imageHandler.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿/**
+ * Sendet einen AjaxRequest an den Server um eine UploadURL zu bekommen, mit Hilfe dieser und der Phonegap FileAPI wird das übergebene Bild hochgeladen und die entsprechende Bildnachricht an den Empfänger gesendet
+ *
+ * @function downloadFile
+ *
+ * @param {String} imageURI - Das Bild (als Pfadangabe wo es auf dem Smartphone liegt)
+ * @param {String} consignee - Der Empfänger der Bildnachricht
+ */
+function uploadImage(imageURI, consignee)
+{
+    var req = new AjaxRequest("http://thm-chat.appspot.com/oop/uploadURL", function(response)
+    {
+        var options = new FileUploadOptions();
+        options.fileKey = "image";
+        options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+        options.mimeType = "image/jpeg";
+        options.headers = {
+            Connection: "close"
+        };
+        options.chunkedMode = false;
+        var params = new Object();
+        params.fromUser = window.localStorage.getItem("loginname");
+        params.fromPassword = window.localStorage.getItem("password");
+        params.toUser = consignee;
+        params.type = "img";
+        options.params = params;
+        var ft = new FileTransfer();
+        ft.upload(imageURI, response, win, fail, options);
+        //Function on Success
+        function win(r)
+        {}
+        //Function on Fail
+        function fail(error)
+        {
+            console.log("An error has occurred: Code = " + error.code);
+            console.log("upload error source " + error.source);
+            console.log("upload error target " + error.target);
+        }
+    });
+    req.send();
+}
+/**
+ *
+ * Überprüft ob alle Parameter korrekt gesetzt sind und ob eine Internetverbindung besteht ist beides der fall wird die Funtion donwload() aufgerufen
+ *
+ * @function downloadFile
+ *
+ * @param {String} URL Die URL des zu donwloadenen Bildes
+ * @param {String} Folder_Name Der Ordnername in dem das Bild gespeichert werden soll
+ * @param {String} File_Name Dateiname für das heruntergeladene Bild
+ */
+function downloadFile(URL, Folder_Name, File_Name)
+{
+    //Parameter Überprüfen
+    if (URL == null &amp;&amp; Folder_Name == null &amp;&amp; File_Name == null)
+    {
+        return;
+    }
+    else
+    {
+        //Überprüfen ob Internet vorhanden ist
+        var networkState = navigator.connection.type;
+        if (networkState == Connection.NONE)
+        {
+            return;
+        }
+        else
+        {
+            //Ist dies erfüllt wird nächste Funktion angestoßen
+            download(URL, Folder_Name, File_Name);
+        }
+    }
+}
+/**
+ *
+ * Überprüft ob der Ordner in dem das Bild gespeichert werden soll existiert und ob der Benutzer schreibrechte dafür besitzt ist beides erfüllt erstellt die Funktion
+ * einen kompletten Pfad zum Ziel Ordner (inklusive des Dateinamens des herunterzuladenen Bildes). Ruft dann die Funktion filetransfer() auf.
+ *
+ * @function donwload
+ *
+ * @param {String} URL Die URL des zu donwloadenen Bildes
+ * @param {String} Folder_Name Der Ordnername in dem das Bild gespeichert werden soll
+ * @param {String} File_Name Dateiname für das heruntergeladene Bild
+ */
+function download(URL, Folder_Name, File_Name)
+{
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+
+    function fileSystemSuccess(fileSystem)
+    {
+        var download_link = encodeURI(URL);
+        var directoryEntry = fileSystem.root; // Frage Root path ab
+        directoryEntry.getDirectory(Folder_Name,
+        {
+            create: true,
+            exclusive: false
+        }, onDirectorySuccess, onDirectoryFail); // Ordner erstellen
+        var rootdir = fileSystem.root;
+        var fp = rootdir.toURL(); // Gesamter Ordnerpfad
+        fp = fp + Folder_Name + "/" + File_Name + "." + "jpg"; // Ordnerpfad und Dateiname für das speichern
+        filetransfer(download_link, fp);
+    }
+
+    function onDirectorySuccess(parent)
+    {
+        // Ordner wurde erstellt
+    }
+
+    function onDirectoryFail(error)
+    {
+        //Error bei Ordner erstellung
+        console.log("Unable to create new directory: " + error.code);
+    }
+
+    function fileSystemFail(evt)
+    {
+        //Kann nicht aufs Dateisystem zugreifen
+        console.log(evt.target.error.code);
+    }
+}
+/**
+ *
+ * Läd das Bild vom Server und speichert es auf dem Smartphone
+ *
+ * @function donwload
+ *
+ * @param {URI} download_link Der Pfad zum herunterzuladenen Bild als encoded_URI
+ * @param {String} fp Der komplette Pfad zum Zielordner (inklusive Bildname)
+ */
+function filetransfer(download_link, fp)
+{
+    var fileTransfer = new FileTransfer();
+    // Image Download function
+    fileTransfer.download(download_link, fp, function(entry)
+    {
+        //console.log("download complete: " + entry.fullPath); // Gibt kompletten Pfad des Bildes aus
+    }, function(error)
+    {
+        console.log("download error source " + error.source);
+    });
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addOnClick">addOnClick</a></li><li><a href="global.html#AjaxRequest">AjaxRequest</a></li><li><a href="global.html#ajxBroadcast">ajxBroadcast</a></li><li><a href="global.html#ajxGetRawData">ajxGetRawData</a></li><li><a href="global.html#ajxGetUserList">ajxGetUserList</a></li><li><a href="global.html#ajxsendJSON">ajxsendJSON</a></li><li><a href="global.html#ajxSendToUser">ajxSendToUser</a></li><li><a href="global.html#answer">answer</a></li><li><a href="global.html#distance">distance</a></li><li><a href="global.html#donwload">donwload</a></li><li><a href="global.html#downloadFile">downloadFile</a></li><li><a href="global.html#formatJSON">formatJSON</a></li><li><a href="global.html#geolocation">geolocation</a></li><li><a href="global.html#getAnswers">getAnswers</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getScore">getScore</a></li><li><a href="global.html#getUserArray">getUserArray</a></li><li><a href="global.html#imHere">imHere</a></li><li><a href="global.html#parseRawData">parseRawData</a></li><li><a href="global.html#scoreQuestion">scoreQuestion</a></li><li><a href="global.html#sendMarker">sendMarker</a></li><li><a href="global.html#setEarliestTimestamp">setEarliestTimestamp</a></li><li><a href="global.html#takePicture">takePicture</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Wed Sep 30 2015 19:35:16 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

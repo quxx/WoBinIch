@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ajax_handler.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ajax_handler.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*global $, geolocation, alert, parseRawData, getUserArray,setEarliestTimestamp, createQuestionJSON*/
+
+/**
+ * Holt eine Liste von registrierten Benutzern vom Server ab und legt sie in den localstorage. Setzt voraus, das der "loginname" und das "password" beim start der App gesetzt und in den localstorage abgelegt wurden.
+ *
+ * @function ajxGetUserList
+ */
+function ajxGetUserList() {
+    var usr, pwd, baseURL, link;
+    usr = "D.kessler";
+    pwd = "5410";
+
+    baseURL = "http://thm-chat.appspot.com/oop/";
+    link = baseURL + "users?user=" + usr + "&amp;password=" + pwd;
+
+    $.ajax({
+        type: 'get',
+        url: link,
+        success: function (response) {
+            window.localStorage.setItem("userlist", response);
+        }
+    });
+
+}
+
+
+/**
+ * Sendet eine Textnachricht an einen Empfänger auf dem THM Chatserver. Nimmt voraus, das der Benutzer eingeloggt ist, also im localstorage Benutzername und Passwort hinterlegt wurden.
+ *
+ * @function ajxSendToUser
+ *
+ * @param {String} recipient - Benutzername des Empfängers der Nachricht
+ * @param {String} message - Inhalt der Textnachricht
+ */
+function ajxSendToUser(recipient, message) {
+    var usr, pwd, baseURL, getURL;
+    usr = window.localStorage.getItem("loginname");
+    pwd = window.localStorage.getItem("password");
+    baseURL = "http://thm-chat.appspot.com/oop/sendTxt?";
+    getURL = baseURL + "fromUser=" + usr;
+    getURL += "&amp;fromPassword=" + pwd;
+    getURL += "&amp;toUser=" + recipient;
+    getURL += "&amp;type=txt&amp;txt=" + message;
+
+    $.ajax({
+        type: 'get',
+        url: getURL
+    });
+}
+
+/**
+ * Sendet eine Textnachricht an alle Benutzer des THM-Chatservers.
+ *
+ * @function ajxBroadcast
+ *
+ * @param {String} message - Zu sendende Textnachricht
+ */
+function ajxBroadcastJSON(message) {
+    var i, userArray = [],
+        recipient;
+    ajxGetUserList();
+    userArray = getUserArray();
+    for (i in userArray) {
+        recipient = userArray[i];
+        ajxSendToUser(recipient, JSON.stringify(message));
+    }
+}
+
+/**
+ * Legt ein in einen String umgewandeltes Javascript Objekt in JSON-Notation auf dem Server ab. Hierbei wird der Empfänger nacheinander mit zwei Nachrichten angeschrieben, die erste Nachricht ist ein Bild, die zweite die dazugehörigen Daten als Text.
+ *
+ * @method ajxsendJSON
+ *
+ * @param {Object} JSONObject - Das Objekt, dessen Daten auf den Server geladen werden sollen. Erwartet wird ein durch createJSON erstelltes Objet in JSON-formatierung.
+ * @param {String} recipient - Der Empfänger der Nachricht
+ */
+function ajxSendJSON(JSONObject, recipient) {
+    var Jason = JSONObject;
+    ajxSendToUser(recipient, JSON.stringify(JSONObject));
+}
+
+/** 
+ * Nimmt Rohdaten der letzten zwei Tage vom Server und gibt sie im callback an die Funktion parseRawData weiter.
+ *
+ * @function ajxGetRawData
+ */
+function ajxGetRawData() {
+    var getURL, timestamp, username, password;
+    username = window.localStorage.getItem("loginname");
+    password = window.localStorage.getItem("password");
+    setEarliestTimestamp();
+    timestamp = window.localStorage.getItem("earliestTimestamp");
+
+    getURL = "http://thm-chat.appspot.com/oop/messages?since=" + timestamp;
+    getURL += "&amp;user=" + username;
+    getURL += "&amp;password=" + password;
+
+    $.ajax({
+        type: 'get',
+        url: getURL,
+        success: function (response) {
+            parseRawData(response);
+        }
+    });
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addOnClick">addOnClick</a></li><li><a href="global.html#AjaxRequest">AjaxRequest</a></li><li><a href="global.html#ajxBroadcast">ajxBroadcast</a></li><li><a href="global.html#ajxGetRawData">ajxGetRawData</a></li><li><a href="global.html#ajxGetUserList">ajxGetUserList</a></li><li><a href="global.html#ajxsendJSON">ajxsendJSON</a></li><li><a href="global.html#ajxSendToUser">ajxSendToUser</a></li><li><a href="global.html#answer">answer</a></li><li><a href="global.html#distance">distance</a></li><li><a href="global.html#donwload">donwload</a></li><li><a href="global.html#downloadFile">downloadFile</a></li><li><a href="global.html#formatJSON">formatJSON</a></li><li><a href="global.html#geolocation">geolocation</a></li><li><a href="global.html#getAnswers">getAnswers</a></li><li><a href="global.html#getImage">getImage</a></li><li><a href="global.html#getScore">getScore</a></li><li><a href="global.html#getUserArray">getUserArray</a></li><li><a href="global.html#imHere">imHere</a></li><li><a href="global.html#parseRawData">parseRawData</a></li><li><a href="global.html#scoreQuestion">scoreQuestion</a></li><li><a href="global.html#sendMarker">sendMarker</a></li><li><a href="global.html#setEarliestTimestamp">setEarliestTimestamp</a></li><li><a href="global.html#takePicture">takePicture</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.3</a> on Wed Sep 30 2015 19:35:16 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
