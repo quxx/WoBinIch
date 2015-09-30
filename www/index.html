@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -8,20 +9,15 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
     <script src="scripts/ajaxRequest.js"></script>
-    <!--<script src="scripts/data_handler.js"></script>
-    <script src="scripts/ajax_handler.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
     <script>
         ons.bootstrap();
-        
-       //document.addEventListener ("deviceready", onDeviceReady, false);
     </script>
     <script>
-//Überprüfen ob Gerät mit dem Internet verbunden ist    
-	
-	ons.ready(function () {
-			var networkState = navigator.connection.type;
-			/*
+        //Überprüfen ob Gerät mit dem Internet verbunden ist    
+        ons.ready(function()
+        {
+            var networkState = navigator.connection.type;
+            /*
 			Connection.UNKNOWN  = 'Unknown connection';
 			Connection.ETHERNET = 'Ethernet connection';
 			Connection.WIFI     = 'WiFi connection';
@@ -31,127 +27,120 @@
 			Connection.CELL     = 'Cell generic connection';
 			Connection.NONE     = 'No network connection'; 
 			*/
-            if (networkState == Connection.NONE || networkState == Connection.UNKNOWN) {
-				ons.createDialog('conn.html').then(function(conn) {
-					conn.show();
-			});
-        }
-        
-        if (window.localStorage.getItem("loginname") != "") {
-    		window.location="home.html"
-	}
-})
-	
-		
-//Login Script, eingabe wird im LocalStorage gespeichert und Login-Link wird generiert	
-	function login() {
-		var name = document.getElementById('loginname').value;
-		var pw = document.getElementById('password').value;
-		var link = "http://thm-chat.appspot.com/oop/users?user=" + name + "&password=" + pw;
-		
-		window.localStorage.setItem("loginname",name);
-		window.localStorage.setItem("password",pw);
-		window.localStorage.setItem("link",link);
-		var user = window.localStorage.getItem("loginname");
-		var pass = window.localStorage.getItem("password");
-		if (user == "" || pass == "") {
-			ons.createDialog('dialog.html').then(function(dialog) {
-				dialog.show();
-			});
-		} else {
-        var req = new AjaxRequest(link, function(response){
-                //alert('Antwort:\n'+response);
-                var check = response.indexOf("thomas.claudi") > -1;
-                    if (!check) {
-                        window.localStorage.setItem("loginname","");
-                    	window.localStorage.setItem("password","");
-                		window.localStorage.setItem("link","");
-                        ons.notification.alert({
+            if (networkState == Connection.NONE || networkState == Connection.UNKNOWN)
+            {
+                ons.createDialog('conn.html')
+                    .then(function(conn)
+                    {
+                        conn.show();
+                    });
+            }
+            if (window.localStorage.getItem("loginname") != "")
+            {
+                window.location = "home.html"
+            }
+        })
+         //Login Script, eingabe wird im LocalStorage gespeichert und Login-Link wird generiert	
+        function login()
+        {
+            var name = document.getElementById('loginname')
+                .value;
+            var pw = document.getElementById('password')
+                .value;
+            var link = "http://thm-chat.appspot.com/oop/users?user=" + name + "&password=" + pw;
+            window.localStorage.setItem("loginname", name);
+            window.localStorage.setItem("password", pw);
+            window.localStorage.setItem("link", link);
+            var user = window.localStorage.getItem("loginname");
+            var pass = window.localStorage.getItem("password");
+            if (user == "" || pass == "")
+            {
+                ons.createDialog('dialog.html')
+                    .then(function(dialog)
+                    {
+                        dialog.show();
+                    });
+            }
+            else
+            {
+                var req = new AjaxRequest(link, function(response)
+                {
+                    var check = response.indexOf("thomas.claudi") > -1;
+                    if (!check)
+                    {
+                        window.localStorage.setItem("loginname", "");
+                        window.localStorage.setItem("password", "");
+                        window.localStorage.setItem("link", "");
+                        ons.notification.alert(
+                        {
                             message: "Bitte korrekten Benutzername und/oder Passwort eingeben!"
                         });
-                    } else {
-                        window.location="home.html";
                     }
-                }
-            );
-            req.send();  
-
-            
-		//	window.location="home.html";
-		
-	    }
-	}
-		
-
-	</script>
-	
-<!-- ********************	Dialog bei keiner Internetverbindung	******************** -->	
-	<ons-template id="conn.html">
-		<ons-dialog var="conn" animation="default" cancelable>
-			<ons-toolbar modifier="transparent" inline fixed-style>
-				<!-- Überschrift -->
-				<div class="center">
-					Warnung
-				</div>
-			</ons-toolbar>
-			<div style="text-align: center">
-				<!-- Message -->
-				<p>
-					Kein Internet
-				</p> 
-				<!-- Button -->
-				<div class="alert-dialog-footer">
-					<button class="alert-dialog-button" onclick="conn.hide()">OK</button>
-				</div>
-			</div>
-		</ons-dialog>        
-	</ons-template>
-	
-<!-- ********************	Dialog bei leerem Login Formular	******************** -->	
-	<ons-template id="dialog.html">
-		<ons-dialog var="dialog" animation="default" cancelable>
-			<ons-toolbar modifier="transparent" inline fixed-style>
-				<!-- Überschrift -->
-				<div class="center">
-					Warnung
-				</div>
-			</ons-toolbar>
-			<div style="text-align: center">
-				<!-- Message -->
-				<p>
-					Bitte Benutzername und Password eingeben				
-				</p>
-				<!-- Button -->				
-				<div class="alert-dialog-footer">
-					<button class="alert-dialog-button" onclick="dialog.hide()">OK</button>
-				</div>
-			</div>
-		</ons-dialog>        
-	</ons-template>		
-  </head>
+                    else
+                    {
+                        window.location = "home.html";
+                    }
+                });
+                req.send();
+            }
+        }
+    </script>
+    <!-- ********************	Dialog bei keiner Internetverbindung	******************** -->
+    <ons-template id="conn.html">
+        <ons-dialog var="conn" animation="default" cancelable>
+            <ons-toolbar modifier="transparent" inline fixed-style>
+                <!-- Überschrift -->
+                <div class="center">Warnung</div>
+            </ons-toolbar>
+            <div style="text-align: center">
+                <!-- Message -->
+                <p>Kein Internet</p>
+                <!-- Button -->
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button" onclick="conn.hide()">OK</button>
+                </div>
+            </div>
+        </ons-dialog>
+    </ons-template>
+    <!-- ********************	Dialog bei leerem Login Formular	******************** -->
+    <ons-template id="dialog.html">
+        <ons-dialog var="dialog" animation="default" cancelable>
+            <ons-toolbar modifier="transparent" inline fixed-style>
+                <!-- Überschrift -->
+                <div class="center">Warnung</div>
+            </ons-toolbar>
+            <div style="text-align: center">
+                <!-- Message -->
+                <p>Bitte Benutzername und Password eingeben</p>
+                <!-- Button -->
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button" onclick="dialog.hide()">OK</button>
+                </div>
+            </div>
+        </ons-dialog>
+    </ons-template>
+</head>
 <!-- ********************		BODY		******************** -->
-  <body>
+
+<body>
     <ons-page>
-		<!-- Header Bild -->
-		<div class="card">
-			<!-- Überschrift -->
-			<div class="card-name">Wo bin Ich?</div>
-			<!-- Beschreibung -->
-			<div class="card-desc">Medienprojektmanagment<br>SS 2015</div>
-
+        <!-- Header Bild -->
+        <div class="card">
+            <!-- Überschrift -->
+            <div class="card-name">Wo bin Ich?</div>
+            <!-- Beschreibung -->
+            <div class="card-desc">Medienprojektmanagment
+                <br>SS 2015</div>
         </div>
-		<div class="login-form">
-			<input name="loginname" id="loginname" type="text" class="text-input--underbar" placeholder="Loginname" value="">
-			<input name="password" id="password" type="password" class="text-input--underbar" placeholder="Password" value="">
-			<br><br>
-			<ons-button onclick="login()" modifier="large" class="login-button">Log In</ons-button>
-		</div>
-		
-		<div class="footer">
-			Version 1.1
-		</div>
-
+        <div class="login-form">
+            <input name="loginname" id="loginname" type="text" class="text-input--underbar" placeholder="Loginname" value="">
+            <input name="password" id="password" type="password" class="text-input--underbar" placeholder="Password" value="">
+            <br>
+            <br>
+            <ons-button onclick="login()" modifier="large" class="login-button">Log In</ons-button>
+        </div>
+        <div class="footer">Version 1.1</div>
     </ons-page>
+</body>
 
-  </body>
 </html>
