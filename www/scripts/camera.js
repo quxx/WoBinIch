@@ -1,4 +1,13 @@
-/*global geolocation, ajxSendToUser, ajxSendJSON, getUserArray, setUploadArray, uploadImage, createQuestionJSON*/
+/**
+ *
+ * Öffnet die jeweilige KameraApp des Smartphones sodass der Benutzer ein Photo machen kann, tut er dies wird die funktion createQuestionArray mit den aktuellen geoDaten etc
+ * dieses so erstelle QuestionJSON sendet er nun an jeden Benutzer des ChatServers Gleichzeitig läd er über den Server das eben geschossene Foto hoch und sended diese img Nahricht
+ * ebendefalls an jeden Benutzer, sodass nun jeder Mitspieler eine JSON Nachricht + die dazugehörige Bildnachricht bekommt.
+ *
+ * @method takePicture
+ *
+ *
+ */
 
 function takePicture() {
     navigator.camera.getPicture(onSuccess, onFail, {
