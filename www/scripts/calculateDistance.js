@@ -1,8 +1,8 @@
 ﻿/**
  * 
- * Bekommt 2 Koordinaten Paar übergeben (einmal die vom Spieler eingegebene und die richtige Antwort aus der Bildfrage) hiermit ermittelt die Funktion die Entfernung ziwschen diesen beiden und gibt sie in Km zurück.
+ * Bekommt 2 Koordinaten Paare übergeben (einmal die vom Spieler eingegebene und die richtige Antwort aus der Bildfrage) hiermit ermittelt die Funktion die Entfernung ziwschen diesen beiden und gibt sie in Km zurück.
  *
- * @method distance
+ * @function distance
  *
  * @param {String} lat1 - Latitude Wert der vom Spieler eingegbene Position
  * @param {String} lon1 - Longitude Wert der vom Spieler eingegbene Position
@@ -10,9 +10,7 @@
  * @param {String} lon2 - Longitude der richtigen Antwort
  *
  * @result {Number} dist - Entfernung ziwschen beiden Koordinaten (in KM)
- *
  */
-
 function distance(lat1, lon1, lat2, lon2) {
     var lat1, lon1, lat2, lon2, dist;
 
