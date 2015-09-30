@@ -1,13 +1,10 @@
 ﻿/**
+ * Sendet einen AjaxRequest an den Server um eine UploadURL zu bekommen, mit Hilfe dieser und der Phonegap FileAPI wird das übergebene Bild hochgeladen und die entsprechende Bildnachricht an den Empfänger gesendet
  *
- * Läd das Übergeben Bild an den Empfänger auf den Server
+ * @function downloadFile
  *
- * @method downloadFile
- *
- * @param {String} imageURI - Die Pfad angabe zu dem hochzuladenen Bild
+ * @param {String} imageURI - Das Bild (als Pfadangabe wo es auf dem Smartphone liegt)
  * @param {String} consignee - Der Empfänger der Bildnachricht
- *
- *
  */
 function uploadImage(imageURI, consignee)
 {
@@ -44,15 +41,13 @@ function uploadImage(imageURI, consignee)
 }
 /**
  *
- * Läd ein Bild von einer Url und speichert dieses in einem neuerstellten/vorhandenen Ordner auf dem Smartphone.
+ * Überprüft ob alle Parameter korrekt gesetzt sind und ob eine Internetverbindung besteht ist beides der fall wird die Funtion donwload() aufgerufen
  *
- * @method downloadFile
+ * @function downloadFile
  *
- * @param {String} URL - Die URL des zu donwloadenen Bildes
- * @param {String} Folder_Name - Der Ordnername in dem das Bild gespeichert werden soll
- * @param {String} File_Name - Dateiname für das heruntergeladene Bild
- *
- *
+ * @param {String} URL Die URL des zu donwloadenen Bildes
+ * @param {String} Folder_Name Der Ordnername in dem das Bild gespeichert werden soll
+ * @param {String} File_Name Dateiname für das heruntergeladene Bild
  */
 function downloadFile(URL, Folder_Name, File_Name)
 {
@@ -76,7 +71,17 @@ function downloadFile(URL, Folder_Name, File_Name)
         }
     }
 }
-
+/**
+ *
+ * Überprüft ob der Ordner in dem das Bild gespeichert werden soll existiert und ob der Benutzer schreibrechte dafür besitzt ist beides erfüllt erstellt die Funktion
+ * einen kompletten Pfad zum Ziel Ordner (inklusive des Dateinamens des herunterzuladenen Bildes). Ruft dann die Funktion filetransfer() auf.
+ *
+ * @function donwload
+ *
+ * @param {String} URL Die URL des zu donwloadenen Bildes
+ * @param {String} Folder_Name Der Ordnername in dem das Bild gespeichert werden soll
+ * @param {String} File_Name Dateiname für das heruntergeladene Bild
+ */
 function download(URL, Folder_Name, File_Name)
 {
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
@@ -113,7 +118,15 @@ function download(URL, Folder_Name, File_Name)
         console.log(evt.target.error.code);
     }
 }
-
+/**
+ *
+ * Läd das Bild vom Server und speichert es auf dem Smartphone
+ *
+ * @function donwload
+ *
+ * @param {URI} download_link Der Pfad zum herunterzuladenen Bild als encoded_URI
+ * @param {String} fp Der komplette Pfad zum Zielordner (inklusive Bildname)
+ */
 function filetransfer(download_link, fp)
 {
     var fileTransfer = new FileTransfer();
