@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html ng-app="myApp">
-
+<!-- 
+In der home.html müssen alle scripts und css dateien für sämtliche Seiten der App eingebunden werden. Hier wird auch das Menü Initilaisiert
+-->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -9,8 +11,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/rank.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js">
-    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="scripts/controller.js"></script>
     <script src="scripts/geo.js"></script>
     <script src="scripts/calculateDistance.js"></script>
@@ -30,6 +31,11 @@
         });
     </script>
     <script>
+        /**
+         * Logt den aktuellen Benutzer aus und verweist ihn auf die index.html
+         *
+         * @function quit
+         */
         function quit()
         {
             window.localStorage.setItem("loginname", "");
