@@ -1,5 +1,8 @@
 <!DOCTYPE HTML>
 <html>
+<!-- 
+In der Index.html werden alle Voraustzeungen für den Login bereitegstellt un je nachdem entsprechende Fehlermeldungen ausgegeben
+-->
 
 <head>
     <meta charset="utf-8">
@@ -13,7 +16,13 @@
         ons.bootstrap();
     </script>
     <script>
-        //Überprüfen ob Gerät mit dem Internet verbunden ist    
+        /**
+         *
+         * Sobald das Gerät und alle Komponenten fertig geladen sind wird überprüft ob eine Internetverbindung besteht, is dies nicht der fall wird eine Fehlermeldung ausgegeben
+         * Ist eine Verbindung vorhanden wird abgefragt ob schon ein Loginame und Password im Localstorage liegt, ist dies der Fall wird der Nutzer automatisch auf Weitergeleitet.
+         *
+         * @function ons.ready
+         */
         ons.ready(function()
         {
             var networkState = navigator.connection.type;
@@ -40,7 +49,13 @@
                 window.location = "home.html"
             }
         })
-         //Login Script, eingabe wird im LocalStorage gespeichert und Login-Link wird generiert	
+        /**
+         *
+         * Überprüft die eingegebenen Logindaten auf ihre korrektheit, ist dies der Fall wird der Nutzer weitergeleitet, bei falschen/leeren Daten werden dem Nutzer 
+         * entsprechende Meldungen ausgegeben
+         *
+         * @function login
+         */
         function login()
         {
             var name = document.getElementById('loginname')

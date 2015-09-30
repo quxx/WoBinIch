@@ -1,20 +1,13 @@
 <ons-navigator>
-   <ons-page id="my-ranking">
+    <ons-page id="my-ranking">
         <ons-toolbar ng-controller="SlidingMenuController" fixed-style="">
             <div class="left">
-                <ons-toolbar-button ng-click="slidingMenu.toggleMenu()"><ons-icon icon="bars"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button ng-click="slidingMenu.toggleMenu()">
+                    <ons-icon icon="bars"></ons-icon>
+                </ons-toolbar-button>
             </div>
             <div class="center">Ranking</div>
         </ons-toolbar>
-        
-            <div id="wrapper">
-                <div class="canvas-container">
-                   
-                    <canvas id="myCanvas" width="" height=""></canvas>
-                    <div id="dvTable"></div>
-                   
-                </div>
-            </div>
-
+        <canvas id="myCanvas" width="" height=""></canvas>
     </ons-page>
 </ons-navigator>
