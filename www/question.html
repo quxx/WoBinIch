@@ -1,19 +1,15 @@
-
 <ons-navigator>
-   <ons-page>
+    <ons-page>
         <ons-toolbar ng-controller="SlidingMenuController">
             <div class="left">
-                <ons-toolbar-button ng-click="slidingMenu.toggleMenu()"><ons-icon icon="bars"></ons-icon></ons-toolbar-button>
+                <ons-toolbar-button ng-click="slidingMenu.toggleMenu()">
+                    <ons-icon icon="bars"></ons-icon>
+                </ons-toolbar-button>
             </div>
         </ons-toolbar>
-       
-       
-            <p class="picture-buttons">
-                <ons-button  class="btn-send" onclick="takePicture()">
-                    Foto schießen      
-                </ons-button>
-            </p>
-            
-            <img src="images/camera.jpg" id="picture" height="100%" width="100%"></img>
+        <p class="picture-buttons">
+            <ons-button class="btn-send" onclick="takePicture()">Foto schießen</ons-button>
+        </p>
+        <img src="images/camera.jpg" id="picture" height="100%" width="100%"></img>
     </ons-page>
 </ons-navigator>
